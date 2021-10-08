@@ -14,7 +14,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "username", nullable = false, unique = true, length = 50)
     private String username;
@@ -37,11 +37,11 @@ public class User {
     @Column(name = "del_flag", nullable = false)
     private Boolean delFlag = false;
 
-    public Integer getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -109,8 +109,8 @@ public class User {
         this.delFlag = delFlag;
     }
 
-    public User(Integer id, String username, String email, String password, String fullname, String role,
-            Boolean active, Boolean delFlag) {
+    public User(Long id, String username, String email, String password, String fullname, String role, Boolean active,
+            Boolean delFlag) {
         this.id = id;
         this.username = username;
         this.email = email;
