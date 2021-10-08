@@ -8,6 +8,7 @@ public class KamehouseApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(KamehouseApplication.class, args);
+
 	}
 
 }
