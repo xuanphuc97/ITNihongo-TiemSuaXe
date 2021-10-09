@@ -109,6 +109,9 @@ public class User {
         this.delFlag = delFlag;
     }
 
+    public User() {
+    }
+
     public User(Long id, String username, String email, String password, String fullname, String role, Boolean active,
             Boolean delFlag) {
         this.id = id;
