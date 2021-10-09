@@ -6,5 +6,4 @@ import com.itnihongo.kamehouse.model.User;
 
 public interface UserService {
     List<User> getAllUsers();
-    User saveUser(User user);
 }
