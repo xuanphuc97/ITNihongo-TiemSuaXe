@@ -137,7 +137,7 @@ public class UserService {
 		}
 		// Token found
 		user.setActive(true);
-		user.setConfirmationToken("");
+		user.setConfirmationToken(token);
 
 		// Save user
 		userRepository.save(user);
