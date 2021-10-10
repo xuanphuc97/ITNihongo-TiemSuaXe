@@ -9,33 +9,51 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
+public class User extends AuditModel {
 
-public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "username", nullable = false, unique = true, length = 50)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "email", nullable = false, unique = true, length = 100)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 100)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "fullname", nullable = true, length = 100)
-    private String fullname;
+    @Column(name = "fullname", nullable = true)
+    private String fullName;
 
-    @Column(name = "role", nullable = false, length = 50)
-    private String role = "user";
+    @Column(name = "role", nullable = false)
+    private String role;
 
     @Column(name = "active", nullable = false)
-    private Boolean active = false;
+    private boolean active;
 
     @Column(name = "del_flag", nullable = false)
-    private Boolean delFlag = false;
+    private boolean delFlag;
+
+    @Column(name = "confirmation_token", nullable = false)
+    private String confirmationToken;
+
+    @Column(name = "is_temp_password", nullable = false)
+    private boolean isTempPassword;
+
+    public User() {
+        id = 0;
+        username = "";
+        email = "";
+        password = "";
+        fullName = "";
+        role = "";
+        active = false;
+        delFlag = false;
+        confirmationToken = "";
+        setIsTempPassword(false);
+    }
 
     public Integer getId() {
         return this.id;
@@ -69,12 +87,12 @@ public class User {
         this.password = password;
     }
 
-    public String getFullname() {
-        return this.fullname;
+    public String getFullName() {
+        return this.fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getRole() {
@@ -85,47 +103,65 @@ public class User {
         this.role = role;
     }
 
-    public Boolean isActive() {
+    public boolean isActive() {
         return this.active;
     }
 
-    public Boolean getActive() {
+    public boolean getActive() {
         return this.active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
-    public Boolean isDelFlag() {
+    public boolean isDelFlag() {
         return this.delFlag;
     }
 
-    public Boolean getDelFlag() {
+    public boolean getDelFlag() {
         return this.delFlag;
     }
 
-    public void setDelFlag(Boolean delFlag) {
+    public void setDelFlag(boolean delFlag) {
         this.delFlag = delFlag;
     }
 
-    public User(Integer id, String username, String email, String password, String fullname, String role,
-            Boolean active, Boolean delFlag) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.fullname = fullname;
-        this.role = role;
-        this.active = active;
-        this.delFlag = delFlag;
+    public String getConfirmationToken() {
+        return this.confirmationToken;
+    }
+
+    public void setConfirmationToken(String confirmationToken) {
+        this.confirmationToken = confirmationToken;
+    }
+
+    public boolean isIsTempPassword() {
+        return this.isTempPassword;
+    }
+
+    public boolean getIsTempPassword() {
+        return this.isTempPassword;
+    }
+
+    public void setIsTempPassword(boolean isTempPassword) {
+        this.isTempPassword = isTempPassword;
     }
 
     @Override
-    public String toString() {
-        return "{" + " id='" + getId() + "'" + ", username='" + getUsername() + "'" + ", email='" + getEmail() + "'"
-                + ", password='" + getPassword() + "'" + ", fullname='" + getFullname() + "'" + ", role='" + getRole()
-                + "'" + ", active='" + isActive() + "'" + ", delFlag='" + isDelFlag() + "'" + "}";
+    public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof User)) {
+            return false;
+        }
+
+        User u = (User) o;
+
+        return u.getUsername().equals(this.getUsername()) && u.getEmail().equals(this.getEmail())
+                && u.getRole().equals(this.getRole()) && (u.getActive() == this.getActive());
     }
 
 }
