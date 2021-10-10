@@ -14,7 +14,7 @@ public class KamehouseApplication {
 
 	}
 
-	@GetMapping
+	@GetMapping("/")
 	String home() {
 		return "Kamehouse api";
 	}
