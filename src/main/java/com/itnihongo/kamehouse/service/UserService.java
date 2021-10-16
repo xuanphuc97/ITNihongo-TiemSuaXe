@@ -44,21 +44,36 @@ public class UserService {
 	}
 
 	public boolean registerUser(User user) {
+
+		// password
 		String password = user.getPassword();
 		if (password.isEmpty()) {
-			throw new BadRequestException("Invalid password.");
+			throw new BadRequestException("Invalid password. 401");
 		}
 
 		String encodedPassword = encoder.encode(password);
 		user.setPassword(encodedPassword);
-		if (user.getUsername().isEmpty()) {
-			user.setUsername(user.getEmail());
+
+		// User
+		String username = user.getUsername();
+		if (username.isEmpty()) {
+			throw new BadRequestException("Invalid Username. 401");
 		}
 
 		User userExists = userRepository.findByUsername(user.getUsername());
-
 		if (userExists != null) {
-			throw new BadRequestException(user.getUsername() + " already registered.");
+			throw new BadRequestException(user.getUsername() + " already registered. 400");
+		}
+
+		// Email
+		String email = user.getEmail();
+		if (email.isEmpty()) {
+			throw new BadRequestException("Invalid email. 401");
+		}
+		User emailExists = userRepository.findByEmail(user.getEmail());
+
+		if (emailExists != null) {
+			throw new BadRequestException(user.getEmail() + " already registered. 400");
 		}
 
 		// Disable user until they click on confirmation link in email
@@ -74,47 +89,45 @@ public class UserService {
 	}
 
 	public User resetUser(User user) {
-		if (user.getUsername().isEmpty()) {
-			user.setUsername(user.getEmail());
-		}
-		User userExists = userRepository.findByUsername(user.getUsername());
 
-		if (userExists == null) {
-			throw new BadRequestException(user.getUsername() + " is not registered.");
+		User emailExists = userRepository.findByEmail(user.getEmail());
+
+		if (emailExists == null) {
+			throw new BadRequestException(user.getEmail() + " is not registered. 400");
 		}
 
-		if (userExists.getEmail().isEmpty()) {
-			throw new BadRequestException(user.getUsername() + " does not have a valid email address.");
+		if (emailExists.getEmail().isEmpty()) {
+			throw new BadRequestException(user.getEmail() + " does not have a valid email address. 400");
 		}
 
 		String password = generatePassword(10);
 		String encodedPassword = encoder.encode(password);
-		userExists.setPassword(encodedPassword);
-		userExists.setIsTempPassword(true);
+		emailExists.setPassword(encodedPassword);
+		emailExists.setIsTempPassword(true);
 
-		userRepository.save(userExists);
+		userRepository.save(emailExists);
 
 		// return the user with plain password so that we can send it to the user's
 		// email.
-		userExists.setPassword(password);
+		emailExists.setPassword(password);
 
-		return userExists;
+		return emailExists;
 	}
 
 	public User changeUserPassword(User user) {
 		User userExists = userRepository.findByUsername(user.getUsername());
 
 		if (userExists == null) {
-			throw new BadRequestException(user.getUsername() + " is not registered.");
+			throw new BadRequestException(user.getUsername() + " is not registered. 401");
 		}
 
 		String oldPassword = user.getPassword();
 		if (!encoder.matches(oldPassword, userExists.getPassword())) {
-			throw new BadRequestException("Invalid current password.");
+			throw new BadRequestException("Invalid current password. 401");
 		}
 
 		if (!userExists.getActive()) {
-			throw new BadRequestException("The user is not enabled.");
+			throw new BadRequestException("The user is not enabled. 401");
 		}
 
 		String newPassword = user.getConfirmationToken();
@@ -133,7 +146,7 @@ public class UserService {
 		User user = userRepository.findByConfirmationToken(token);
 
 		if (user == null) {
-			throw new BadRequestException("Invalid token.");
+			throw new BadRequestException("Invalid token. 401");
 		}
 		// Token found
 		user.setActive(true);
@@ -148,16 +161,16 @@ public class UserService {
 		User userExists = userRepository.findByUsername(user.getUsername());
 
 		if (userExists == null) {
-			throw new BadRequestException("Invalid user name.");
+			throw new BadRequestException("Invalid user name. 401");
 		}
 
 		String password = user.getPassword();
 		if (!encoder.matches(password, userExists.getPassword())) {
-			throw new BadRequestException("Invalid user name and password combination.");
+			throw new BadRequestException("Invalid user name and password combination.401");
 		}
 
 		if (!userExists.getActive()) {
-			throw new BadRequestException("The user is not enabled.");
+			throw new BadRequestException("The user is not enabled. 401");
 		}
 
 		userExists.setPassword("");
