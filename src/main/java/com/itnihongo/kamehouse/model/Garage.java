@@ -51,4 +51,13 @@ public class Garage {
     @Column(name = "del_flag", nullable = false)
     private Boolean delFlag = false;
 
+    public Garage(String garageName, String phoneNumber, String address, String location, String[] images, String startAt, String endAt) {
+        this.garageName = garageName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.location = location;
+        this.images = images;
+        this.startAt = LocalTime.parse(startAt);
+        this.endAt = LocalTime.parse(endAt);
+    }
 }
