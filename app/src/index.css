@@ -97,14 +97,14 @@ video {
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    sans-serif; */
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* font-family: 'Nunito', sans-serif;
-  -webkit-font-smoothing: antialiased;
+  font-family: "Nunito", sans-serif;
+  /*-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
   height: 100%;
 }
@@ -121,7 +121,7 @@ code {
 :root {
   --color-background: #fafafa;
   --color-white: #fff;
-  --color-primary: rgb(100,149,237);
+  --color-primary: rgb(100, 149, 237);
   --color-muted: #687385;
   --box-shadow-normal: 0 10px 10px rgba(0, 0, 0, 0.08);
   --box-shadow-hover: 0 4px 60px 0 rgba(0, 0, 0, 0.2);

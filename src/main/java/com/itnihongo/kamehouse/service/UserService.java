@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import com.itnihongo.kamehouse.exception.DisableError;
+import com.itnihongo.kamehouse.exception.UnauthorizedError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -43,6 +45,12 @@ public class UserService {
 		return users;
 	}
 
+	public User getUserByUsername(String username) {
+		User user = userRepository.findByUsername(username);
+		user.setPassword("");
+		return user;
+	}
+
 	public boolean registerUser(User user) {
 
 		// password
@@ -57,26 +65,28 @@ public class UserService {
 		// User
 		String username = user.getUsername();
 		if (username.isEmpty()) {
-			throw new BadRequestException("Invalid Username. 401");
+			throw new BadRequestException("Invalid Username");
 		}
 
 		User userExists = userRepository.findByUsername(user.getUsername());
 		if (userExists != null) {
-			throw new BadRequestException(user.getUsername() + " already registered. 400");
+			throw new BadRequestException("Username " +user.getUsername() + " is exist");
 		}
 
 		// Email
 		String email = user.getEmail();
 		if (email.isEmpty()) {
-			throw new BadRequestException("Invalid email. 401");
+			throw new BadRequestException("Invalid email");
 		}
 		User emailExists = userRepository.findByEmail(user.getEmail());
 
 		if (emailExists != null) {
-			throw new BadRequestException(user.getEmail() + " already registered. 400");
+			throw new BadRequestException("Email "+ user.getEmail() + " was registered ");
 		}
 
 		// Disable user until they click on confirmation link in email
+//		String fullname = user.getFullName();
+//		user.setFullName(fullname);
 		user.setActive(false);
 		user.setRole("ROLE_USER");
 
@@ -93,11 +103,7 @@ public class UserService {
 		User emailExists = userRepository.findByEmail(user.getEmail());
 
 		if (emailExists == null) {
-			throw new BadRequestException(user.getEmail() + " is not registered. 400");
-		}
-
-		if (emailExists.getEmail().isEmpty()) {
-			throw new BadRequestException(user.getEmail() + " does not have a valid email address. 400");
+			throw new BadRequestException(user.getEmail() + " is not registered");
 		}
 
 		String password = generatePassword(10);
@@ -142,7 +148,7 @@ public class UserService {
 		return userExists;
 	}
 
-	public User confirmrUser(String token) {
+	public User confirmUser(String token) {
 		User user = userRepository.findByConfirmationToken(token);
 
 		if (user == null) {
@@ -161,16 +167,16 @@ public class UserService {
 		User userExists = userRepository.findByUsername(user.getUsername());
 
 		if (userExists == null) {
-			throw new BadRequestException("Invalid user name. 401");
+			throw new BadRequestException("Invalid user name. 400");
 		}
 
 		String password = user.getPassword();
 		if (!encoder.matches(password, userExists.getPassword())) {
-			throw new BadRequestException("Invalid user name and password combination.401");
+			throw new UnauthorizedError("Invalid user name and password combination.401");
 		}
 
 		if (!userExists.getActive()) {
-			throw new BadRequestException("The user is not enabled. 401");
+			throw new DisableError("The user is not enabled. 423");
 		}
 
 		userExists.setPassword("");

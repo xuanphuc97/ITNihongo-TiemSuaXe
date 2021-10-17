@@ -5,5 +5,4 @@ import token from './tokenReducer'
 export default combineReducers({
     auth,
     token,
-
 })

@@ -11,6 +11,8 @@ import {
   isLength,
   isMatch,
 } from "../../utils/validation/Validation";
+import authApis from "./enum/authentication-apis";
+
 
 function Register() {
   const [user, setUser] = useState({
@@ -43,7 +45,7 @@ function Register() {
     ) {
       return setUser({
         ...user,
-        err: "Hãy điền đầy đủ thông tin",
+        err: "Please enter the full information",
         success: "",
       });
     }
@@ -51,7 +53,7 @@ function Register() {
     if (!isEmail(email)) {
       return setUser({
         ...user,
-        err: "Email không đúng định dạng",
+        err: "Invalid email",
         success: "",
       });
     }
@@ -59,7 +61,7 @@ function Register() {
     if (isLength(password)) {
       return setUser({
         ...user,
-        err: "Mật khẩu phải lớn hơn 6 ký tự",
+        err: "Password must be more than 6 characters",
         success: "",
       });
     }
@@ -67,33 +69,32 @@ function Register() {
     if (!isMatch(matchedPassword, password)) {
       return setUser({
         ...user,
-        err: "Mật khẩu không giống nhau",
+        err: "Passwords are not the same",
         success: "",
       });
     }
     try {
-      var registerForm = new FormData();
-      registerForm.append("username", username);
-      registerForm.append("username", fullname);
-      registerForm.append("email", email);
-      registerForm.append("password", password);
-      registerForm.append("matchedPassword", matchedPassword);
+      var json = {
+        username: username,
+        email: email,
+        fullName: fullname,
+        password: password,
+      };
+      console.log(json);
 
-      const res = await axios.post("/registration", registerForm);
-      if (res.status === 202) {
+      const res = await axios.post(authApis.register, json);
+      if (res.status === 200) {
         setUser({
           ...user,
           err: "",
-          success: "Đăng ký thành công",
+          success: "Sign up success. Please confirm your email",
         });
       }
     } catch (err) {
-      if (err.response.status === 409) {
-        setUser({ ...user, err: "Email đã tồn tại", success: "" });
-      } else if (err.response.status === 400) {
-        setUser({ ...user, err: "Thông tin không hợp lệ", success: "" });
+      if (err.response.status === 400) {
+        setUser({ ...user, err: err.response.data.message, success: "" });
       } else {
-        setUser({ ...user, err: "Đã có lỗi xảy ra", success: "" });
+        setUser({ ...user, err: "An error has occurred", success: "" });
       }
     }
   };
