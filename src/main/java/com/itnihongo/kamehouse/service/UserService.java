@@ -43,6 +43,12 @@ public class UserService {
 		return users;
 	}
 
+	public User getUserByUsername(String username) {
+		User user = userRepository.findByUsername(username);
+		user.setPassword("");
+		return user;
+	}
+
 	public boolean registerUser(User user) {
 
 		// password
