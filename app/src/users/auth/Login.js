@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
-import { dispatchLogin } from "../../redux/actions/authAction";
+import { dispatchGetUser, dispatchLogin } from "../../redux/actions/authAction";
 import { useDispatch } from "react-redux";
 import {
   showErrMsg,
@@ -9,7 +9,7 @@ import {
 } from "../../utils/notification/Notification";
 import { isEmpty, isLength } from "../../utils/validation/Validation";
 import CookiesService from "../../services/CookiesService";
-import authApis from './enum/authentication-apis'
+import authApis from "./enum/authentication-apis";
 
 const initialState = {
   username: "",
@@ -19,10 +19,10 @@ const initialState = {
 };
 
 function Login() {
-  const location = useLocation()
+  const location = useLocation();
   const search = location.search;
   const params = new URLSearchParams(search);
-  const redirectTo = params.get('redirectTo');
+  const redirectTo = params.get("redirectTo");
 
   const [user, setUser] = useState(initialState);
   const dispatch = useDispatch();
@@ -36,12 +36,12 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
-    console.log("Call submit function");
+    // console.log("Call submit function");
     e.preventDefault();
     if (isEmpty(username) || isEmpty(password)) {
       return setUser({
         ...user,
-        err: "Hãy điền đầy đủ thông tin",
+        err: "Please enter the full information",
         success: "",
       });
     }
@@ -49,41 +49,46 @@ function Login() {
     if (isLength(password)) {
       return setUser({
         ...user,
-        err: "Mật khẩu không đủ 6 ký tự",
+        err: "Password not enough 6 character",
         success: "",
       });
     }
 
-    var loginForm = new FormData();
-    loginForm.append("username", username);
-    loginForm.append("password", password);
+    var json = {
+      username: username,
+      password: password,
+    };
 
     try {
-      const res = await axios.post(authApis.login, loginForm);
+      const res = await axios.post(authApis.login, json);
       if (res) {
         setUser({ ...user, err: "", success: res.data.msg });
-
-        //Da Dang Nhap
         dispatch(dispatchLogin());
-        cookiesService.setToken(res.data.token);
-        if(redirectTo) {
-          history.push(redirectTo)
-        }
-        else {
-          history.push("/")
+        // dispatch(dispatchGetUser(res));
+        cookiesService.setToken("123456789");
+        if (redirectTo) {
+          history.push(redirectTo);
+        } else {
+          history.push("/");
         }
       }
     } catch (err) {
       if (err.response.status === 401) {
-        setUser({ ...user, err: "Sai username hoặc password", success: "" });
+        setUser({ ...user, err: "The Username or Password is Incorrect", success: "" });
       } else if (err.response.status === 400) {
         setUser({
           ...user,
-          err: "Username hoặc password không hợp lệ",
+          err: "This user does not exist",
+          success: "",
+        });
+      } else if (err.response.status === 423) {
+        setUser({
+          ...user,
+          err: "User has not authenticated email",
           success: "",
         });
       } else {
-        setUser({ ...user, err: "Đã có lỗi xảy ra", success: "" });
+        setUser({ ...user, err: "An error has occurred", success: "" });
       }
     }
   };

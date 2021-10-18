@@ -9,9 +9,13 @@ import com.itnihongo.kamehouse.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,13 +30,18 @@ public class UserController {
 
 	@Autowired
 	private EmailService emailService;
-	
+
 	@Value("${webServerUrl}")
 	private String webServerUrl;
 
 	@GetMapping(path = "/users")
 	public List<User> getAllUsers() {
 		return userService.getAllUsers();
+	}
+
+	@GetMapping(path = "/users/{username}")
+	public User getUserByUsername(@PathVariable("username") String username) {
+		return userService.getUserByUsername(username);
 	}
 
 	@PostMapping(path = "/users/register")
@@ -53,13 +62,13 @@ public class UserController {
 
 	@GetMapping(path = "/users/confirm")
 	public String confirm(@RequestParam("token") String token) {
-		userService.confirmrUser(token);
+		userService.confirmUser(token);
 		return "User confirmed.";
 	}
 
 	@PostMapping(path = "/users/login")
-	public User login(@Valid @RequestBody User user) {
-		return userService.loginUser(user);
+	public ResponseEntity<User> loginUser(@Valid @RequestBody User user) {
+		return ResponseEntity.ok(userService.loginUser(user));
 	}
 
 	@PostMapping(path = "/users/reset")
@@ -81,4 +90,6 @@ public class UserController {
 	public User changePassword(@Valid @RequestBody User user) {
 		return userService.changeUserPassword(user);
 	}
+
+
 }

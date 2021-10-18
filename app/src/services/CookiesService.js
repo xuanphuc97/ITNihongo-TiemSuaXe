@@ -11,7 +11,7 @@ const CookiesService = (function () {
     return _service;
   }
   function _setToken(token) {
-    Cookies.set("token", token, { expires: 150 });
+    Cookies.set("token", token, { expires: 1 });
   }
 
   function _getToken() {
