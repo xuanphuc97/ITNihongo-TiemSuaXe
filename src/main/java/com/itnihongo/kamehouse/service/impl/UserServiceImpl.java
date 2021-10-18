@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor(onConstructor_ ={@Autowired} )
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
@@ -18,7 +18,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTO getDetailInfo(int userId) {
         User user = userRepository.findByIdAndActive(userId, true);
-        if(user == null) {
+        if (user == null) {
             throw new ResourceNotFoundException("Account with id: " + userId + " not found");
         }
         return UserDTO.toUserDTO(user);
@@ -27,7 +27,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTO getDetailInfo(String username) {
         User user = userRepository.findByUsername(username);
-        if(user == null) {
+        if (user == null) {
             throw new ResourceNotFoundException("Account with username: '" + username + "' not found");
         }
         return UserDTO.toUserDTO(user);

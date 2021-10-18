@@ -21,10 +21,10 @@ import com.itnihongo.kamehouse.repository.UserRepository;
 
 public class UserService {
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-	}
+//	@Bean
+//	public PasswordEncoder passwordEncoder() {
+//		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//	}
 
 	@Autowired
 	private UserRepository userRepository;
