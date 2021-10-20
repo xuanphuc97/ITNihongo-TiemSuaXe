@@ -3,6 +3,7 @@ package com.itnihongo.kamehouse.jwt;
 import com.itnihongo.kamehouse.model.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -13,11 +14,11 @@ public class JwtTokenProvider {
     private final String JWT_SECRET_KEY = "noname_secret";
     private final long JWT_EXPIRATION = 604800000L;
 
-    public String generateToken(UserDetailsImpl userDetails) {
+    public String generateToken(String username) {
         Date now = new Date();
         Date expireDate = new Date(now.getTime() + JWT_EXPIRATION);
         return Jwts.builder()
-                .setSubject(userDetails.getUser().getUsername())
+                .setSubject(username)
                 .setIssuedAt(now)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS256, JWT_SECRET_KEY)
