@@ -9,6 +9,7 @@ import com.itnihongo.kamehouse.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -66,10 +67,10 @@ public class UserController {
 		return "User confirmed.";
 	}
 
-	@PostMapping(path = "/users/login")
-	public ResponseEntity<User> loginUser(@Valid @RequestBody User user) {
-		return ResponseEntity.ok(userService.loginUser(user));
-	}
+//	@PostMapping(path = "/users/login")
+//	public ResponseEntity<User> loginUser(@Valid @RequestBody User user) {
+//		return ResponseEntity.ok(userService.loginUser(user));
+//	}
 
 	@PostMapping(path = "/users/reset")
 	public void reset(@Valid @RequestBody User user) {
@@ -90,6 +91,7 @@ public class UserController {
 	public User changePassword(@Valid @RequestBody User user) {
 		return userService.changeUserPassword(user);
 	}
+
 
 
 }

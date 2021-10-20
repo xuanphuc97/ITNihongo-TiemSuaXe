@@ -25,6 +25,9 @@ function App() {
     const token = cookiesService.getToken();
     if (token) {
       dispatch(dispatchLogin());
+      fetchUser(token).then((res) => {
+        dispatch(dispatchGetUser(res));
+      });
     }
   }, [auth.isLogged, dispatch]);
 
@@ -38,10 +41,10 @@ function App() {
             </Route>
             <Route path="/login">{!isLogged ? <Login /> : <Home />}</Route>
             <Route path="/register">
-              <Register />
+              {!isLogged ? <Register /> : <Home />}
             </Route>
             <Route path="/forgot_password">
-              <ForgotPassword />
+              {!isLogged ? <ForgotPassword /> : <Home />}
             </Route>
           </Switch>
         </Layout>
