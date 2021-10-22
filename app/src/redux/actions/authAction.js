@@ -15,12 +15,11 @@ export const dispatchLogout = () => {
   };
 };
 
-// TODO: GET USER INFOR
-// export const fetchUser = async () => {
-//   const res = await axios.get("http://localhost:8080/users/phamvantanh");
-//   console.log(res);
-//   return res;
-// };
+//TODO: GET USER INFOR
+export const fetchUser = async () => {
+  const res = await axios.get("http://localhost:8080/whoami");
+  return res;
+};
 
 export const dispatchGetUser = (res) => {
   if (res.data.role === "ROLE_ADMIN") {
