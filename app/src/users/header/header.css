@@ -17,11 +17,11 @@ header {
   color: var(--color-white);
 }
 
-/* .menu__left {
+.menu__left {
   align-items: center;
   display: flex;
   width: fit-content;
-} */
+}
 
 /* .menu__left p {
   color: var(--color-muted);
@@ -33,16 +33,19 @@ header {
   font-size: 20px;
 } */
 
-/* .menu__right {
-  color: var(--color-muted);
+.menu__right {
   height: min-content;
   display: flex;
+  border: 10px;
   align-items: center;
   flex-direction: row;
-} */
-
+}
 .menu__right__login {
   padding: 10px;
+}
+.menu__right__login div {
+  padding-right: 20px;
+  padding-left: 20px;
 }
 
 /* .menu__right ul {
@@ -72,7 +75,7 @@ header {
   border-radius: 50%;
   object-fit: cover;
 } */
-/*
+
 .menu__right--dropdown {
   display: none;
   position: absolute;
@@ -83,8 +86,8 @@ header {
   z-index: 99;
   color: rgba(0, 0, 0, 0.75);
   border-radius: 12px;
-} */
-/*
+}
+
 .menu__right--dropdown a {
   color: rgba(0, 0, 0, 0.75);
   display: flex;
@@ -92,34 +95,32 @@ header {
   border-radius: 10px;
   align-items: center;
   border-radius: 12px;
-} */
+}
 
-/* .menu__right--avatar:hover .menu__right--dropdown {
+.menu__right--avatar:hover .menu__right--dropdown {
   display: block;
-} */
+}
 
-/* .menu__post--dropdown {
-    position: absolute;
-    left: auto;
-    border-radius: 0.325em;
-    padding: 0 0 .7em 0;
-    max-width: 30em;
-    display: block;
-    background-color:#fff;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-
+.menu__post--dropdown {
+  position: absolute;
+  left: auto;
+  border-radius: 0.325em;
+  padding: 0 0 0.7em 0;
+  max-width: 30em;
+  display: block;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
 .menu__post--dropdown a {
-    color: rgba(0,0,0,0.75);
-    display: flex;
-    padding: 10px 12px;
-    align-items: center;
-    clear: both;
+  color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  padding: 10px 12px;
+  align-items: center;
+  clear: both;
+}
 
-} */
-/*
 .menu__right--post:hover .menu__right--dropdown {
   display: block;
 }
@@ -138,4 +139,4 @@ header {
 
 .menu__left i {
   margin-right: 5px;
-} */
+}

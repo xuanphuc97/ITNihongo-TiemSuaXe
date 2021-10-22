@@ -3,8 +3,6 @@ package com.itnihongo.kamehouse.controller;
 import com.itnihongo.kamehouse.dto.GarageDTO;
 import com.itnihongo.kamehouse.dto.GarageRequestDTO;
 import com.itnihongo.kamehouse.dto.UserDTO;
-import com.itnihongo.kamehouse.model.Garage;
-import com.itnihongo.kamehouse.model.User;
 import com.itnihongo.kamehouse.service.IGarageService;
 import com.itnihongo.kamehouse.service.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@RequestMapping("/api")
 public class ShopController {
 
     private final IUserService userService;

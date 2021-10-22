@@ -30,7 +30,7 @@ public class GarageServiceImpl implements IGarageService {
 
         if (garage == null)
             throw new ResourceNotFoundException("Garage with id: " + garageId + " not found!");
-        return GarageDTO.toGarageDTO(garage);
+        return entityToDTO(garage);
     }
 
     @Override

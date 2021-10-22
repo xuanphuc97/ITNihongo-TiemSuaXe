@@ -13,7 +13,8 @@ import { useEffect } from "react";
 import Home from "./users/home/Home";
 import Routes from "./router";
 import ForgotPassword from "./users/auth/ForgotPassword";
-
+import Profile from "./users/profile/Profile";
+import EditProfile from "./users/profile/EditProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,12 +27,14 @@ function App() {
     const token = cookiesService.getToken();
     if (token) {
       dispatch(dispatchLogin());
+      fetchUser(token).then((res) => {
+        dispatch(dispatchGetUser(res));
+      });
     }
   }, [auth.isLogged, dispatch]);
 
   return (
     <>
-      
       <Router>
         <Layout>
           <Switch>
@@ -40,10 +43,16 @@ function App() {
             </Route>
             <Route path="/login">{!isLogged ? <Login /> : <Home />}</Route>
             <Route path="/register">
-              <Register />
+              {!isLogged ? <Register /> : <Home />}
             </Route>
             <Route path="/forgot_password">
-              <ForgotPassword />
+              {!isLogged ? <ForgotPassword /> : <Home />}
+            </Route>
+            <Route path={`/profile/${user.username}`}>
+              {!isLogged ? <Login /> : <Profile />}
+            </Route>
+            <Route path={`/user/${user.username}/edit`}>
+              {!isLogged ? <Login /> : <EditProfile />}
             </Route>
           </Switch>
         </Layout>

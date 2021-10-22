@@ -1,24 +1,24 @@
-// import CookiesService from "./CookiesService"
-// import axios from 'axios';
-// import { store } from '../redux/store'
-// import { dispatchLogout } from '../redux/actions/authAction'
+import CookiesService from "./CookiesService"
+import axios from 'axios';
+import { store } from '../redux/store'
+import { dispatchLogout } from '../redux/actions/authAction'
 
-// const cookiesService = CookiesService.getService()
-// let isRefreshing = false;
-// let refreshSubscribers = [];
+const cookiesService = CookiesService.getService()
+let isRefreshing = false;
+let refreshSubscribers = [];
 
-// axios.interceptors.request.use(
-//     config => {
-//         const accessToken = cookiesService.getToken()
-//         if (accessToken) {
-//             config.headers['Authorization'] = 'Bearer ' + accessToken
-//         }
-//         return config
-//     },
-//     error => {
-//         Promise.reject(error)
-//     }
-// )
+axios.interceptors.request.use(
+    config => {
+        const accessToken = cookiesService.getToken()
+        if (accessToken) {
+            config.headers['Authorization'] = 'Bearer ' + accessToken
+        }
+        return config
+    },
+    error => {
+        Promise.reject(error)
+    }
+)
 
 // const refreshAccessToken = () => {
 //     return axios.post("/api/auth/refreshToken", null, {
