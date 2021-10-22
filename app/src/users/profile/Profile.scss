@@ -1,0 +1,48 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.profile {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+
+    margin: 20px 2px;
+
+    color: var(--color-primary);
+
+    .profile__title {
+        position: relative;
+        left: 50%;
+    }
+    .profile__editbtn {
+        position: relative;
+        margin-top: 20px;
+        left: 240%;
+        width: 60px;
+        border-radius: 15px;
+        border: 1px solid var(--color-muted);
+        background-color: var(--color-primary);
+        color: var(--color-white);
+    }
+    .profile-user,
+    .profile-garage {
+        padding: 40px 240px 40px 10px;
+        border-radius: 4px;
+        border: 1px solid rgb(189, 189, 189);
+        transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        div {
+            margin-top: 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 747px) {
+    .profile-user + .profile-garage {
+        margin-top: 20px;
+    }
+}

@@ -14,6 +14,7 @@ import Home from "./users/home/Home";
 import Routes from "./router";
 import ForgotPassword from "./users/auth/ForgotPassword";
 
+
 function App() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
@@ -30,6 +31,7 @@ function App() {
 
   return (
     <>
+      
       <Router>
         <Layout>
           <Switch>

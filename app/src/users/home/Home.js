@@ -1,7 +1,11 @@
+import Profile from "../profile/Profile";
+import EditProfile from "../profile/EditProfile";
 function Home() {
   return (
     <>
       <div>
+        <Profile></Profile>
+        <EditProfile></EditProfile>
         <img
           width="100%"
           height="690px"

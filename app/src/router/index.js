@@ -5,6 +5,7 @@ import UserLayout from "../layouts/UserLayout";
 import Login from "../users/auth/Login";
 import Register from "../users/auth/Register";
 import Home from "../users/home/Home";
+import Profile from "../users/profile/Profile";
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => {
   return (

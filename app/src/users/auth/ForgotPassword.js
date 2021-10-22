@@ -72,7 +72,7 @@ function ForgotPassword() {
             onChange={handleChangeInput}
           />
 
-          <button type="submit">Gửi</button>
+          <button type="submit">submit</button>
         </form>
       </div>
     </main>
