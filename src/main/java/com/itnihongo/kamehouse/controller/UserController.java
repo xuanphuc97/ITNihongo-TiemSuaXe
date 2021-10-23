@@ -66,10 +66,10 @@ public class UserController {
 		return "User confirmed.";
 	}
 
-	@PostMapping(path = "/users/login")
-	public ResponseEntity<User> loginUser(@Valid @RequestBody User user) {
-		return ResponseEntity.ok(userService.loginUser(user));
-	}
+//	@PostMapping(path = "/users/login")
+//	public ResponseEntity<User> loginUser(@Valid @RequestBody User user) {
+//		return ResponseEntity.ok(userService.loginUser(user));
+//	}
 
 	@PostMapping(path = "/users/reset")
 	public void reset(@Valid @RequestBody User user) {
