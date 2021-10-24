@@ -1,0 +1,56 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.garage {
+    margin: auto;
+    margin-top: 80px;
+    width: 60%;
+    .garage-profile {
+        .profile_img {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            transform: translate(-40px, -40px);
+        }
+
+        //
+        width: 50%;
+        border: 2px solid #ccc;
+        padding: 40px;
+    }
+    .garage-service {
+        border: 2px solid #ccc;
+        width: 50%;
+        padding: 40px;
+
+        .service-list {
+            margin-top: 100px;
+        }
+    }
+    .garage__title {
+    }
+}
+
+.flex-row {
+    display: flex;
+    // justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    .label {
+        color: var(--color-primary);
+        font-weight: 600;
+    }
+}
+
+.main-flex {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
