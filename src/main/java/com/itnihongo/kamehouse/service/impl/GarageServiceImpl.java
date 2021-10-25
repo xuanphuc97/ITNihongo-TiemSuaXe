@@ -62,7 +62,7 @@ public class GarageServiceImpl implements IGarageService {
                 garageRequestDTO.getPhoneNumber(),
                 garageRequestDTO.getAddress(),
                 garageRequestDTO.getLocation(),
-                garageRequestDTO.getImages(),
+                garageRequestDTO.getImage(),
                 garageRequestDTO.getStartAt(),
                 garageRequestDTO.getEndAt()
         );

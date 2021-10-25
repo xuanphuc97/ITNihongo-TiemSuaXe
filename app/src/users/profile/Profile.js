@@ -10,30 +10,22 @@ import profileApis from "../profile/enum/profile-apis";
 function Profile() {
   const auth = useSelector((state) => state.auth);
   const userInfor = auth.user;
-  const history = useHistory();
   const [garages, setGarages] = useState([]);
-  const [currentGarages, setCurrentPagePosts] = useState(0);
-  const [isEmptyPosts, setIsEmptyPosts] = useState(false);
-  console.log(currentGarages);
+
+  const getGarages = async () => {
+    const res = await axios.get(
+      profileApis.getGaragesOfUser(userInfor.accountId)
+    );
+    if (res) {
+      console.log(res.data);
+      setGarages([...garages, ...res.data]);
+    }
+  };
   useEffect(() => {
-    const getGarages = async () => {
-      console.log("1");
-      const res = await axios.get(
-        profileApis.getGaragesOfUser(userInfor.accountId)
-      );
-      console.log("1");
-      if (res) {
-        console.log(res.data);
-        setGarages([...garages, ...res.data]);
-        if (res.data.length === 0 || res.data.length < 10) {
-          setIsEmptyPosts(true);
-        }
-      }
-      if (userInfor.accountId) {
-        getGarages();
-      }
-    };
-  }, [userInfor.accountId, currentGarages]);
+    if (userInfor.accountId) {
+      getGarages();
+    }
+  }, []);
   return (
     <div>
       <div className="profile main-flex">
@@ -66,8 +58,8 @@ function Profile() {
             return (
               <div className="garage-list flex-row">
                 <span>Garage {idx + 1}:</span>
-                <Link to={`/garage/${garage.garageId}`}>
-                  <p>{garage.garageName}</p>
+                <Link to={`/garages/${garage.garageId}`}>
+                  <span>{garage.garageName}</span>
                 </Link>
               </div>
             );

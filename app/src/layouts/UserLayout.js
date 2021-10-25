@@ -7,7 +7,7 @@ function UserLayout({ children }) {
     <>
       <Header />
       <body>{children}</body>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

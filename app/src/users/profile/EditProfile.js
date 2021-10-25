@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { ListGroup, Button, Form } from "react-bootstrap";
 import "./EditProfile.scss";
+import Cookies from "js-cookie";
+import { fetchUser, dispatchGetUser } from "../../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
 import {
   showErrMsg,
@@ -16,10 +18,8 @@ import {
 } from "../../utils/validation/Validation";
 import profileApis from "../profile/enum/profile-apis";
 
-import authApis from "../auth/enum/authentication-apis";
 const EditProfile = () => {
   const initialState = {
-    username: "",
     fullName: "",
     email: "",
     err: "",
@@ -87,48 +87,26 @@ const EditProfile = () => {
         success: "",
       });
     }
-
-    // if (isLength(password)) {
-    //   return setUser({
-    //     ...user,
-    //     err: "Password must be more than 6 characters",
-    //     success: "",
-    //   });
-    // }
-
-    // if (!isMatch(matchedPassword, password)) {
-    //   return setUser({
-    //     ...user,
-    //     err: "Passwords are not the same",
-    //     success: "",
-    //   });
-    // }
     try {
-      var json = {
-        // username: username,
-        // email: email,
-        // fullName: fullname,
-      };
-      console.log(json);
-
-      const res = await axios.post(authApis.updateUser, json);
-      if (res.status === 200) {
-        setNewInfor({
-          ...newInfor,
-          err: "",
-          success: "Sign up success. Please confirm your email",
+      var infoForm = new FormData();
+      infoForm.append("fullname", newInfor.fullName);
+      infoForm.append("email", newInfor.email);
+      const res = await axios.put(profileApis.updateInfor, infoForm);
+      console.log(res);
+      if (res) {
+        setNewInfor({ ...newInfor, success: "Update successful", err: "" });
+        const token = Cookies.get("token");
+        fetchUser(token).then((res) => {
+          dispatch(dispatchGetUser(res));
         });
       }
-    } catch (err) {
-      if (err.response.status === 400) {
-        setNewInfor({
-          ...newInfor,
-          err: err.response.data.message,
-          success: "",
-        });
-      } else {
-        setNewInfor({ ...newInfor, err: "An error has occurred", success: "" });
-      }
+    } catch (error) {
+      console.log(error);
+      setNewInfor({
+        ...newInfor,
+        err: error.response.data.message,
+        success: "",
+      });
     }
   };
   const handleSubmitPassword = async (e) => {
@@ -140,7 +118,7 @@ const EditProfile = () => {
     if (isEmpty(oldPassword) || isEmpty(password) || isEmpty(matchedPassword)) {
       return setData({
         ...data,
-        err: "Hãy điền đầy đủ thông tin",
+        err: "Please enter the full information",
         success: "",
       });
     }
@@ -151,7 +129,7 @@ const EditProfile = () => {
     ) {
       return setData({
         ...data,
-        err: "Mật khẩu không đủ 6 ký tự",
+        err: "Password must be more than 6 characters",
         success: "",
       });
     }
@@ -159,7 +137,7 @@ const EditProfile = () => {
     if (!isMatch(matchedPassword, password)) {
       return setData({
         ...data,
-        err: "Mật khẩu mới không giống nhau",
+        err: "Passwords are not the same",
         success: "",
       });
     }
@@ -173,13 +151,13 @@ const EditProfile = () => {
       const res = await axios.put(profileApis.updatePassword, passForm);
 
       if (res) {
-        setData({ ...data, err: "", success: "Đổi mật khẩu thành công" });
+        setData({ ...data, err: "", success: "Change password successful" });
       }
     } catch (error) {
-      if (error.response.status === 400) {
+      if (error.response.status) {
         setData({ ...data, err: error.response.data.message, success: "" });
       } else {
-        setData({ ...data, err: "Đã có lỗi xảy ra", success: "" });
+        setData({ ...data, err: "Have an error. Try again", success: "" });
       }
     }
   };
@@ -188,11 +166,15 @@ const EditProfile = () => {
     <div className="profile-edit main-flex">
       <div className="profile-changeinfo">
         <h4 className="profile-edit__title">Your profile</h4>
+        <br />
+
         {newInfor.err && showErrMsg(newInfor.err)}
         {newInfor.success && showSuccessMsg(newInfor.success)}
         <form onSubmit={handleSubmitInfo}>
           <div className="edit-field flex-row">
-            <span className="label">Username:</span> {userInfor.username}
+            <span className="label">Username:</span>
+            <input type="text" value={userInfor.username} disabled />
+            <div></div>
           </div>
           <div className="edit-field flex-row">
             <span className="label">Full Name: </span>
@@ -222,7 +204,6 @@ const EditProfile = () => {
       <div className="profile-changepwd">
         <h4 className="profile-edit__title">Change password</h4>
         <br />
-
         <form onSubmit={handleSubmitPassword}>
           {data.err && showErrMsg(data.err)}
           {data.success && showSuccessMsg(data.success)}
@@ -259,6 +240,12 @@ const EditProfile = () => {
             </button>
           </div>
         </form>
+        <div></div>
+      </div>
+      <div className="btn-container">
+        <Link to={`/profile/${userInfor.username}`}>
+          <button className="profile__cancelbtn">Cancel</button>
+        </Link>
       </div>
     </div>
   );

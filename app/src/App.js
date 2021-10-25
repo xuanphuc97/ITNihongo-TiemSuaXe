@@ -55,7 +55,7 @@ function App() {
             <Route path={`/user/${user.username}/edit`}>
               {!isLogged ? <Login /> : <EditProfile />}
             </Route>
-            <Route path={`/user/${user.username}/garages/1`}>
+            <Route path={`/garages/:id`}>
               {!isLogged ? <Login /> : <GarageProfile />}
             </Route>
           </Switch>
