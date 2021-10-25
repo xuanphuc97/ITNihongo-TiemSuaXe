@@ -1,13 +1,7 @@
-* {
-    margin: 0px;
-    padding: 0px;
-    max-width: 100%;
-    box-sizing: border-box;
-}
 .garage {
     margin: auto;
     margin-top: 160px;
-    width: 1000px;
+    width: 1020px;
     .garage-profile {
         .profile_img {
             width: 150px;
@@ -35,6 +29,9 @@
 
         .service-list {
             margin-top: 100px;
+            .service-name {
+                width: 420px !important;
+            }
         }
     }
     .garage__title {
@@ -45,7 +42,7 @@
     display: flex;
     // justify-content: space-around;
     flex-direction: row;
-    justify-content: space-between;
+    // justify-content: space-between;
     margin-top: 10px;
     .label {
         color: var(--color-primary);
@@ -57,6 +54,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .btn-container {
@@ -82,4 +80,10 @@ form input {
     border-radius: 15px;
     outline: none;
     border: 1px solid rgb(225, 225, 225);
+}
+span {
+    width: 220px;
+}
+h3 {
+    width: 300px;
 }
