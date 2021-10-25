@@ -1,4 +1,7 @@
 .profile-edit {
+    span {
+        width: 160px;
+    }
     margin: auto;
     margin-top: 160px;
     width: 1020px;
@@ -16,6 +19,15 @@
         padding: 40px;
     }
     .profile__title {
+    }
+    form input {
+        height: 40px;
+        width: 300px;
+        font-size: 14px;
+        padding-left: 18px;
+        border-radius: 15px;
+        outline: none;
+        border: 1px solid rgb(225, 225, 225);
     }
 }
 
@@ -52,17 +64,4 @@
         background-color: var(--color-primary);
         color: var(--color-white);
     }
-}
-
-span {
-    width: 160px;
-}
-form input {
-    height: 40px;
-    width: 300px;
-    font-size: 14px;
-    padding-left: 18px;
-    border-radius: 15px;
-    outline: none;
-    border: 1px solid rgb(225, 225, 225);
 }
