@@ -2,6 +2,10 @@
     margin: auto;
     margin-top: 160px;
     width: 1020px;
+    span {
+        width: 160px;
+    }
+
     .profile-user {
         //
         width: 500px;
@@ -55,7 +59,4 @@
         background-color: var(--color-primary);
         color: var(--color-white);
     }
-}
-span {
-    width: 160px;
 }
