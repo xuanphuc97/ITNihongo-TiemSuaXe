@@ -4,6 +4,8 @@ import com.itnihongo.kamehouse.dto.JwtTokenDTO;
 import com.itnihongo.kamehouse.dto.UserDTO;
 import com.itnihongo.kamehouse.model.User;
 import com.itnihongo.kamehouse.service.EmailService;
+import com.itnihongo.kamehouse.service.IAuthService;
+import com.itnihongo.kamehouse.service.IUserService;
 import com.itnihongo.kamehouse.service.UserService;
 import com.itnihongo.kamehouse.service.impl.AuthServiceImpl;
 import com.itnihongo.kamehouse.service.impl.UserServiceImpl;
@@ -27,20 +29,27 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Value("${webServerUrl}")
-    private final String webServerUrl;
+    private String webServerUrl;
 
-    private final long JWT_EXPIRATION = 604800000L;
+    private long JWT_EXPIRATION = 604800000L;
 
     private final EmailService emailService;
-    private final AuthServiceImpl authService;
-    private final UserServiceImpl userServiceImpl;
+    private final IAuthService authService;
+    private final IUserService userServiceImpl;
     private final UserService userService;
 
+    //    @PostMapping("/login")
+//    public ResponseEntity<Object> login(@Valid @RequestBody User user,
+//                                        HttpServletResponse response) {
+//
+//        String accessToken = authService.login(user.getUsername(), user.getPassword(), response);
+//        return ResponseEntity.ok(new JwtTokenDTO(accessToken, JWT_EXPIRATION));
+//    }
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@Valid @RequestBody User user,
+    public ResponseEntity<Object> login(@RequestParam("username") String username,
+                                        @RequestParam("password") String password,
                                         HttpServletResponse response) {
-
-        String accessToken = authService.login(user.getUsername(), user.getPassword(), response);
+        String accessToken = authService.login(username, password, response);
         return ResponseEntity.ok(new JwtTokenDTO(accessToken, JWT_EXPIRATION));
     }
 

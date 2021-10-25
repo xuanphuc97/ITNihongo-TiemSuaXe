@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.itnihongo.kamehouse.dto.UserDTO;
 import com.itnihongo.kamehouse.model.User;
+import com.itnihongo.kamehouse.service.IUserService;
 import com.itnihongo.kamehouse.service.UserService;
 
 import com.itnihongo.kamehouse.service.impl.UserServiceImpl;
@@ -28,12 +29,12 @@ public class UserController {
 
     private final UserService userService;
 
-    private final UserServiceImpl userServiceImpl;
+    private final IUserService userServiceImpl;
 
-    @GetMapping(path = "/users")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
+//    @GetMapping(path = "/users")
+//    public List<User> getAllUsers() {
+//        return userService.getAllUsers();
+//    }
 
     @GetMapping(path = "/users/{username}")
     public User getUserByUsername(@PathVariable("username") String username) {
