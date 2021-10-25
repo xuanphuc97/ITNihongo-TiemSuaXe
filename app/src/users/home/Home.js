@@ -1,7 +1,9 @@
+import GarageProfile from '../garage/GarageProfile'
 function Home() {
   return (
     <>
       <div>
+        <GarageProfile></GarageProfile>
         <img
           width="100%"
           height="690px"
