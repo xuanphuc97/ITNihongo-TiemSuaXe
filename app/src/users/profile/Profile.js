@@ -67,7 +67,7 @@ function Profile() {
               <div className="garage-list flex-row">
                 <span>Garage {idx + 1}:</span>
                 <Link to={`/garage/${garage.garageId}`}>
-                  <span>{garage.garageName}</span>
+                  <p>{garage.garageName}</p>
                 </Link>
               </div>
             );
