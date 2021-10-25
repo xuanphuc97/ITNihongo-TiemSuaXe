@@ -1,20 +1,39 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { ListGroup, Button, Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import "./Profile.scss";
-function Profile(props) {
-  const [user, setUser] = useState({
-    fullname: "",
-    username: "",
-    email: "",
-    err: "",
-    success: "",
-  });
+import profileApis from "../profile/enum/profile-apis";
+
+function Profile() {
   const auth = useSelector((state) => state.auth);
-  const userInfo = auth.user;
-  const { username, fullname, email, err, success } = user;
+  const userInfor = auth.user;
+  const history = useHistory();
   const [garages, setGarages] = useState([]);
+  const [currentGarages, setCurrentPagePosts] = useState(0);
+  const [isEmptyPosts, setIsEmptyPosts] = useState(false);
+  console.log(currentGarages);
+  useEffect(() => {
+    const getGarages = async () => {
+      console.log("1");
+      const res = await axios.get(
+        profileApis.getGaragesOfUser(userInfor.accountId)
+      );
+      console.log("1");
+      if (res) {
+        console.log(res.data);
+        setGarages([...garages, ...res.data]);
+        if (res.data.length === 0 || res.data.length < 10) {
+          setIsEmptyPosts(true);
+        }
+      }
+      if (userInfor.accountId) {
+        getGarages();
+      }
+    };
+  }, [userInfor.accountId, currentGarages]);
   return (
     <div>
       <div className="profile main-flex">
@@ -23,23 +42,22 @@ function Profile(props) {
           <div className="user-info">
             <div className="flex-row">
               <span className="label">Full name:</span>
-              <span ClassName="content">{userInfo.fullName}</span>
+              <span ClassName="content">{userInfor.fullName}</span>
             </div>
             <div className="flex-row">
               <span className="label">Username:</span>
-              <span ClassName="content">{userInfo.username}</span>
+              <span ClassName="content">{userInfor.username}</span>
             </div>
             <div className="flex-row">
               <span className="label">Email:</span>
-              <span ClassName="content">{userInfo.email}</span>
+              <span ClassName="content">{userInfor.email}</span>
             </div>
           </div>
           <div className="btn-container">
-            <Link to={`/user/${userInfo.username}/edit`}>
+            <Link to={`/user/${userInfor.username}/edit`}>
               <Button className="profile__editbtn">Edit</Button>
             </Link>
           </div>
-
         </div>
 
         <div className="profile-garage">
@@ -48,15 +66,15 @@ function Profile(props) {
             return (
               <div className="garage-list flex-row">
                 <span>Garage {idx + 1}:</span>
-                <Link to={`/user/garage/${garage.id}`}>
-                  <span>{garage.name}</span>
+                <Link to={`/garage/${garage.garageId}`}>
+                  <span>{garage.garageName}</span>
                 </Link>
               </div>
             );
           })}
           <br />
 
-          <Link to={`/user/garage/edit`}>+ Add new</Link>
+          <Link to={`/garage/new`}>+ Add new</Link>
         </div>
       </div>
     </div>

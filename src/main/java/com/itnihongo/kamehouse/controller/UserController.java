@@ -54,8 +54,4 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
-//	@PostMapping(path = "/users/login")
-//	public ResponseEntity<User> loginUser(@Valid @RequestBody User user) {
-//		return ResponseEntity.ok(userService.loginUser(user));
-//	}
 }

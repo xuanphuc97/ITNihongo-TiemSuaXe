@@ -21,7 +21,7 @@ function Footer() {
 
         <div>
           <i className="fa fa-map-marker"></i>
-          <p>54 Nguyen Luong Bang, Danang</p>
+          <p>54 Nguyen Luong Bang, Danang VietNam</p>
         </div>
 
         <div>
@@ -39,7 +39,7 @@ function Footer() {
       <div className="footer-right">
 
         <p className="footer-company-about">
-          <span>About us</span>
+          <p>About us</p>
           The website of garages colection.
         </p>
 

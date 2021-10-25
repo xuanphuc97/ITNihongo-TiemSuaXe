@@ -1,4 +1,6 @@
 header {
+  position: fix;
+  width: 100%;
   background-color: var(--color-primary);
   margin: 10px;
   height: 72px;

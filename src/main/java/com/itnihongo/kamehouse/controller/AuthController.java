@@ -1,7 +1,6 @@
 package com.itnihongo.kamehouse.controller;
 
 import com.itnihongo.kamehouse.dto.JwtTokenDTO;
-import com.itnihongo.kamehouse.dto.UserDTO;
 import com.itnihongo.kamehouse.model.User;
 import com.itnihongo.kamehouse.service.EmailService;
 import com.itnihongo.kamehouse.service.IAuthService;
@@ -12,20 +11,23 @@ import com.itnihongo.kamehouse.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @RequestMapping("/auth")
+
 public class AuthController {
 
     @Value("${webServerUrl}")
@@ -90,9 +92,14 @@ public class AuthController {
         }
     }
 
-    @PostMapping(path = "/changepwd")
-    public User changePassword(@Valid @RequestBody User user) {
-        return userService.changeUserPassword(user);
+    @PutMapping(path = "/changepwd")
+    @PreAuthorize("isAuthenticated()")
+    public User changePassword( @RequestParam("oldPassword") @Size(min = 6, max = 32) String oldPassword,
+                                @RequestParam("password") String password,
+                                Authentication authentication) {
+        String username = authentication.getName();
+
+        return userService.changeUserPassword(username, oldPassword, password);
     }
 
 

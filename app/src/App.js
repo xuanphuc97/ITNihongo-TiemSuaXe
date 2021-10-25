@@ -15,6 +15,7 @@ import Routes from "./router";
 import ForgotPassword from "./users/auth/ForgotPassword";
 import Profile from "./users/profile/Profile";
 import EditProfile from "./users/profile/EditProfile";
+import GarageProfile from "./users/garage/GarageProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,9 @@ function App() {
             </Route>
             <Route path={`/user/${user.username}/edit`}>
               {!isLogged ? <Login /> : <EditProfile />}
+            </Route>
+            <Route path={`/user/${user.username}/garages/1`}>
+              {!isLogged ? <Login /> : <GarageProfile />}
             </Route>
           </Switch>
         </Layout>

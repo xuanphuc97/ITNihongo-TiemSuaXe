@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { dispatchLogout } from "../../redux/actions/authAction";
 import CookiesService from "../../services/CookiesService";
-import logo from "./logo.png"
+import logo from "./logo.png";
 
 function Header() {
   const dispatch = useDispatch();
@@ -11,9 +11,9 @@ function Header() {
   const history = useHistory();
   const cookiesService = CookiesService.getService();
   const userInfo = auth.user;
-  if (typeof userInfo !== "undefined") {
-    console.log(userInfo);
-  }
+  // if (typeof userInfo !== "undefined") {
+  //   console.log(userInfo);
+  // }
 
   // console.log(userInfo.username);
   // const [keyword, setKeyword] = useState('')

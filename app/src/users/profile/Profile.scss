@@ -1,62 +1,66 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 .profile {
-    margin: auto;
-    margin-top: 160px;
-    width: 1020px;
-    span {
-        width: 160px;
-    }
+  margin: auto;
+  margin-top: 160px;
+  // width: 1020px;
+  .profile-user {
+    //
+    width: 500px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+    padding: 20px;
+  }
+  .profile-garage {
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+    width: 500px;
+    padding: 20px;
 
-    .profile-user {
-        //
-        width: 500px;
-        border-radius: 8px;
-        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
-        padding: 40px;
+    .garage-list {
+      margin-top: 100px;
     }
-    .profile-garage {
-        border-radius: 8px;
-        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
-        width: 500px;
-        padding: 40px;
-
-        .garage-list {
-            margin-top: 100px;
-        }
-    }
-    .profile__title {
-    }
+  }
+  .profile__title {
+  }
 }
 
 .flex-row {
-    display: flex;
-    // justify-content: space-around;
-    flex-direction: row;
-    // justify-content: space-between;
-    margin-top: 10px;
-    .label {
-        color: var(--color-primary);
-        font-weight: 600;
-    }
+  display: flex;
+  // justify-content: space-around;
+  flex-direction: row;
+  // justify-content: space-between;
+  margin-top: 10px;
+  .label {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
 }
 
 .main-flex {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
+  // // display: flex;
+  // flex-wrap: wrap;
+  // flex-direction: row;
+  // justify-content: space-between;
 }
 
 .btn-container {
-    width: 100%;
+  width: 100%;
 
-    .profile__editbtn {
-        float: right;
-        padding: 4px;
-        margin-top: 8px;
-        width: 80px;
-        border-radius: 15px;
-        border: 1px solid var(--color-muted);
-        background-color: var(--color-primary);
-        color: var(--color-white);
-    }
+  .profile__editbtn {
+    float: right;
+    padding: 4px;
+    margin-top: 8px;
+    width: 80px;
+    border-radius: 15px;
+    border: 1px solid var(--color-muted);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+}
+span {
+  width: 160px;
 }

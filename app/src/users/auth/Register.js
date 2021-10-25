@@ -13,7 +13,6 @@ import {
 } from "../../utils/validation/Validation";
 import authApis from "./enum/authentication-apis";
 
-
 function Register() {
   const [user, setUser] = useState({
     username: "",
