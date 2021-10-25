@@ -24,11 +24,11 @@ button {
 @media (max-width: 1024px) {
   .register {
     background-color: var(--color-white);
-    margin: 0;
-    position: absolute;
+    margin: auto;
+    /* position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     border-radius: 10px;
     padding: 20px;
     width: 60%;

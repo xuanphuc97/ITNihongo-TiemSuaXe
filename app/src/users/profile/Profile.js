@@ -17,30 +17,36 @@ function Profile(props) {
   const [garages, setGarages] = useState([]);
   return (
     <div>
-      <div className="profile">
+      <div className="profile main-flex">
         <div className="profile-user">
           <h4 className="profile__title">Your profile</h4>
           <div className="user-info">
-            <div>
-              <strong>Full name:</strong> {userInfo.fullName}
+            <div className="flex-row">
+              <span className="label">Full name:</span>
+              <span ClassName="content">{userInfo.fullName}</span>
             </div>
-            <div>
-              <strong>Username:</strong> {userInfo.username}
+            <div className="flex-row">
+              <span className="label">Username:</span>
+              <span ClassName="content">{userInfo.username}</span>
             </div>
-            <div>
-              <strong>Email:</strong> {userInfo.email}
+            <div className="flex-row">
+              <span className="label">Email:</span>
+              <span ClassName="content">{userInfo.email}</span>
             </div>
           </div>
-          <Link to={`/user/${userInfo.username}/edit`}>
-            <Button className="profile__editbtn">Edit</Button>
-          </Link>
+          <div className="btn-container">
+            <Link to={`/user/${userInfo.username}/edit`}>
+              <Button className="profile__editbtn">Edit</Button>
+            </Link>
+          </div>
+
         </div>
 
         <div className="profile-garage">
           <h4 className="profile__title">Your garage</h4>
           {garages.map((garage, idx) => {
             return (
-              <div className="garage-name">
+              <div className="garage-list flex-row">
                 <span>Garage {idx + 1}:</span>
                 <Link to={`/user/garage/${garage.id}`}>
                   <span>{garage.name}</span>
@@ -48,6 +54,7 @@ function Profile(props) {
               </div>
             );
           })}
+          <br />
 
           <Link to={`/user/garage/edit`}>+ Add new</Link>
         </div>
