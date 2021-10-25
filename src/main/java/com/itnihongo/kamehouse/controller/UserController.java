@@ -1,44 +1,27 @@
 package com.itnihongo.kamehouse.controller;
 
-import java.util.List;
-
 import com.itnihongo.kamehouse.dto.UserDTO;
-import com.itnihongo.kamehouse.model.User;
 import com.itnihongo.kamehouse.service.IUserService;
-import com.itnihongo.kamehouse.service.UserService;
 
-import com.itnihongo.kamehouse.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(maxAge = 3600) // https://spring.io/guides/gs/rest-service-cors/
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@PreAuthorize("isAuthenticated()")
 public class UserController {
 
-    private final UserService userService;
-
-    private final IUserService userServiceImpl;
-
-//    @GetMapping(path = "/users")
-//    public List<User> getAllUsers() {
-//        return userService.getAllUsers();
-//    }
+    private final IUserService userService;
 
     @GetMapping(path = "/users/{username}")
-    public User getUserByUsername(@PathVariable("username") String username) {
-        return userService.getUserByUsername(username);
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable("username") String username) {
+        UserDTO user = userService.getDetailInfo(username);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/whoami")
@@ -49,9 +32,19 @@ public class UserController {
 
         String username = authentication.getName();
 
-        UserDTO userDTO = userServiceImpl.getDetailInfo(username);
+        UserDTO userDTO = userService.getDetailInfo(username);
 
         return ResponseEntity.ok(userDTO);
+    }
+
+    @PutMapping("/users/{username}")
+    public ResponseEntity<Object> updateUser(@PathVariable("username") String username,
+                                             @RequestParam("password") String password,
+                                             @RequestParam("email") String email,
+                                             @RequestParam("fullname") String fullname
+    ) {
+        userService.updateProfile(username, password, email, fullname);
+        return ResponseEntity.accepted().build();
     }
 
 //	@PostMapping(path = "/users/login")

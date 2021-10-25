@@ -16,7 +16,7 @@ public class GarageRequestDTO {
     private String phoneNumber;
     private String address;
     private String location;
-    private String[] images;
+    private String image;
     private String startAt;
     private String endAt;
 }

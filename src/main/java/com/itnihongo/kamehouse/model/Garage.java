@@ -36,8 +36,8 @@ public class Garage {
     private String location;
 
     @Transient
-    @Column(name = "images")
-    private String[] images;
+    @Column(name = "image")
+    private String image;
 
     @Column(name = "start_at", nullable = false)
     private LocalTime startAt;
@@ -51,12 +51,12 @@ public class Garage {
     @Column(name = "del_flag", nullable = false)
     private Boolean delFlag = false;
 
-    public Garage(String garageName, String phoneNumber, String address, String location, String[] images, String startAt, String endAt) {
+    public Garage(String garageName, String phoneNumber, String address, String location, String image, String startAt, String endAt) {
         this.garageName = garageName;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.location = location;
-        this.images = images;
+        this.image = image;
         this.startAt = LocalTime.parse(startAt);
         this.endAt = LocalTime.parse(endAt);
     }
