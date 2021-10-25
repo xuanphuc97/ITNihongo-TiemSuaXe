@@ -4,13 +4,6 @@
     box-sizing: border-box;
 }
 .garage {
-    span {
-        width: 220px;
-    }
-    h3 {
-        width: 300px;
-    }
-
     margin: auto;
     margin-top: 160px;
     width: 1020px;
@@ -83,4 +76,19 @@
         color: var(--color-white);
         transform: translateX(-10px);
     }
+}
+
+form input {
+    height: 40px;
+    font-size: 14px;
+    padding-left: 18px;
+    border-radius: 15px;
+    outline: none;
+    border: 1px solid rgb(225, 225, 225);
+}
+span {
+    width: 220px;
+}
+h3 {
+    width: 300px;
 }
