@@ -5,44 +5,59 @@
     box-sizing: border-box;
 }
 .profile {
+    margin: auto;
+    margin-top: 160px;
+    width: 1000px;
+    .profile-user {
+        //
+        width: 500px;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+        padding: 40px;
+    }
+    .profile-garage {
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+        width: 500px;
+        padding: 40px;
+
+        .garage-list {
+            margin-top: 100px;
+        }
+    }
+    .profile__title {
+    }
+}
+
+.flex-row {
     display: flex;
-    justify-content: space-around;
+    // justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    .label {
+        color: var(--color-primary);
+        font-weight: 600;
+    }
+}
+
+.main-flex {
+    display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+}
+
+.btn-container {
     width: 100%;
 
-    margin: 20px 2px;
-
-    color: var(--color-primary);
-
-    .profile__title {
-        position: relative;
-        left: 50%;
-    }
     .profile__editbtn {
-        position: relative;
-        margin-top: 20px;
-        left: 240%;
-        width: 60px;
+        float: right;
+        padding: 4px;
+        margin-top: 8px;
+        width: 80px;
         border-radius: 15px;
         border: 1px solid var(--color-muted);
         background-color: var(--color-primary);
         color: var(--color-white);
-    }
-    .profile-user,
-    .profile-garage {
-        padding: 40px 240px 40px 10px;
-        border-radius: 4px;
-        border: 1px solid rgb(189, 189, 189);
-        transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-        div {
-            margin-top: 20px;
-        }
-    }
-}
-
-@media screen and (max-width: 747px) {
-    .profile-user + .profile-garage {
-        margin-top: 20px;
     }
 }

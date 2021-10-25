@@ -102,17 +102,17 @@ function Profile(props) {
   };
 
   return (
-    <div className="profile-edit">
+    <div className="profile-edit main-flex">
       <div className="profile-changeinfo">
         <h4 className="profile-edit__title">Your profile</h4>
         {err && showErrMsg(err)}
         {success && showSuccessMsg(success)}
         <form onSubmit={handleSubmit}>
           <div>
-            <span>Username:</span> {userInfo.username}
+            <span className="label">Username:</span> {userInfo.username}
           </div>
-          <div className="edit-field">
-            <span>Name: </span>
+          <div className="edit-field flex-row">
+            <span className="label">Name: </span>
             <input
               type="text"
               placeholder={userInfo.fullName}
@@ -121,8 +121,8 @@ function Profile(props) {
               onChange={handleChangeInput}
             />
           </div>
-          <div className="edit-field">
-            <span>Email: </span>
+          <div className="edit-field flex-row">
+            <span className="label">Email: </span>
             <input
               type="email"
               placeholder={userInfo.email}
@@ -131,17 +131,19 @@ function Profile(props) {
               onChange={handleChangeInput}
             />
           </div>
+          <div className="btn-container">
+            <button className="profile__editbtn" type="submit">Save</button>
+          </div>
 
-          <button type="submit">Save</button>
         </form>
       </div>
       <div className="profile-changepwd">
         <h4 className="profile-edit__title">Change password</h4>
         <br />
-        
+
         <form onSubmit={handleSubmit}>
-          <div className="edit-field">
-            <span>Old password: </span>
+          <div className="edit-field flex-row">
+            <span className="label">Old password: </span>
             <input
               type="password"
               placeholder="Old Password"
@@ -150,8 +152,8 @@ function Profile(props) {
               onChange={handleChangeInput}
             />
           </div>
-          <div className="edit-field">
-            <span>New password: </span>
+          <div className="edit-field flex-row">
+            <span className="label">New password: </span>
             <input
               type="password"
               placeholder="New Password"
@@ -160,8 +162,8 @@ function Profile(props) {
               onChange={handleChangeInput}
             />
           </div>
-          <div className="edit-field">
-            <span>Comfirm password: </span>
+          <div className="edit-field flex-row">
+            <span className="label">Comfirm password: </span>
             <input
               type="password"
               placeholder="Confirm Password"
@@ -170,7 +172,10 @@ function Profile(props) {
               onChange={handleChangeInput}
             />
           </div>
-          <button type="submit">Save</button>
+          <div className="btn-container">
+            <button className="profile__editbtn" type="submit">Save</button>
+          </div>
+
         </form>
       </div>
     </div>

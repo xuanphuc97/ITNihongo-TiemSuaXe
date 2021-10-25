@@ -1,15 +1,21 @@
 import GarageProfile from '../garage/GarageProfile'
+import logo from "../home/logo.png"
+import Profile from "../profile/Profile"
+import Editprofile from "../profile/EditProfile"
 function Home() {
   return (
     <>
       <div>
+        <Profile></Profile>
+        <Editprofile></Editprofile>
         <GarageProfile></GarageProfile>
-        <img
-          width="100%"
-          height="690px"
+        {/* <img
+          width="50%"
+          height="50%"
           alt="anh minh hoa"
-          src="https://images.unsplash.com/photo-1543782248-03e2c5a93e18?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1171&q=80"
-        ></img>
+          src="https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg"
+        ></img> */}
+        <br />
       </div>
     </>
   );

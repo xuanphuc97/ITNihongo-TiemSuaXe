@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { dispatchLogout } from "../../redux/actions/authAction";
 import CookiesService from "../../services/CookiesService";
+import logo from "./logo.png"
 
 function Header() {
   const dispatch = useDispatch();
@@ -37,8 +38,9 @@ function Header() {
       <header>
         <div className="menu container">
           <div className="menu__left">
-            <Link to="/">
-              <div>Home</div>
+            <Link className="logo-container" to="/">
+              <img className="logo" src={logo} alt="logo" />
+              <span>Home</span>
             </Link>
           </div>
           {auth.isLogged ? (

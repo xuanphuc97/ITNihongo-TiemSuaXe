@@ -96,6 +96,12 @@ function Profile(props) {
 
                 <Link to={`/user/garage/service/`}>+ Add new</Link>
             </div>
+            <div className="btn-container">
+                <Link to={`/user/${userInfo.username}/edit`}>
+                    <button className="profile__editbtn">Edit</button>
+                </Link>
+            </div>
+
         </div >
     );
 }

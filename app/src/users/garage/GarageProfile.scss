@@ -6,8 +6,8 @@
 }
 .garage {
     margin: auto;
-    margin-top: 80px;
-    width: 60%;
+    margin-top: 160px;
+    width: 1000px;
     .garage-profile {
         .profile_img {
             width: 150px;
@@ -17,16 +17,20 @@
             background-repeat: no-repeat;
             background-position: center;
             transform: translate(-40px, -40px);
+            box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
         }
 
         //
-        width: 50%;
-        border: 2px solid #ccc;
+        width: 500px;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
         padding: 40px;
     }
     .garage-service {
-        border: 2px solid #ccc;
-        width: 50%;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+
+        width: 500px;
         padding: 40px;
 
         .service-list {
@@ -53,4 +57,29 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+}
+
+.btn-container {
+    width: 100%;
+
+    .profile__editbtn {
+        float: right;
+        padding: 4px;
+        margin-top: 8px;
+        width: 80px;
+        border-radius: 15px;
+        border: 1px solid var(--color-muted);
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        transform: translateX(-10px);
+    }
+}
+
+form input {
+    height: 40px;
+    font-size: 14px;
+    padding-left: 18px;
+    border-radius: 15px;
+    outline: none;
+    border: 1px solid rgb(225, 225, 225);
 }
