@@ -1,13 +1,7 @@
-* {
-    margin: 0px;
-    padding: 0px;
-    max-width: 100%;
-    box-sizing: border-box;
-}
 .profile-edit {
     margin: auto;
     margin-top: 160px;
-    width: 1000px;
+    width: 1020px;
     .profile-changeinfo {
         //
         width: 500px;
@@ -29,7 +23,7 @@
     display: flex;
     // justify-content: space-around;
     flex-direction: row;
-    justify-content: space-between;
+    // justify-content: space-between;
     margin-top: 10px;
     .label {
         color: var(--color-primary);
@@ -41,6 +35,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .btn-container {
@@ -57,4 +52,17 @@
         background-color: var(--color-primary);
         color: var(--color-white);
     }
+}
+
+span {
+    width: 160px;
+}
+form input {
+    height: 40px;
+    width: 300px;
+    font-size: 14px;
+    padding-left: 18px;
+    border-radius: 15px;
+    outline: none;
+    border: 1px solid rgb(225, 225, 225);
 }
