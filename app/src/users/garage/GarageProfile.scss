@@ -1,24 +1,19 @@
 * {
-<<<<<<< HEAD
-<<<<<<< HEAD
     padding: 0;
     margin: 0;
-=======
-    margin: 0px;
-    padding: 0px;
-    max-width: 100%;
->>>>>>> parent of 2cf487b (CSS adjust)
-=======
-    margin: 0px;
-    padding: 0px;
-    max-width: 100%;
->>>>>>> parent of 2cf487b (CSS adjust)
     box-sizing: border-box;
 }
 .garage {
+    span {
+        width: 220px;
+    }
+    h3 {
+        width: 300px;
+    }
+
     margin: auto;
     margin-top: 160px;
-    width: 1000px;
+    width: 1020px;
     .garage-profile {
         .profile_img {
             width: 150px;
@@ -46,6 +41,9 @@
 
         .service-list {
             margin-top: 100px;
+            .service-name {
+                width: 420px !important;
+            }
         }
     }
     .garage__title {
@@ -56,7 +54,7 @@
     display: flex;
     // justify-content: space-around;
     flex-direction: row;
-    justify-content: space-between;
+    // justify-content: space-between;
     margin-top: 10px;
     .label {
         color: var(--color-primary);
@@ -68,6 +66,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    // justify-content: space-between;
 }
 
 .btn-container {
@@ -84,13 +83,4 @@
         color: var(--color-white);
         transform: translateX(-10px);
     }
-}
-
-form input {
-    height: 40px;
-    font-size: 14px;
-    padding-left: 18px;
-    border-radius: 15px;
-    outline: none;
-    border: 1px solid rgb(225, 225, 225);
 }

@@ -1,24 +1,15 @@
 * {
-<<<<<<< HEAD
-<<<<<<< HEAD
     padding: 0;
     margin: 0;
-=======
-    margin: 0px;
-    padding: 0px;
-    max-width: 100%;
->>>>>>> parent of 2cf487b (CSS adjust)
-=======
-    margin: 0px;
-    padding: 0px;
-    max-width: 100%;
->>>>>>> parent of 2cf487b (CSS adjust)
     box-sizing: border-box;
 }
 .profile-edit {
+    span {
+        width: 160px;
+    }
     margin: auto;
     margin-top: 160px;
-    width: 1000px;
+    width: 1020px;
     .profile-changeinfo {
         //
         width: 500px;
@@ -34,13 +25,22 @@
     }
     .profile__title {
     }
+    form input {
+        height: 40px;
+        width: 300px;
+        font-size: 14px;
+        padding-left: 18px;
+        border-radius: 15px;
+        outline: none;
+        border: 1px solid rgb(225, 225, 225);
+    }
 }
 
 .flex-row {
     display: flex;
     // justify-content: space-around;
     flex-direction: row;
-    justify-content: space-between;
+    // justify-content: space-between;
     margin-top: 10px;
     .label {
         color: var(--color-primary);
@@ -52,6 +52,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .btn-container {
