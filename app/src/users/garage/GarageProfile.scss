@@ -4,6 +4,20 @@
     box-sizing: border-box;
 }
 .garage {
+    .btn-container {
+        width: 100%;
+        .profile__editbtn {
+            float: right;
+            padding: 4px;
+            margin-top: 8px;
+            width: 80px;
+            border-radius: 15px;
+            border: 1px solid var(--color-muted);
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            transform: translateX(-10px);
+        }
+    }
     span {
         width: 220px;
     }
@@ -13,7 +27,7 @@
 
     margin: auto;
     margin-top: 160px;
-    width: 1020px;
+    width: 82%;
     .garage-profile {
         .profile_img {
             width: 150px;
@@ -22,7 +36,6 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            transform: translate(-40px, -40px);
             box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
         }
 
@@ -42,7 +55,7 @@
         .service-list {
             margin-top: 100px;
             .service-name {
-                width: 420px !important;
+                width: 300px;
             }
         }
     }
@@ -52,6 +65,7 @@
 
 .flex-row {
     display: flex;
+    flex-wrap: wrap;
     // justify-content: space-around;
     flex-direction: row;
     // justify-content: space-between;
@@ -66,21 +80,5 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    // justify-content: space-between;
-}
-
-.btn-container {
-    width: 100%;
-
-    .profile__editbtn {
-        float: right;
-        padding: 4px;
-        margin-top: 8px;
-        width: 80px;
-        border-radius: 15px;
-        border: 1px solid var(--color-muted);
-        background-color: var(--color-primary);
-        color: var(--color-white);
-        transform: translateX(-10px);
-    }
+    justify-content: space-evenly;
 }

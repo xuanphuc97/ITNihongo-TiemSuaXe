@@ -5,7 +5,7 @@
   width: 100%;
   text-align: left;
   font: bold 16px sans-serif;
-  padding: 20px;
+  padding: 4px;
 }
 
 .footer-distributed .footer-left,
@@ -37,7 +37,7 @@
 
 .footer-distributed .footer-links{
   color:  #ffffff;
-  margin: 20px 0 12px;
+  margin: 0;
   padding: 0;
 }
 
@@ -51,14 +51,14 @@
 
 .footer-distributed {
   color:  #000;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: normal;
   text-align: center;
   margin: 0;
 }
 .footer-company-name{
   color:  #000;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: normal;
   padding: auto;
   margin: 0;
@@ -73,18 +73,18 @@
 .footer-distributed .footer-center i{
   background-color:  #fff;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 16px;
   width: 38px;
   height: 38px;
   border-radius: 50%;
   text-align: center;
   line-height: 42px;
-  margin: 10px 15px;
+  margin: 4px 4px;
   vertical-align: middle;
 }
 
 .footer-distributed .footer-center i.fa-envelope{
-  font-size: 20px;
+  font-size: 16px;
   line-height: 38px;
 }
 
@@ -99,7 +99,7 @@
 .footer-distributed .footer-center p span{
   display:block;
   font-weight: normal;
-  font-size:24px;
+  font-size:16px;
   line-height:2;
 }
 
@@ -111,7 +111,7 @@
 .footer-distributed .footer-links a:before {
   content: "|";
   font-weight:300;
-  font-size: 20px;
+  font-size: 16px;
   left: 0;
   color: #fff;
   display: inline-block;
@@ -131,7 +131,7 @@
 .footer-distributed .footer-company-about{
   line-height: 20px;
   color: #000;
-  font-size: 23px;
+  font-size: 16px;
   font-weight: normal;
   margin: 0;
 }
@@ -139,9 +139,9 @@
 .footer-distributed .footer-company-about span{
   display: block;
   color:  #ffffff;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 4px;
 }
 
 .footer-distributed .footer-icons{
@@ -156,10 +156,10 @@
   background-color:  #33383b;
   border-radius: 2px;
 
-  font-size: 20px;
+  font-size: 16px;
   color: #ffffff;
   text-align: center;
-  line-height: 35px;
+  line-height: 16px;
 
   margin-right: 3px;
   margin-bottom: 5px;
@@ -178,7 +178,7 @@
   .footer-distributed .footer-right{
     display: block;
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 4px;
     text-align: center;
   }
 
@@ -188,7 +188,7 @@
 
 }
 .footer-logo{
-  width: 50%;
-  height: 50%;
+  width: 30%;
+  height: 30%;
 }
 

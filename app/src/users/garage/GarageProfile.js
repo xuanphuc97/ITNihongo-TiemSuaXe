@@ -78,6 +78,11 @@ function Profile(props) {
                     <span className="conttent">{ }</span>
 
                 </div>
+                <div className="btn-container">
+                    <Link to={`/user/${userInfo.username}/edit`}>
+                        <button className="profile__editbtn">Edit</button>
+                    </Link>
+                </div>
 
             </div>
             <div className="garage-service">
@@ -87,7 +92,7 @@ function Profile(props) {
                         return (
                             <div className="flex-row">
                                 <span className="label service-name">{idx + 1}. {"Dich vu"}</span>
-                                <span className="content cost">{"69.000"}</span>
+                                <p className="content cost">{"69.000"}</p>
                             </div>
                         );
                     })}
@@ -95,12 +100,9 @@ function Profile(props) {
                 <br />
 
                 <Link to={`/user/garage/service/`}>+ Add new</Link>
+
             </div>
-            <div className="btn-container">
-                <Link to={`/user/${userInfo.username}/edit`}>
-                    <button className="profile__editbtn">Edit</button>
-                </Link>
-            </div>
+
 
         </div >
     );

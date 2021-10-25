@@ -49,7 +49,7 @@ function Profile(props) {
               <div className="garage-list flex-row">
                 <span>Garage {idx + 1}:</span>
                 <Link to={`/user/garage/${garage.id}`}>
-                  <span>{garage.name}</span>
+                  <p>{garage.name}</p>
                 </Link>
               </div>
             );
