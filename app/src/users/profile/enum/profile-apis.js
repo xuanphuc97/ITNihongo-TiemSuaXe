@@ -2,7 +2,7 @@ const baseUrl = "http://localhost:8080";
 
 export default {
   // uploadImg: `${baseUrl}/upload`,
-  updateInfor: `${baseUrl}/auth/user/update/info`,
+  updateInfor: `${baseUrl}/users/update`,
   updatePassword: `${baseUrl}/auth/changepwd`,
   getGaragesOfUser(accountId) {
     return `${baseUrl}/api/user/${accountId}/garages`;

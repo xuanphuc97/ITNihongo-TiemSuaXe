@@ -1,55 +1,22 @@
 import React from "react";
-import logo from "./logo.png"
 
 function Footer() {
   return (
-
-    <footer className="footer-distributed">
-
-      <div className="footer-left">
-
-        <img className="footer-logo" src={logo} alt="logo" />
-
-        <p className="footer-links">
-
-        </p>
-
-
-      </div>
-
-      <div className="footer-center">
-
+    <footer>
+      <div class="footer container">
+        {/* <h5></h5> */}
         <div>
-          <i className="fa fa-map-marker"></i>
-          <p>54 Nguyen Luong Bang, Danang VietNam</p>
+          <p>
+            {/* Pham Van Tanh <br /> */}
+            {/* SĐT: 0778779063 <br />
+            Mail: vantanh.danang@gmail.com <br />
+            FB:{" "}
+            <a href="https://www.facebook.com/phamvantanh12/" target="_blank">
+              Phạm Văn Tánh
+            </a> */}
+          </p>
         </div>
-
-        <div>
-          <i className="fa fa-phone"></i>
-          <p>+84 0924299026</p>
-        </div>
-
-        <div>
-          <i className="fa fa-envelope"></i>
-          <p><a href="mailto:support@company.com">support@kamehouse.com</a></p>
-        </div>
-
       </div>
-
-      <div className="footer-right">
-
-        <p className="footer-company-about">
-          <p>About us</p>
-          The website of garages colection.
-        </p>
-
-        <div className="footer-icons">
-
-        </div>
-
-      </div>
-      <div className="footer-company-name">Kamehouse © 2021</div>
-
     </footer>
   );
 }
