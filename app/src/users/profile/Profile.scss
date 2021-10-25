@@ -1,12 +1,18 @@
 * {
+<<<<<<< HEAD
     padding: 0;
     margin: 0;
+=======
+    margin: 0px;
+    padding: 0px;
+    max-width: 100%;
+>>>>>>> parent of 2cf487b (CSS adjust)
     box-sizing: border-box;
 }
 .profile {
     margin: auto;
     margin-top: 160px;
-    width: 1020px;
+    width: 1000px;
     .profile-user {
         //
         width: 500px;
@@ -32,7 +38,7 @@
     display: flex;
     // justify-content: space-around;
     flex-direction: row;
-    // justify-content: space-between;
+    justify-content: space-between;
     margin-top: 10px;
     .label {
         color: var(--color-primary);
@@ -44,7 +50,6 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
 }
 
 .btn-container {
@@ -60,7 +65,4 @@
         background-color: var(--color-primary);
         color: var(--color-white);
     }
-}
-span {
-    width: 160px;
 }
