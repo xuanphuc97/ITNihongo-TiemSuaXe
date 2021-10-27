@@ -30,7 +30,7 @@ function Profile() {
     <div>
       <div className="profile main-flex">
         <div className="profile-user">
-          <h4 className="profile__title">Your profile</h4>
+          <h4 className="title">Your profile</h4>
           <div className="user-info">
             <div className="flex-row">
               <span className="label">Full name:</span>
@@ -53,7 +53,7 @@ function Profile() {
         </div>
 
         <div className="profile-garage">
-          <h4 className="profile__title">Your garage</h4>
+          <h4 className="title">Your garage</h4>
           {garages.map((garage, idx) => {
             return (
               <div className="garage-list flex-row">

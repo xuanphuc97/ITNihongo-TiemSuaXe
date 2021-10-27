@@ -86,7 +86,7 @@ function GarageProfile() {
     <div className="garage main-flex">
       <div className="garage-profile ">
         <div className="flex-row">
-          <h3 className="garage__title">Garage Profile</h3>
+          <h3 className="title">Garage Profile</h3>
 
           <div className="avatar-preview">
             <img
@@ -131,7 +131,7 @@ function GarageProfile() {
         </div>
       </div>
       <div className="garage-service">
-        <h3 className="garage__title">Services</h3>
+        <h3 className="title">Services</h3>
         <div className="service-list">
           {services.map((garage, idx) => {
             return (

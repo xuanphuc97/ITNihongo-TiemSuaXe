@@ -5,6 +5,7 @@ import Editprofile from "../profile/EditProfile";
 function Home() {
   return (
     <>
+      <Profile></Profile>
       <div>
         <img
           width="100%"

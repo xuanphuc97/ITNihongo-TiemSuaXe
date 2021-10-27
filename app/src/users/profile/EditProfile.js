@@ -165,7 +165,7 @@ const EditProfile = () => {
   return (
     <div className="profile-edit main-flex">
       <div className="profile-changeinfo">
-        <h4 className="profile-edit__title">Your profile</h4>
+        <h4 className="title">Your profile</h4>
         <br />
 
         {newInfor.err && showErrMsg(newInfor.err)}
@@ -202,7 +202,7 @@ const EditProfile = () => {
         </form>
       </div>
       <div className="profile-changepwd">
-        <h4 className="profile-edit__title">Change password</h4>
+        <h4 className="title">Change password</h4>
         <br />
         <form onSubmit={handleSubmitPassword}>
           {data.err && showErrMsg(data.err)}

@@ -6,7 +6,9 @@
 .garage {
   .btn-container {
     width: 100%;
+
     .profile__editbtn {
+      font-size: 24px;
       float: right;
       padding: 4px;
       margin-top: 8px;
@@ -59,8 +61,6 @@
       }
     }
   }
-  .garage__title {
-  }
 }
 
 .flex-row {
@@ -77,6 +77,10 @@
 }
 
 .main-flex {
+  .title {
+    font-size: 30px;
+  }
+  font-size: 24px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
