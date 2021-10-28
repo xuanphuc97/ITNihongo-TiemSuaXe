@@ -154,3 +154,8 @@ header {
 .logo-container {
   display: inline-block;
 }
+
+.header-profile {
+  margin-left: 50px;
+
+}

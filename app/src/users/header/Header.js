@@ -42,14 +42,15 @@ function Header() {
               <img className="logo" src={logo} alt="logo" />
               <span>Home</span>
             </Link>
+            {auth.isLogged ? (
+              <Link to={`/profile/${userInfo.username}`}>
+                <div className="header-profile">Profile</div>
+              </Link>
+            ) : (
+              ""
+            )}
           </div>
-          {auth.isLogged ? (
-            <Link to={`/profile/${userInfo.username}`}>
-              <div>Profile</div>
-            </Link>
-          ) : (
-            ""
-          )}
+
           {auth.isLogged ? (
             <div className="menu__right--dropdown" id="dropDown">
               {isAdmin ? (
