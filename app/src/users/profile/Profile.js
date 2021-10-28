@@ -13,15 +13,16 @@ function Profile() {
   const [garages, setGarages] = useState([]);
 
   const getGarages = async () => {
+    // console.log("---")
     const res = await axios.get(
       profileApis.getGaragesOfUser(userInfor.accountId)
     );
     if (res) {
-      console.log(res.data);
       setGarages([...garages, ...res.data]);
     }
   };
   useEffect(() => {
+
     if (userInfor.accountId) {
       getGarages();
     }
@@ -56,7 +57,7 @@ function Profile() {
           <h4 className="title">Your garage</h4>
           {garages.map((garage, idx) => {
             return (
-              <div className="garage-list flex-row">
+              <div key={idx + 1} className="garage-list flex-row">
                 <span style={{ paddingRight: "20px" }}>Garage {idx + 1}:</span>
                 <Link to={`/garages/${garage.garageId}`}>
                   <span>{garage.garageName}</span>
