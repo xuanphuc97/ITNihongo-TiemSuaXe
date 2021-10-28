@@ -28,4 +28,5 @@ public class Service {
     @Column(name = "service_price", nullable = false)
     private BigDecimal servicePrice;
 
+
 }

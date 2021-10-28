@@ -21,7 +21,7 @@ public class GarageDTO {
     private String phoneNumber;
     private String address;
     private String location;
-    private String[] imageLinks;
+    private String imageLink;
     private LocalTime startAt;
     private LocalTime endAt;
     private Boolean active;
@@ -41,7 +41,7 @@ public class GarageDTO {
                 .phoneNumber(garage.getPhoneNumber())
                 .address(garage.getAddress())
                 .location(garage.getLocation())
-                .imageLinks(garage.getImages())
+                .imageLink(garage.getImage())
                 .startAt(garage.getStartAt())
                 .endAt(garage.getEndAt())
                 .active(garage.getActive())

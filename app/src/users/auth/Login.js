@@ -64,8 +64,8 @@ function Login() {
       if (res) {
         setUser({ ...user, err: "", success: res.data.msg });
         dispatch(dispatchLogin());
-        // dispatch(dispatchGetUser(res));
-        cookiesService.setToken("123456789");
+        console.log(res);
+        cookiesService.setToken(res.data.token);
         if (redirectTo) {
           history.push(redirectTo);
         } else {
@@ -74,7 +74,11 @@ function Login() {
       }
     } catch (err) {
       if (err.response.status === 401) {
-        setUser({ ...user, err: "The Username or Password is Incorrect", success: "" });
+        setUser({
+          ...user,
+          err: "The Username or Password is Incorrect",
+          success: "",
+        });
       } else if (err.response.status === 400) {
         setUser({
           ...user,
