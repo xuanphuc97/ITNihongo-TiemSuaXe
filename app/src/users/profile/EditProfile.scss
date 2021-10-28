@@ -4,81 +4,66 @@
   box-sizing: border-box;
 }
 .profile-edit {
-  span {
-    width: 160px;
+  .label {
+    width: 240px;
   }
+
   margin: auto;
-  margin-top: 160px;
+  margin-top: 120px;
   // width: 1020px;
   .profile-changeinfo {
     //
-    width: 500px;
+    width: 600px;
     border-radius: 8px;
+    border-top: 10px solid var(--color-primary);
     box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
     padding: 20px;
+    background-color: var(--color-white);
   }
   .profile-changepwd {
     border-radius: 8px;
+    border-top: 10px solid var(--color-primary);
     box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
-    width: 500px;
+    width: 600px;
     padding: 20px;
+    background-color: var(--color-white);
   }
 
   form input {
     height: 40px;
     width: 300px;
-    font-size: 14px;
+    font-size: 18px;
     padding-left: 18px;
     border-radius: 15px;
     outline: none;
     border: 1px solid rgb(225, 225, 225);
   }
 }
-
-.flex-row {
-  display: flex;
-  // justify-content: space-around;
-  flex-direction: row;
-  // justify-content: space-between;
-  margin-top: 10px;
-  .label {
-    color: var(--color-primary);
-    font-weight: 600;
-  }
-}
-
-// .main-flex {
-//     display: flex;
-//     flex-wrap: wrap;
-//     flex-direction: row;
-//     justify-content: space-between;
-// }
-
-.btn-container {
+.cancelbtn-container {
   width: 100%;
-
-  .profile__editbtn {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  .cancel-col {
+    width: 600px;
+  }
+  .profile__cancelbtn {
     font-size: 24px;
     float: right;
+    margin-right: 10px;
     padding: 4px;
-    margin-top: 8px;
-    width: 80px;
-    border-radius: 15px;
+
+    width: 100px;
+    border-radius: 30px;
     border: 1px solid var(--color-muted);
     background-color: var(--color-primary);
     color: var(--color-white);
   }
-
-  .profile__cancelbtn {
-    float: right;
-    padding: 4px;
-    margin-top: 8px;
-    margin-right: 13%;
-    align-content: center;
-    width: 80px;
-    border-radius: 15px;
-    border: 1px solid var(--color-muted);
-    background-color: var(--color-primary);
-    color: var(--color-white);
+  .profile__cancelbtn:hover {
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
   }
 }

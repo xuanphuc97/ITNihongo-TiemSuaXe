@@ -1,66 +1,186 @@
-.garage-profile {
-    .upload-img .img-container {
-        max-width: 960px;
-        margin: 10px auto;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.garage-profile-edit {
+    .title {
+        width: 60%;
+    }
+    .label {
+        width: 30%;
+    }
+
+    margin: auto;
+    margin-top: 120px;
+
+    // width: 1020px;
+    .garage-profile-changeinfo {
+        //
+        width: 600px;
+        border-radius: 8px;
+        border-top: 10px solid var(--color-primary);
+        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
         padding: 20px;
-    }
-
-    .upload-img h1 {
-        font-size: 20px;
-        text-align: center;
-        margin: 10px 0 10px;
-        small {
-            display: block;
-            font-size: 15px;
-            padding-top: 8px;
-            color: gray;
+        background-color: var(--color-white);
+        input {
+            height: 40px;
+            width: 70%;
+            font-size: 18px;
+            padding-left: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: 1px solid rgb(225, 225, 225);
         }
     }
+    .service-edit {
+        border-radius: 8px;
+        border-top: 10px solid var(--color-primary);
+        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+        width: 600px;
+        padding: 20px;
+        background-color: var(--color-white);
+        .title {
+            width: 100%;
+        }
+        .title::after {
+            content: "";
+            width: 100%;
+            align-items: center;
+            display: inline-block;
+            border-radius: 40px;
+            border-bottom: 2px solid var(--color-primary);
+            opacity: 50%;
+        }
+        .service-name {
+            height: 40px;
+            width: 50%;
+            font-size: 14px;
+            padding-left: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: 1px solid rgb(225, 225, 225);
+        }
+        .cost {
+            height: 40px;
+            width: 30%;
+            font-size: 14px;
+            padding-left: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: 1px solid rgb(225, 225, 225);
+        }
+        .flex-row {
+            justify-content: space-around;
+        }
+        .delete-service {
+            font-size: 24px;
+            width: 40px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--color-white);
+            color: rgb(253, 60, 60);
+            font-weight: 600;
+        }
+        .delete-service:hover {
+            font-weight: 800;
+        }
+    }
+}
+.allbtn-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    .cancel-col {
+        width: 600px;
+    }
+    .profile__cancelbtn {
+        font-size: 24px;
+        float: right;
+        margin-right: 10px;
+        padding: 4px;
 
-    .upload-img .avatar-upload {
+        width: 100px;
+        border-radius: 30px;
+        border: 1px solid var(--color-muted);
+        background-color: rgb(141, 141, 141);
+        color: var(--color-white);
+    }
+    .profile__savebtn {
+        font-size: 24px;
+        float: right;
+        margin-right: 10px;
+        padding: 4px;
+
+        width: 100px;
+        border-radius: 30px;
+        border: 1px solid var(--color-muted);
+        background-color: var(--color-primary);
+        color: var(--color-white);
+    }
+    .profile__deletebtn {
+        font-size: 24px;
+        float: right;
+        margin-right: 10px;
+        padding: 4px;
+
+        width: 100px;
+        border-radius: 30px;
+        border: 1px solid var(--color-muted);
+        background-color: rgb(253, 60, 60);
+        color: var(--color-white);
+    }
+    .profile__cancelbtn:hover {
+        color: #fff;
+        background-color: rgb(141, 141, 141);
+        border-color: rgb(141, 141, 141);
+        box-shadow: 0 0 0 0.25rem rgb(141 141 141 / 50%);
+    }
+    .profile__deletebtn:hover {
+        color: #fff;
+        background-color: rgb(253, 60, 60);
+        border-color: rgb(253, 60, 60);
+        box-shadow: 0 0 0 0.25rem rgb(253 60 60 / 50%);
+    }
+    .profile__savebtn:hover {
+        color: #fff;
+        background-color: #0b5ed7;
+        border-color: #0a58ca;
+        box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
+    }
+}
+
+.upload-img .avatar-upload {
+    position: relative;
+
+    .avatar-edit {
+        position: absolute;
+        right: -20px;
+        transform: translate(0px, -20px);
+        z-index: 1;
+        top: 10px;
+        color: #000;
+        input {
+            display: none;
+        }
+    }
+    .avatar-edit:hover {
+        color: var(--color-primary);
+    }
+    .avatar-preview {
         position: relative;
-        max-width: 205px;
-        margin: 10px auto;
-        .avatar-edit {
-            position: absolute;
-            right: 12px;
-            z-index: 1;
-            top: 10px;
-            input {
-                display: none;
-                + label {
-                    display: inline-block;
-                    width: 30px;
-                    height: 30px;
-                    margin-bottom: 0;
-                    border-radius: 100%;
-                    background: #ffffff;
-                    border: 1px solid transparent;
-                    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
-                    cursor: pointer;
-                    font-weight: normal;
-                    transition: all 0.2s ease-in-out;
-                    &:hover {
-                        background: #f1f1f1;
-                        border-color: #d6d6d6;
-                    }
-                }
-            }
-        }
-        .avatar-preview {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            border-radius: 8px;
-            box-shadow: 2px 4px 6px 2px rgba(0, 0, 0, 0.1);
-            .profile_img {
-                width: 200px;
-                height: 200px;
-                border-radius: 8px;
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
-            }
+
+        .profile_img {
+            width: 110px;
+            height: 110px;
+            border-radius: 30px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: 3px solid var(--color-primary);
+            box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 1px 1px;
         }
     }
 }

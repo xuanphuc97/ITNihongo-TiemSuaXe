@@ -1,12 +1,11 @@
-import GarageProfile from "../garage/GarageProfile";
+import GarageEditProfile from "../garage/GarageEditProfile";
 import logo from "../home/logo.png";
-import Profile from "../profile/Profile";
-import Editprofile from "../profile/EditProfile";
+
 function Home() {
   return (
     <>
-      <Profile></Profile>
       <div>
+        <GarageEditProfile></GarageEditProfile>
         <img
           width="100%"
           height="700px"

@@ -34,15 +34,15 @@ function Profile() {
           <div className="user-info">
             <div className="flex-row">
               <span className="label">Full name:</span>
-              <span ClassName="content">{userInfor.fullName}</span>
+              <span className="content">{userInfor.fullName}</span>
             </div>
             <div className="flex-row">
               <span className="label">Username:</span>
-              <span ClassName="content">{userInfor.username}</span>
+              <span className="content">{userInfor.username}</span>
             </div>
             <div className="flex-row">
               <span className="label">Email:</span>
-              <span ClassName="content">{userInfor.email}</span>
+              <span className="content">{userInfor.email}</span>
             </div>
           </div>
           <div className="btn-container">
@@ -57,7 +57,7 @@ function Profile() {
           {garages.map((garage, idx) => {
             return (
               <div className="garage-list flex-row">
-                <span>Garage {idx + 1}:</span>
+                <span style={{ paddingRight: "20px" }}>Garage {idx + 1}:</span>
                 <Link to={`/garages/${garage.garageId}`}>
                   <span>{garage.garageName}</span>
                 </Link>

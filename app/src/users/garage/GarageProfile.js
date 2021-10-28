@@ -102,27 +102,27 @@ function GarageProfile() {
         <div className="flex-row"></div>
         <div className="flex-row">
           <span className="label">Name:</span>
-          <span className="conttent">{garage.name}</span>
+          <span className="content">{garage.name}</span>
         </div>
         <div className="flex-row">
           <span className="label">Address:</span>
-          <span className="conttent">{garage.address}</span>
+          <span className="content">{garage.address}</span>
         </div>
         <div className="flex-row">
           <span className="label">Location:</span>
-          <span className="conttent">{garage.location}</span>
+          <span className="content">{garage.location}</span>
         </div>
         <div className="flex-row">
-          <span className="label">Phone number:</span>
-          <span className="conttent">{garage.phoneNumber}</span>
+          <span className="label">Phone:</span>
+          <span className="content">{garage.phoneNumber}</span>
         </div>
         <div className="flex-row">
           <span className="label">Open At:</span>
-          <span className="conttent">{garage.openAt}</span>
+          <span className="content">{garage.openAt}</span>
         </div>
         <div className="flex-row">
           <span className="label">Close At:</span>
-          <span className="conttent">{garage.closeAt}</span>
+          <span className="content">{garage.closeAt}</span>
         </div>
         <div className="btn-container">
           <Link to={`/user/${userInfo.username}/edit`}>
@@ -139,7 +139,7 @@ function GarageProfile() {
                 <span className="label service-name">
                   {idx + 1}. {"Service Name"}
                 </span>
-                <p className="content cost">{"70.000"}</p>
+                <p className="cost">{"70.000"}</p>
               </div>
             );
           })}

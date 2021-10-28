@@ -186,7 +186,7 @@ const EditProfile = () => {
             />
           </div>
           <div className="edit-field flex-row">
-            <span className="label">Email: </span>
+            <span className="label">Email address: </span>
             <input
               type="email"
               name="email"
@@ -242,10 +242,14 @@ const EditProfile = () => {
         </form>
         <div></div>
       </div>
-      <div className="btn-container">
-        <Link to={`/profile/${userInfor.username}`}>
-          <button className="profile__cancelbtn">Cancel</button>
-        </Link>
+      <div className="cancelbtn-container">
+        <div className="cancel-col"></div>
+        <div className="cancel-col">
+          <Link to={`/profile/${userInfor.username}`}>
+            <button className="profile__cancelbtn">Cancel</button>
+          </Link>
+        </div>
+
       </div>
     </div>
   );
