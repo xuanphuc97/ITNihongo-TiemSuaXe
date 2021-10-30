@@ -1,11 +1,15 @@
 import GarageEditProfile from "../garage/GarageEditProfile";
 import logo from "../home/logo.png";
+import Comment from "../comment/Comment"
+import ListComment from "../comment/ListComment"
 
 function Home() {
   return (
     <>
       <div>
         <GarageEditProfile></GarageEditProfile>
+        {/* <Comment isForComment={true}></Comment> */}
+        <ListComment></ListComment>
         <img
           width="100%"
           height="700px"

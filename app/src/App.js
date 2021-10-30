@@ -16,6 +16,8 @@ import ForgotPassword from "./users/auth/ForgotPassword";
 import Profile from "./users/profile/Profile";
 import EditProfile from "./users/profile/EditProfile";
 import GarageProfile from "./users/garage/GarageProfile";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 
 function App() {
   const dispatch = useDispatch();
