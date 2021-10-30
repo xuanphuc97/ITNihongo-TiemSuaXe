@@ -5,12 +5,14 @@ import { ListGroup, Button, Form } from "react-bootstrap";
 import "./GarageProfile.scss";
 import { useSelector, useDispatch } from "react-redux";
 import garageApis from "./enum/garage-apis";
+import Loader from "react-loader-spinner";
 function GarageProfile() {
   const location = useLocation();
   const id = useParams();
   const history = useHistory();
   const auth = useSelector((state) => state.auth);
   const [services, setService] = useState([1, 2]);
+  const [isLoading, setIsLoading] = useState(true);
   const userInfo = auth.user;
   const initialState = {
     garageId: 0,
@@ -35,7 +37,9 @@ function GarageProfile() {
     const getGarage = async () => {
       try {
         const res = await axios.get(garageApis.getGarageInfo(id.id));
-        console.log(res.data);
+        if (res) {
+          setIsLoading(false);
+        }
         var resInfo = res.data;
         setGarage({
           ...garage,
@@ -75,10 +79,6 @@ function GarageProfile() {
     if (id) {
       getGarage();
     }
-
-    return () => {
-      setGarage(initialState);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -99,31 +99,40 @@ function GarageProfile() {
             />
           </div>
         </div>
-        <div className="flex-row"></div>
-        <div className="flex-row">
-          <span className="label">Name:</span>
-          <span className="content">{garage.name}</span>
-        </div>
-        <div className="flex-row">
-          <span className="label">Address:</span>
-          <span className="content">{garage.address}</span>
-        </div>
-        <div className="flex-row">
-          <span className="label">Location:</span>
-          <span className="content">{garage.location}</span>
-        </div>
-        <div className="flex-row">
-          <span className="label">Phone:</span>
-          <span className="content">{garage.phoneNumber}</span>
-        </div>
-        <div className="flex-row">
-          <span className="label">Open At:</span>
-          <span className="content">{garage.openAt}</span>
-        </div>
-        <div className="flex-row">
-          <span className="label">Close At:</span>
-          <span className="content">{garage.closeAt}</span>
-        </div>
+        {isLoading ? <div className="loader">
+          <Loader
+            type="Puff"
+            color="#00BFFF"
+            height={100}
+            width={100}
+          />
+        </div> : <div>
+          <div className="flex-row">
+            <span className="label">Name:</span>
+            <span className="content">{garage.name}</span>
+          </div>
+          <div className="flex-row">
+            <span className="label">Address:</span>
+            <span className="content">{garage.address}</span>
+          </div>
+          <div className="flex-row">
+            <span className="label">Location:</span>
+            <span className="content">{garage.location}</span>
+          </div>
+          <div className="flex-row">
+            <span className="label">Phone:</span>
+            <span className="content">{garage.phoneNumber}</span>
+          </div>
+          <div className="flex-row">
+            <span className="label">Open At:</span>
+            <span className="content">{garage.openAt}</span>
+          </div>
+          <div className="flex-row">
+            <span className="label">Close At:</span>
+            <span className="content">{garage.closeAt}</span>
+          </div>
+        </div>}
+
         <div className="btn-container">
           <Link to={`/user/${userInfo.username}/edit`}>
             <button className="profile__editbtn">Edit</button>

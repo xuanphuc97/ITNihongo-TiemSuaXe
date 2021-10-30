@@ -90,3 +90,9 @@
 body {
   background-color: var(--color-background);
 }
+.loader {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+}
