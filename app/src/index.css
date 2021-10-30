@@ -372,7 +372,11 @@ h6 {
 .pl-30 {
   padding-left: 30px;
 }
-
+._loading_overlay_content {
+  top: 45%;
+  left: 50%;
+  position: fixed;
+}
 
 @import url("./users/header/header.css");
 @import url("./users/auth/auth.css");

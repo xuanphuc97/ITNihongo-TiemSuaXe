@@ -16,8 +16,7 @@ import ForgotPassword from "./users/auth/ForgotPassword";
 import Profile from "./users/profile/Profile";
 import EditProfile from "./users/profile/EditProfile";
 import GarageProfile from "./users/garage/GarageProfile";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-
+import GarageEditProfile from "./users/garage/GarageEditProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,21 +43,26 @@ function App() {
             <Route path="/" exact>
               <Home />
             </Route>
-            <Route path="/login">{!isLogged ? <Login /> : <Home />}</Route>
-            <Route path="/register">
+            <Route path="/login" exact>
+              {!isLogged ? <Login /> : <Home />}
+            </Route>
+            <Route path="/register" exact>
               {!isLogged ? <Register /> : <Home />}
             </Route>
-            <Route path="/forgot_password">
+            <Route path="/forgot_password" exact>
               {!isLogged ? <ForgotPassword /> : <Home />}
             </Route>
-            <Route path={`/profile/${user.username}`}>
+            <Route path={`/profile/${user.username}`} exact>
               {!isLogged ? <Login /> : <Profile />}
             </Route>
-            <Route path={`/user/${user.username}/edit`}>
+            <Route path={`/profile/${user.username}/edit`} exact>
               {!isLogged ? <Login /> : <EditProfile />}
             </Route>
-            <Route path={`/garages/:id`}>
+            <Route path={`/garages/:id`} exact>
               {!isLogged ? <Login /> : <GarageProfile />}
+            </Route>
+            <Route path={`/garages/:id/edit`} exact>
+              {!isLogged ? <Login /> : <GarageEditProfile />}
             </Route>
           </Switch>
         </Layout>

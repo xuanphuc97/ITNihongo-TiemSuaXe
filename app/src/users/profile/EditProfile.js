@@ -43,13 +43,13 @@ const EditProfile = () => {
       email: userInfor.email,
     });
   }, [userInfor]);
-  useEffect(() => {
-    setNewInfor({
-      ...newInfor,
-      fullName: userInfor.fullName,
-      email: userInfor.email,
-    });
-  }, [userInfor]);
+  // useEffect(() => {
+  //   setNewInfor({
+  //     ...newInfor,
+  //     fullName: userInfor.fullName,
+  //     email: userInfor.email,
+  //   });
+  // }, [userInfor]);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
