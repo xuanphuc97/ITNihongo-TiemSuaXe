@@ -20,6 +20,7 @@ import {
 import profileApis from "../profile/enum/profile-apis";
 import garageApis from "./enum/garage-apis";
 import LoadingOverlay from "react-loading-overlay";
+import Loader from "react-loader-spinner";
 const GarageEditProfile = () => {
   const initialState = {
     garageId: 0,
@@ -63,8 +64,8 @@ const GarageEditProfile = () => {
   }, [id]);
   const [avatar, setAvatar] = useState();
 
-  const handleSubmitGarageInfo = (e) => {};
-  const handleChangeInput = (e) => {};
+  const handleSubmitGarageInfo = (e) => { };
+  const handleChangeInput = (e) => { };
   const handleUploadFile = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
@@ -79,11 +80,14 @@ const GarageEditProfile = () => {
   return (
     <>
       {!loading ? (
-        <LoadingOverlay
-          active={true}
-          spinner={true}
-          text="Loading..."
-        ></LoadingOverlay>
+        <div className="loader">
+          <Loader
+            type="Oval"
+            color="#00BFFF"
+            height={100}
+            width={100}
+          />
+        </div>
       ) : (
         <form onSubmit={handleSubmitGarageInfo}>
           <div className="garage-profile-edit main-flex">

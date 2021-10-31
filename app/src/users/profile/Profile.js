@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "./Profile.scss";
 import profileApis from "../profile/enum/profile-apis";
 import LoadingOverlay from "react-loading-overlay";
+import Loader from "react-loader-spinner";
 
 function Profile() {
   const auth = useSelector((state) => state.auth);
@@ -32,11 +33,14 @@ function Profile() {
   return (
     <div>
       {!loading ? (
-        <LoadingOverlay
-          active={true}
-          spinner={true}
-          text="Loading..."
-        ></LoadingOverlay>
+        <div className="loader">
+          <Loader
+            type="Oval"
+            color="#00BFFF"
+            height={100}
+            width={100}
+          />
+        </div>
       ) : (
         <div className="profile main-flex">
           <div className="profile-user">

@@ -7,6 +7,7 @@ import { ListGroup, Button, Form } from "react-bootstrap";
 import "./GarageProfile.scss";
 import { useSelector, useDispatch } from "react-redux";
 import garageApis from "./enum/garage-apis";
+import Loader from "react-loader-spinner";
 function GarageProfile() {
   const location = useLocation();
   const id = useParams();
@@ -70,11 +71,14 @@ function GarageProfile() {
   return (
     <>
       {!loading ? (
-        <LoadingOverlay
-          active={true}
-          spinner={true}
-          text="Loading..."
-        ></LoadingOverlay>
+        <div className="loader">
+          <Loader
+            type="Oval"
+            color="#00BFFF"
+            height={100}
+            width={100}
+          />
+        </div>
       ) : (
         <div className="garage main-flex">
           <div className="garage-profile ">
