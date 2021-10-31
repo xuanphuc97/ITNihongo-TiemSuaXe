@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.list-comment {
+    width: 96%;
+    margin: auto;
+    margin-top: 120px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--color-white);
+    border-radius: 4px;
+    border-top: 4px solid var(--color-primary);
+    box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+
+    .comment {
+        margin-top: 4px;
+    }
+}

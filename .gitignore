@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#########
+bin/
+**/application.properties
+.jpb/
+
+node_modules
