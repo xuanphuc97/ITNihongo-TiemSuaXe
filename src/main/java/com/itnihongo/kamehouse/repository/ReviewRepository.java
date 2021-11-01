@@ -11,6 +11,7 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
     //    list review theo tên user
     List<Review> findByUser_Username(String username);
+    Review findByUser_Id(int id);
 
     //     list review theo garage
     List<Review> findByGarage_GarageName(String garageName);

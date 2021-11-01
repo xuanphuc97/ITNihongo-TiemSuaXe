@@ -36,6 +36,11 @@ public class ReviewServicelmpl implements ReviewService {
     }
 
     @Override
+    public Review findByUser_Userid(int id) {
+        return repository.findByGarage_Id(id);
+    }
+
+    @Override
     public List<Review> findByUser_Username(String username) {
 
         return repository.findByUser_Username(username);
