@@ -37,7 +37,7 @@ public class ServiceServicelmpl  implements ServiceService {
     }
 
     @Override
-    public List<com.itnihongo.kamehouse.model.Service> findByGarage_GarageId(int id) {
+    public List<com.itnihongo.kamehouse.model.Service> getAllServicesOfGarage(int id) {
         return serviceRepository.findAllByGarage_Id(id);
     }
 }

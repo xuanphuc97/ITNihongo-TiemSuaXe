@@ -29,7 +29,7 @@ public class ServiceController {
 
     @GetMapping("/serviceshopid/{id}")
     public ResponseEntity<Object> getServiceShopId(@PathVariable("id") int userId) {
-        List<Service> services = serviceService.findByGarage_GarageId(userId);
+        List<Service> services = serviceService.getAllServicesOfGarage(userId);
         return new ResponseEntity<>(services, HttpStatus.OK);
     }
 

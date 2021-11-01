@@ -17,6 +17,7 @@ import Profile from "./users/profile/Profile";
 import EditProfile from "./users/profile/EditProfile";
 import GarageProfile from "./users/garage/GarageProfile";
 import GarageEditProfile from "./users/garage/GarageEditProfile";
+import NewGarage from "./users/garage/NewGarage";
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +64,9 @@ function App() {
             </Route>
             <Route path={`/garages/:id/edit`} exact>
               {!isLogged ? <Login /> : <GarageEditProfile />}
+            </Route>
+            <Route path={`/garage/new`} exact>
+              {!isLogged ? <Login /> : <NewGarage />}
             </Route>
           </Switch>
         </Layout>

@@ -13,7 +13,7 @@ function GarageProfile() {
   const id = useParams();
   const history = useHistory();
   const auth = useSelector((state) => state.auth);
-  const [services, setService] = useState([1, 2]);
+  // const [services, setService] = useState([1, 2]);
   const [loading, setLoading] = useState(false);
   const userInfo = auth.user;
   const initialState = {
@@ -25,16 +25,13 @@ function GarageProfile() {
     phoneNumber: "",
     openAt: "",
     closeAt: "",
-    // services: [],
   };
-  // const initialStateServices = {
-  //   servicesName: "",
-  //   price: "",
-
-  //   // services: [],
-  // };
+  const initialStateServices = {
+    servicesName: "",
+    price: "",
+  };
   const [garage, setGarage] = useState(initialState);
-  // const [service, setService] = useState(initialState);
+  const [services, setService] = useState(initialStateServices);
   useEffect(() => {
     const getGarage = async () => {
       try {
@@ -58,26 +55,34 @@ function GarageProfile() {
         }
       }
     };
-    // if (id) {
     getGarage();
-    // }
-
-    // return () => {
-    //   setGarage(initialState);
-    // };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+  useEffect(() => {
+    const getService = async () => {
+      try {
+        const res = await axios.get(garageApis.getService(id.id));
+        console.log(res.data);
+        var resInfo = res.data;
+        setService({
+          ...services,
+          servicesName: resInfo.servicesName,
+          price: resInfo.price,
+        });
+        setLoading(true);
+      } catch (err) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    };
+    getService();
   }, [id]);
 
   return (
     <>
       {!loading ? (
         <div className="loader">
-          <Loader
-            type="Oval"
-            color="#00BFFF"
-            height={100}
-            width={100}
-          />
+          <Loader type="Oval" color="#00BFFF" height={100} width={100} />
         </div>
       ) : (
         <div className="garage main-flex">
@@ -130,13 +135,13 @@ function GarageProfile() {
           <div className="garage-service">
             <h3 className="title">Services</h3>
             <div className="service-list">
-              {services.map((garage, idx) => {
+              {services.map((service, idx) => {
                 return (
                   <div className="flex-row">
                     <span className="label service-name">
-                      {idx + 1}. {"Service Name"}
+                      {idx + 1}. {service.servicesName}
                     </span>
-                    <p className="cost">{"70.000"}</p>
+                    <p className="cost">{service.price}</p>
                   </div>
                 );
               })}

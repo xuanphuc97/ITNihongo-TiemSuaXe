@@ -8,6 +8,10 @@ export default {
   getGarageInfo(id) {
     return `${baseUrl}/garage/${id}`;
   },
+  getService(id) {
+    return `${baseUrl}/services/${id}`;
+  },
+  createGarage: `${baseUrl}/user/garages`,
   //     getDraftsOfUser: `${baseUrl}/user/drafts`,
   //     deleteDraft(postId){
   //         return  `${baseUrl}/post/${postId}`

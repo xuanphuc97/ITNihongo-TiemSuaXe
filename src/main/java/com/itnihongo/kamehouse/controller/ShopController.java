@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -53,16 +54,15 @@ public class ShopController {
         return ResponseEntity.ok(garages);
     }
 
-    @PostMapping("/user/{user_id}/garages")
+    @PostMapping("/user/garages")
     @ResponseStatus(HttpStatus.OK)
     public Object createGarageOfShop(
-            @PathVariable("user_id") int userId,
             @Valid GarageRequestDTO garageRequestDTO
     ) {
-        UserDTO owner = userService.getDetailInfo(userId);
-        String ownerUsername = owner.getUsername();
-
-        GarageDTO garageDTO = garageService.addNewGarage(garageRequestDTO, ownerUsername);
+        UserDTO owner = userService.getDetailInfo(17);
+        String username = owner.getUsername();
+//        String username = authentication.getName();
+        GarageDTO garageDTO = garageService.addNewGarage(garageRequestDTO, username);
         return ResponseEntity.ok(garageDTO);
     }
 

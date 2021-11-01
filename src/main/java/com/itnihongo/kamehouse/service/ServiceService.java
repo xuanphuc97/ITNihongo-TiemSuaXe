@@ -18,7 +18,7 @@ public interface ServiceService {
 
     List<Service> findByGarage_GarageName(String garageName);
 
-    List<Service> findByGarage_GarageId(int id);
+    List<Service> getAllServicesOfGarage(int garageId);
 
 
 }

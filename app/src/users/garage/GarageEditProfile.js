@@ -36,6 +36,7 @@ const GarageEditProfile = () => {
   const [newInforGarage, setNewInforGarage] = useState(initialState);
   //   const [garage, setGarage] = useState(initialState);
   const id = useParams();
+  console.log(id);
   const [loading, setLoading] = useState(false);
   // const [service, setService] = useState(initialState);
   useEffect(() => {
@@ -64,8 +65,8 @@ const GarageEditProfile = () => {
   }, [id]);
   const [avatar, setAvatar] = useState();
 
-  const handleSubmitGarageInfo = (e) => { };
-  const handleChangeInput = (e) => { };
+  const handleSubmitGarageInfo = (e) => {};
+  const handleChangeInput = (e) => {};
   const handleUploadFile = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
@@ -81,12 +82,7 @@ const GarageEditProfile = () => {
     <>
       {!loading ? (
         <div className="loader">
-          <Loader
-            type="Oval"
-            color="#00BFFF"
-            height={100}
-            width={100}
-          />
+          <Loader type="Oval" color="#00BFFF" height={100} width={100} />
         </div>
       ) : (
         <form onSubmit={handleSubmitGarageInfo}>
@@ -167,7 +163,7 @@ const GarageEditProfile = () => {
               <div className="edit-field flex-row">
                 <span className="label">Open at: </span>
                 <input
-                  type="text"
+                  type="time"
                   name="openAt"
                   value={newInforGarage.openAt}
                   onChange={handleChangeInput}
@@ -176,7 +172,7 @@ const GarageEditProfile = () => {
               <div className="edit-field flex-row">
                 <span className="label">Close at: </span>
                 <input
-                  type="text"
+                  type="time"
                   name="closeAt"
                   value={newInforGarage.closeAt}
                   onChange={handleChangeInput}
