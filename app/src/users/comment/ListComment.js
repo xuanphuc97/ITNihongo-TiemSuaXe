@@ -34,7 +34,7 @@ function ListComment(props) {
             {!isLoading ?  // Load duoc du lieu thi bo dau !
                 <div className="loader">
                     <Loader
-                        type="Puff"
+                        type="Oval"
                         color="#00BFFF"
                         height={100}
                         width={100}
