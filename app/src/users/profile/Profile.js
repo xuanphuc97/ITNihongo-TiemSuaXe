@@ -68,18 +68,20 @@ function Profile() {
 
           <div className="profile-garage">
             <h4 className="title">Your garage</h4>
-            {garages.map((garage, idx) => {
-              return (
-                <div key={idx + 1} className="garage-list flex-row">
-                  <span style={{ paddingRight: "20px" }}>
-                    Garage {idx + 1}:
-                  </span>
-                  <Link to={`/garages/${garage.garageId}`}>
-                    <span>{garage.garageName}</span>
-                  </Link>
-                </div>
-              );
-            })}
+            <div className="scrollable">
+              {garages.map((garage, idx) => {
+                return (
+                  <div key={idx + 1} className="garage-list flex-row">
+                    <span style={{ paddingRight: "20px" }}>
+                      Garage {idx + 1}:
+                    </span>
+                    <Link to={`/garages/${garage.garageId}`}>
+                      <span>{garage.garageName}</span>
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
             <br />
 
             <Link to={`/garage/new`}>+ Add new</Link>
