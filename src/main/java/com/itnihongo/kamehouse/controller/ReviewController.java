@@ -20,7 +20,6 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-
     @GetMapping("/reviewshop")
     public ResponseEntity<Object> getAllReviewShop(@RequestBody(required = false) Garage garage) {
         List<Review> reviews = reviewService.findByGarage_GarageName(garage.getGarageName());
@@ -28,7 +27,7 @@ public class ReviewController {
     }
 
     @GetMapping("/reviewshopid/{id}")
-    public ResponseEntity<Object> getAllReviewShopId(@PathVariable ("id") int id) {
+    public ResponseEntity<Object> getAllReviewShopId(@PathVariable("id") int id) {
         Review reviews = reviewService.findByGarage_GarageId(id);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
@@ -37,6 +36,12 @@ public class ReviewController {
     @GetMapping("/reviewuser")
     public ResponseEntity<Object> getAllReviewuser(@RequestBody(required = false) User user) {
         List<Review> reviews = reviewService.findByUser_Username(user.getUsername());
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    @GetMapping("/reviewuserid/{id}")
+    public ResponseEntity<Object> getAllReviewuserID(@PathVariable("id") int id){
+        Review reviews = reviewService.findByUser_Userid(id);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 

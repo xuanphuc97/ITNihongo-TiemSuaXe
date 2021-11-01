@@ -11,8 +11,8 @@ import java.util.List;
 public interface ServiceRepository extends JpaRepository<Service, Integer> {
 
     //    list Service theo tên garage
-    List<Service> findByGarage_GarageName(String garageName);
+    List<Service> findAllByGarage_GarageName(String garageName);
 
-    List<Service> findByGarage_Id (int id);
+    List<Service> findAllByGarage_Id (int id);
 
 }

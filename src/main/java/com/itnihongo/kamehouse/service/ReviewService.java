@@ -12,6 +12,8 @@ public interface ReviewService {
     Review findById(int id);
     void delete(int id);
     void create(Review review);
+   Review findByUser_Userid(int id);
+
     List<Review> findByUser_Username(String username);
     List<Review> findByGarage_GarageName(String garageName);
     Review findByGarage_GarageId(int id);
