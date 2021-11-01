@@ -1,5 +1,6 @@
 package com.itnihongo.kamehouse.controller;
 
+import com.itnihongo.kamehouse.dto.GarageDTO;
 import com.itnihongo.kamehouse.model.Garage;
 
 import com.itnihongo.kamehouse.model.Service;
@@ -27,12 +28,10 @@ public class ServiceController {
     }
 
     @GetMapping("/serviceshopid")
-    public ResponseEntity<Object> getAllServiceShopId(@RequestBody(required = false) Garage garage) {
-        List<Service> services = serviceService.findByGarage_GarageId(garage.getId());
+    public ResponseEntity<Object> getAllServiceShopId(@PathVariable("id") int userId) {
+        List<Service> services = serviceService.findByGarage_GarageId(userId);
         return new ResponseEntity<>(services, HttpStatus.OK);
     }
-
-
 
     @GetMapping("/serviceall")
     public ResponseEntity<Object> getAllServiceAll() {
