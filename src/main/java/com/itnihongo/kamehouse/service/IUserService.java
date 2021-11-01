@@ -7,5 +7,6 @@ public interface IUserService {
 
     UserDTO getDetailInfo(String username);
 
-    void updateProfile(String username, String password, String email, String fullname);
+    void updateProfile(String username, String email, String fullname);
+
 }

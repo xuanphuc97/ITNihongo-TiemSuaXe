@@ -1,0 +1,69 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.profile-edit {
+  .label {
+    width: 240px;
+  }
+
+  margin: auto;
+  margin-top: 120px;
+  // width: 1020px;
+  .profile-changeinfo {
+    //
+    width: 600px;
+    border-radius: 8px;
+    border-top: 10px solid var(--color-primary);
+    box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+    padding: 20px;
+    background-color: var(--color-white);
+  }
+  .profile-changepwd {
+    border-radius: 8px;
+    border-top: 10px solid var(--color-primary);
+    box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+    width: 600px;
+    padding: 20px;
+    background-color: var(--color-white);
+  }
+
+  form input {
+    height: 40px;
+    width: 300px;
+    font-size: 18px;
+    padding-left: 18px;
+    border-radius: 15px;
+    outline: none;
+    border: 1px solid rgb(225, 225, 225);
+  }
+}
+.cancelbtn-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  .cancel-col {
+    width: 600px;
+  }
+  .profile__cancelbtn {
+    font-size: 24px;
+    float: right;
+    margin-right: 10px;
+    padding: 4px;
+
+    width: 100px;
+    border-radius: 30px;
+    border: 1px solid var(--color-muted);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+  .profile__cancelbtn:hover {
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
+  }
+}

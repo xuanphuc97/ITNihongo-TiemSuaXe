@@ -36,7 +36,6 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
-    // console.log("Call submit function");
     e.preventDefault();
     if (isEmpty(username) || isEmpty(password)) {
       return setUser({
@@ -54,17 +53,19 @@ function Login() {
       });
     }
 
-    var json = {
-      username: username,
-      password: password,
-    };
+    // var json = {
+    //   username: username,
+    //   password: password,
+    // };
+    var loginForm = new FormData();
+    loginForm.append("username", username);
+    loginForm.append("password", password);
 
     try {
-      const res = await axios.post(authApis.login, json);
+      const res = await axios.post(authApis.login, loginForm);
       if (res) {
         setUser({ ...user, err: "", success: res.data.msg });
         dispatch(dispatchLogin());
-        console.log(res);
         cookiesService.setToken(res.data.token);
         if (redirectTo) {
           history.push(redirectTo);

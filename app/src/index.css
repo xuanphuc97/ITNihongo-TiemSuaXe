@@ -119,7 +119,8 @@ code {
 }
 
 :root {
-  --color-background: #fafafa;
+  background-color: var(--color-background);
+  --color-background: rgb(240, 240, 240);
   --color-white: #fff;
   --color-primary: rgb(100, 149, 237);
   --color-muted: #687385;
@@ -370,6 +371,11 @@ h6 {
 
 .pl-30 {
   padding-left: 30px;
+}
+._loading_overlay_content {
+  top: 45%;
+  left: 50%;
+  position: fixed;
 }
 
 @import url("./users/header/header.css");

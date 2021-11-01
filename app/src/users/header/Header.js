@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { dispatchLogout } from "../../redux/actions/authAction";
 import CookiesService from "../../services/CookiesService";
+import logo from "./logo.png";
 
 function Header() {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ function Header() {
   const cookiesService = CookiesService.getService();
   const userInfo = auth.user;
   // if (typeof userInfo !== "undefined") {
-  //   console.log(userInfo.username);
+  //   console.log(userInfo);
   // }
 
   // console.log(userInfo.username);
@@ -37,17 +38,19 @@ function Header() {
       <header>
         <div className="menu container">
           <div className="menu__left">
-            <Link to="/">
-              <div>Home</div>
+            <Link className="logo-container" to="/">
+              <img className="logo" src={logo} alt="logo" />
+              <span>Home</span>
             </Link>
+            {auth.isLogged ? (
+              <Link to={`/profile/${userInfo.username}`}>
+                <div className="header-profile">Profile</div>
+              </Link>
+            ) : (
+              ""
+            )}
           </div>
-          {auth.isLogged ? (
-            <Link to="/profile">
-              <div>Profile</div>
-            </Link>
-          ) : (
-            ""
-          )}
+
           {auth.isLogged ? (
             <div className="menu__right--dropdown" id="dropDown">
               {isAdmin ? (

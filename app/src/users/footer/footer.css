@@ -1,7 +1,18 @@
-footer {
+/* footer {
   background-color: var(--color-primary);
   box-shadow: 0 2px 3px -2px gray;
   height: 50px;
+  
+} */
+footer {
+  clear: both;
+  position: fixed;
+  height: 50px;
+  bottom: 0;
+  margin-top: -200px;
+  background-color: var(--color-primary);
+  box-shadow: 0 2px 3px -2px gray;
+  width: 100%;
 }
 
 .footer h5 {

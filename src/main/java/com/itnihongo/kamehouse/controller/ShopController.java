@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
+@CrossOrigin(maxAge = 3600) // https://spring.io/guides/gs/rest-service-cors/
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @RequestMapping("/api")

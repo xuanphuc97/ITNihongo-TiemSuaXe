@@ -45,26 +45,25 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void updateProfile(String username, String password, String email, String fullname) {
+    public void updateProfile(String username, String email, String fullname) {
         User user = userRepository.findByUsername(username);
-        String encodedPass = passwordEncoder.encode(password);
 
         if (user == null) {
             throw new ResourceNotFoundException("Account with username: '" + username + "' not found");
         }
-        if (!user.getUsername().equals(username)) {
-            user.setUsername(username);
-        }
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            user.setPassword(encodedPass);
-        }
+//        if (!user.getUsername().equals(username)) {
+//            user.setUsername(username);
+//        }
+//        if (!passwordEncoder.matches(password, user.getPassword())) {
+//            user.setPassword(encodedPass);
+//        }
         if (!user.getFullName().equals(fullname)) {
             user.setFullName(fullname);
         }
         if (!user.getEmail().equals(email)) {
             User emailExists = userRepository.findByEmail(email);
             if (emailExists != null) {
-                throw new BadRequestException("Email "+ user.getEmail() + " was registered ");
+                throw new BadRequestException("Email "+ email + " was registered ");
             }
             user.setEmail(email);
             user.setConfirmationToken(UUID.randomUUID().toString());

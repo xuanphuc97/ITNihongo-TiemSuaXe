@@ -120,23 +120,22 @@ public class UserService {
 		return emailExists;
 	}
 
-	public User changeUserPassword(User user) {
-		User userExists = userRepository.findByUsername(user.getUsername());
+	public User changeUserPassword(String username, String oldPassword, String password) {
+		User userExists = userRepository.findByUsername(username);
 
 		if (userExists == null) {
-			throw new BadRequestException(user.getUsername() + " is not registered. 401");
+			throw new BadRequestException(username + " is not registered");
 		}
 
-		String oldPassword = user.getPassword();
 		if (!encoder.matches(oldPassword, userExists.getPassword())) {
-			throw new BadRequestException("Invalid current password. 401");
+			throw new BadRequestException("Invalid old password");
 		}
 
 		if (!userExists.getActive()) {
-			throw new BadRequestException("The user is not enabled. 401");
+			throw new BadRequestException("The user is not enabled");
 		}
 
-		String newPassword = user.getConfirmationToken();
+		String newPassword = password;
 		String encodedPassword = encoder.encode(newPassword);
 		userExists.setPassword(encodedPassword);
 		userExists.setIsTempPassword(false);
