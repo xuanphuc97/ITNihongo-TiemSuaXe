@@ -1,0 +1,62 @@
+package com.itnihongo.kamehouse.controller;
+
+
+import com.itnihongo.kamehouse.model.Garage;
+import com.itnihongo.kamehouse.model.Review;
+import com.itnihongo.kamehouse.model.User;
+
+import com.itnihongo.kamehouse.service.ReviewService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+@RestController
+@RequestMapping("/api")
+public class ReviewController {
+    @Autowired
+    private ReviewService reviewService;
+
+
+    @GetMapping("/reviewshop")
+    public ResponseEntity<Object> getAllReviewShop(@RequestBody Garage garage) {
+        List<Review> reviews = reviewService.findByGarage_GarageName(garage.getGarageName());
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/reviewuser")
+    public ResponseEntity<Object> getAllReviewuser(@RequestBody User user) {
+        List<Review> reviews = reviewService.findByUser_Username(user.getUsername());
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    @PostMapping("/createReview")
+    private ResponseEntity<Void> createRest(@RequestBody Review review) {
+        this.reviewService.create(review);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/editReview", method = RequestMethod.PUT)
+    private ResponseEntity<?> edit(@PathVariable("id") int id, @RequestBody Review review) {
+        Review reviewedit = this.reviewService.findById(id);
+        if (reviewedit == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        reviewedit = review;
+        this.reviewService.create(reviewedit);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/deleteRevice", method = RequestMethod.PUT)
+    private ResponseEntity<?> delete(@PathVariable("id") int id) {
+        this.reviewService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+}

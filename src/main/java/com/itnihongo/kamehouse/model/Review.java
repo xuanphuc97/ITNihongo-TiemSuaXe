@@ -32,4 +32,5 @@ public class Review {
     @Column(name = "rating", nullable = false)
     private Integer rating;
 
+
 }
