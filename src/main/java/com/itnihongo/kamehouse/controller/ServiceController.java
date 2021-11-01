@@ -13,16 +13,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+
 @RestController
-@RequestMapping("/api")
 public class ServiceController {
     @Autowired
     private ServiceService serviceService;
 
 
     @GetMapping("/serviceshop")
-    public ResponseEntity<Object> getAllServiceShop(@RequestBody Garage garage) {
+    public ResponseEntity<Object> getAllServiceShop(@RequestBody(required = false) Garage garage) {
         List<Service> services = serviceService.findByGarage_GarageName(garage.getGarageName());
         return new ResponseEntity<>(services, HttpStatus.OK);
     }
@@ -35,13 +34,13 @@ public class ServiceController {
     }
 
     @PostMapping("/createService")
-    private ResponseEntity<Void> createRest(@RequestBody Service service) {
+    private ResponseEntity<Void> createRest(@RequestBody(required = false) Service service) {
         this.serviceService.create(service);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/editService", method = RequestMethod.PUT)
-    private ResponseEntity<?> edit(@PathVariable("id") int id, @RequestBody Service service) {
+    private ResponseEntity<?> edit(@PathVariable("id") int id, @RequestBody(required = false) Service service) {
         Service serviceEdit = this.serviceService.findById(id);
         if (serviceEdit == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -15,35 +15,33 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
 @RestController
-@RequestMapping("/api")
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
 
     @GetMapping("/reviewshop")
-    public ResponseEntity<Object> getAllReviewShop(@RequestBody Garage garage) {
+    public ResponseEntity<Object> getAllReviewShop(@RequestBody(required = false) Garage garage) {
         List<Review> reviews = reviewService.findByGarage_GarageName(garage.getGarageName());
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
 
     @GetMapping("/reviewuser")
-    public ResponseEntity<Object> getAllReviewuser(@RequestBody User user) {
+    public ResponseEntity<Object> getAllReviewuser(@RequestBody(required = false) User user) {
         List<Review> reviews = reviewService.findByUser_Username(user.getUsername());
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @PostMapping("/createReview")
-    private ResponseEntity<Void> createRest(@RequestBody Review review) {
+    private ResponseEntity<Void> createRest(@RequestBody(required = false) Review review) {
         this.reviewService.create(review);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/editReview", method = RequestMethod.PUT)
-    private ResponseEntity<?> edit(@PathVariable("id") int id, @RequestBody Review review) {
+    private ResponseEntity<?> edit(@PathVariable("id") int id, @RequestBody(required = false) Review review) {
         Review reviewedit = this.reviewService.findById(id);
         if (reviewedit == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
