@@ -43,7 +43,7 @@
     border-radius: 8px;
     border-top: 10px solid var(--color-primary);
     box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
-    padding: 40px;
+    padding: 30px;
     background-color: var(--color-white);
   }
   .garage-service {
@@ -64,10 +64,12 @@
     box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
 
     width: 600px;
-    padding: 40px;
+    padding: 30px;
     background-color: var(--color-white);
 
     .service-list {
+      overflow: scroll;
+      height: 310px;
       margin-top: 60px;
       .service-name {
         width: 260px;
