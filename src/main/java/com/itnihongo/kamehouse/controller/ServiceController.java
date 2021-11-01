@@ -1,5 +1,6 @@
 package com.itnihongo.kamehouse.controller;
 
+import com.itnihongo.kamehouse.dto.GarageDTO;
 import com.itnihongo.kamehouse.model.Garage;
 
 import com.itnihongo.kamehouse.model.Service;
@@ -26,6 +27,11 @@ public class ServiceController {
         return new ResponseEntity<>(services, HttpStatus.OK);
     }
 
+    @GetMapping("/serviceshopid/{id}")
+    public ResponseEntity<Object> getServiceShopId(@PathVariable("id") int userId) {
+        List<Service> services = serviceService.findByGarage_GarageId(userId);
+        return new ResponseEntity<>(services, HttpStatus.OK);
+    }
 
     @GetMapping("/serviceall")
     public ResponseEntity<Object> getAllServiceAll() {
@@ -39,7 +45,7 @@ public class ServiceController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/editService", method = RequestMethod.PUT)
+    @RequestMapping(value = "/editService/{id}", method = RequestMethod.PUT)
     private ResponseEntity<?> edit(@PathVariable("id") int id, @RequestBody(required = false) Service service) {
         Service serviceEdit = this.serviceService.findById(id);
         if (serviceEdit == null) {
@@ -50,7 +56,7 @@ public class ServiceController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/deleteService", method = RequestMethod.PUT)
+    @RequestMapping(value = "/deleteService/{id}", method = RequestMethod.PUT)
     private ResponseEntity<?> delete(@PathVariable("id") int id) {
         this.serviceService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);

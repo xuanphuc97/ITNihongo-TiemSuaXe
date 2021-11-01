@@ -13,4 +13,6 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
     //    list Service theo tên garage
     List<Service> findByGarage_GarageName(String garageName);
 
+    List<Service> findByGarage_Id (int id);
+
 }

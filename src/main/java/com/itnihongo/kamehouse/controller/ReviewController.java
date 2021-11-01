@@ -27,6 +27,12 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
+    @GetMapping("/reviewshopid/{id}")
+    public ResponseEntity<Object> getAllReviewShopId(@PathVariable ("id") int id) {
+        Review reviews = reviewService.findByGarage_GarageId(id);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
 
     @GetMapping("/reviewuser")
     public ResponseEntity<Object> getAllReviewuser(@RequestBody(required = false) User user) {
@@ -40,7 +46,7 @@ public class ReviewController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/editReview", method = RequestMethod.PUT)
+    @RequestMapping(value = "/editReview/{id}", method = RequestMethod.PUT)
     private ResponseEntity<?> edit(@PathVariable("id") int id, @RequestBody(required = false) Review review) {
         Review reviewedit = this.reviewService.findById(id);
         if (reviewedit == null) {
@@ -51,7 +57,7 @@ public class ReviewController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/deleteRevice", method = RequestMethod.PUT)
+    @RequestMapping(value = "/deleteRevice/{id}", method = RequestMethod.PUT)
     private ResponseEntity<?> delete(@PathVariable("id") int id) {
         this.reviewService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
