@@ -14,4 +14,5 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     //     list review theo garage
     List<Review> findByGarage_GarageName(String garageName);
+    Review findByGarage_Id(int id);
 }

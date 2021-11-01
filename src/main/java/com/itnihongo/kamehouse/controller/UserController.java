@@ -43,7 +43,7 @@ public class UserController {
 											 @RequestParam("email") String email,
 											 @RequestParam("fullname") String fullname
 	) {
-		userService.updateProfile(username, password, email, fullname);
+	userService.updateProfile(username, password, email, fullname);
 		return ResponseEntity.accepted().build();
 	}
 
