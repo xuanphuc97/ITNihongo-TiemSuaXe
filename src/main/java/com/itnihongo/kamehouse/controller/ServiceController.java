@@ -26,6 +26,13 @@ public class ServiceController {
         return new ResponseEntity<>(services, HttpStatus.OK);
     }
 
+    @GetMapping("/serviceshopid")
+    public ResponseEntity<Object> getAllServiceShopId(@RequestBody(required = false) Garage garage) {
+        List<Service> services = serviceService.findByGarage_GarageId(garage.getId());
+        return new ResponseEntity<>(services, HttpStatus.OK);
+    }
+
+
 
     @GetMapping("/serviceall")
     public ResponseEntity<Object> getAllServiceAll() {
