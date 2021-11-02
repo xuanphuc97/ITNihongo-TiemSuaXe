@@ -7,6 +7,7 @@ export default {
   getGaragesOfUser(accountId) {
     return `${baseUrl}/api/user/${accountId}/garages`;
   },
+ 
   //     getDraftsOfUser: `${baseUrl}/user/drafts`,
   //     deleteDraft(postId){
   //         return  `${baseUrl}/post/${postId}`

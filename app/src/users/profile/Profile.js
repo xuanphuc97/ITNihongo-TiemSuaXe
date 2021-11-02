@@ -34,12 +34,7 @@ function Profile() {
     <div>
       {!loading ? (
         <div className="loader">
-          <Loader
-            type="Oval"
-            color="#00BFFF"
-            height={100}
-            width={100}
-          />
+          <Loader type="Oval" color="#00BFFF" height={100} width={100} />
         </div>
       ) : (
         <div className="profile main-flex">
@@ -83,12 +78,11 @@ function Profile() {
               })}
             </div>
             <br />
-
             <Link to={`/garage/new`}>+ Add new</Link>
           </div>
         </div>
-      )}
-``    </div>
+      )}{" "}
+    </div>
   );
 }
 

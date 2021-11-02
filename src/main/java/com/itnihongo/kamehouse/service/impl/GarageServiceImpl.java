@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,7 @@ public class GarageServiceImpl implements IGarageService {
 
     @Override
     public List<GarageDTO> getAllGaragesOfUser(int userId) {
-        List<Garage> garages = garageRepository.findAllByUser_Id(userId);
+        List<Garage> garages = garageRepository.findAllByUser_IdAndDelFlagIsFalse(userId);
 
         if (garages.isEmpty()) {
             throw new ResourceNotFoundException("User is not having any garages");
@@ -75,6 +76,36 @@ public class GarageServiceImpl implements IGarageService {
         }
 
         return new GarageDTO(savedGarage.getId(), savedGarage.getActive());
+    }
+
+    @Override
+    public GarageDTO updateGarage(GarageRequestDTO garageRequestDTO, int id) {
+
+        Garage garage = garageRepository.findById(id);
+        if (garage == null) {
+            throw new ResourceNotFoundException("Garage with id: '" + id + "' not found");
+        }
+        else {
+            garage.setGarageName(garageRequestDTO.getGarageName());
+            garage.setPhoneNumber(garageRequestDTO.getPhoneNumber());
+            garage.setAddress(garageRequestDTO.getAddress());
+            garage.setLocation(garageRequestDTO.getLocation());
+            garage.setImage(garageRequestDTO.getImage());
+            garage.setStartAt(LocalTime.parse(garageRequestDTO.getStartAt()));
+            garage.setEndAt(LocalTime.parse(garageRequestDTO.getEndAt()));
+        }
+
+        Garage savedGarage = garageRepository.save(garage);
+
+        return new GarageDTO(savedGarage.getId(), savedGarage.getActive());
+    }
+
+    @Override
+    public Garage deleteGarage(int garageId) {
+        Garage garage = garageRepository.findById(garageId);
+        garage.setDelFlag(true);
+        Garage savedGarage = garageRepository.save(garage);
+        return savedGarage;
     }
 
     private GarageDTO entityToDTO(Garage garage) {

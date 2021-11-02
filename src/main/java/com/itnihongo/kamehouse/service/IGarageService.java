@@ -15,4 +15,7 @@ public interface IGarageService {
 
     GarageDTO addNewGarage(GarageRequestDTO garageRequestDTO, String username);
 
+    GarageDTO updateGarage(GarageRequestDTO garageRequestDTO, int id);
+
+    Garage deleteGarage(int garageId);
 }

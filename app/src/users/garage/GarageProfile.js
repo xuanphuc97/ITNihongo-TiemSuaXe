@@ -31,7 +31,8 @@ function GarageProfile() {
     price: "",
   };
   const [garage, setGarage] = useState(initialState);
-  const [services, setService] = useState(initialStateServices);
+  const [services, setService] = useState([]);
+
   useEffect(() => {
     const getGarage = async () => {
       try {
@@ -48,6 +49,19 @@ function GarageProfile() {
           openAt: resInfo.startAt,
           closeAt: resInfo.endAt,
         });
+        // setLoading(true);
+      } catch (err) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    };
+    const getService = async () => {
+      try {
+        const res = await axios.get(garageApis.getService(id.id));
+        console.log(res.data);
+        var resInfo = res.data;
+        setService([...services, ...res.data]);
         setLoading(true);
       } catch (err) {
         if (err) {
@@ -56,27 +70,8 @@ function GarageProfile() {
       }
     };
     getGarage();
-  }, [id]);
-  useEffect(() => {
-    const getService = async () => {
-      try {
-        const res = await axios.get(garageApis.getService(id.id));
-        console.log(res.data);
-        var resInfo = res.data;
-        setService({
-          ...services,
-          servicesName: resInfo.servicesName,
-          price: resInfo.price,
-        });
-        setLoading(true);
-      } catch (err) {
-        if (err) {
-          console.log(err);
-        }
-      }
-    };
     getService();
-  }, [id]);
+  }, []);
 
   return (
     <>
@@ -139,16 +134,16 @@ function GarageProfile() {
                 return (
                   <div className="flex-row">
                     <span className="label service-name">
-                      {idx + 1}. {service.servicesName}
+                      {idx + 1}. {service.serviceName}
                     </span>
-                    <p className="cost">{service.price}</p>
+                    <p className="cost">{service.servicePrice}</p>
                   </div>
                 );
               })}
             </div>
-            <br />
-
-            <Link to={`/user/garage/service/`}>+ Add new</Link>
+            <Link to={`/garages/${garage.garageId}/service/new`}>
+              + Add new
+            </Link>
           </div>
         </div>
       )}

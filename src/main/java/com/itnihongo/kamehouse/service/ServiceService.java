@@ -1,7 +1,5 @@
 package com.itnihongo.kamehouse.service;
 
-import com.itnihongo.kamehouse.model.Garage;
-import com.itnihongo.kamehouse.model.Review;
 import com.itnihongo.kamehouse.model.Service;
 
 import java.util.List;
@@ -14,7 +12,7 @@ public interface ServiceService {
 
     void delete(int id);
 
-    void create(Service service);
+    Service create(String serviceName, String price, int garageId);
 
     List<Service> findByGarage_GarageName(String garageName);
 

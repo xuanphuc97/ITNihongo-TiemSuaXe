@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface GarageRepository extends JpaRepository<Garage, Integer> {
     Garage findById(int garageId);
-    List<Garage> findAllByUser_Id(int userId);
+    List<Garage> findAllByUser_IdAndDelFlagIsFalse(int userId);
 }

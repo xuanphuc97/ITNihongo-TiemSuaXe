@@ -3,6 +3,7 @@ package com.itnihongo.kamehouse.controller;
 import com.itnihongo.kamehouse.dto.GarageDTO;
 import com.itnihongo.kamehouse.dto.GarageRequestDTO;
 import com.itnihongo.kamehouse.dto.UserDTO;
+import com.itnihongo.kamehouse.model.Garage;
 import com.itnihongo.kamehouse.service.IGarageService;
 import com.itnihongo.kamehouse.service.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -57,13 +58,42 @@ public class ShopController {
     @PostMapping("/user/garages")
     @ResponseStatus(HttpStatus.OK)
     public Object createGarageOfShop(
-            @Valid GarageRequestDTO garageRequestDTO
+            @Valid GarageRequestDTO garageRequestDTO,
+            Authentication authentication
     ) {
-        UserDTO owner = userService.getDetailInfo(17);
-        String username = owner.getUsername();
-//        String username = authentication.getName();
+//        UserDTO owner = userService.getDetailInfo(17);
+//        String username = owner.getUsername();
+        String username = authentication.getName();
         GarageDTO garageDTO = garageService.addNewGarage(garageRequestDTO, username);
         return ResponseEntity.ok(garageDTO);
     }
+
+    @PutMapping("/garages/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Object> deleteGarage(
+            @PathVariable("id") int garageId
+    ) {
+
+        Garage garageDTO = garageService.deleteGarage(garageId);
+        return ResponseEntity.ok(garageDTO);
+    }
+
+
+    @PutMapping("/garages/{id}/update")
+    @ResponseStatus(HttpStatus.OK)
+    public Object update(
+            @PathVariable("id") int garageId,
+            @Valid GarageRequestDTO garageRequestDTO
+    ) {
+
+        GarageDTO garageDTO = garageService.updateGarage(garageRequestDTO, garageId);
+        return ResponseEntity.ok(garageDTO);
+    }
+//
+//    @DeleteMapping("/garages/{id}")
+//    public ResponseEntity<Object> deleteUser(@PathVariable("id") String garageId) {
+////        garageService.deleteGarage(garageId);
+////        return ResponseEntity.accepted().build();
+//    }
 
 }
