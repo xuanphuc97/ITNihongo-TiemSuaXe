@@ -78,7 +78,7 @@ function GarageProfile() {
 
   return (
     <>
-      <Tabs defaultActiveKey="profile" id="" className="nav">
+      <Tabs defaultActiveKey="profile" id="" className="nav" variant="pills">
 
         <Tab eventKey="profile" title="Profile">
           {/* <Nav.Item className="nav">
