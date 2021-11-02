@@ -91,7 +91,7 @@ const NewService = () => {
                   onChange={handleChangeInput}
                 />
               </div>
-              <div className="edit-field flex-row">
+              <div className="edit-field flex-row ">
                 <span className="label">Price: </span>
                 <input
                   type="number"
@@ -101,7 +101,11 @@ const NewService = () => {
                 />
               </div>
 
-              <div className="allbtn-container">
+              <div className="allbtn-container" style={{
+                backgroundColor: "var(--color-backgrounds)",
+                paddingTop: "10px",
+                marginBottom: "0"
+              }}>
                 <div className="cancel-col"></div>
                 <div className="cancel-col">
                   <button className="profile__savebtn" type="submit">

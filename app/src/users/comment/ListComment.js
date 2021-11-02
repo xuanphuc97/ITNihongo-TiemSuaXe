@@ -7,7 +7,7 @@ import Loader from "react-loader-spinner"
 import './ListComment.scss'
 
 function ListComment(props) {
-    const [listComment, setListComment] = useState([1, 2, 3])
+    const [listComment, setListComment] = useState([1, 2, 3, 4, 5])
     const [isLoading, setIsLoading] = useState(true)
 
     const auth = useSelector((state) => state.auth)
@@ -47,7 +47,8 @@ function ListComment(props) {
                             key={comment.id}
                             isForComment={false}
                             initRating={comment.rating}
-                            initUsername={userInfor.username}
+                            initUsername={"xuanphuc191"}
+                            initComment="Test Coment -- Best Service 5 starts. "
                         ></Comment>
                     )
                 })

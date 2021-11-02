@@ -6,8 +6,9 @@ import './Comment.scss'
 function Comment(props) {
   const {
     isForComment = true,
-    initRating = 5, initComment = '',
-    initUsername = 'Noname'
+    initRating = 5, 
+    initComment = '',
+    initUsername = 'Noname',
   } = props;
   const [rating, setRating] = useState(initRating);
   const [comment, setComment] = useState(initComment);

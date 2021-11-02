@@ -5,6 +5,7 @@
   //   height: 100%;
 }
 .garage-profile-edit {
+  margin-bottom: 0px !important;
   .title {
     width: 70%;
   }
@@ -93,8 +94,9 @@
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  margin-top: 20px;
+  padding: 20px 0;
   margin-bottom: 50px;
+  background-color: var(--color-background);
 
   .cancel-col {
     width: 600px;
