@@ -48,7 +48,7 @@ function ListComment(props) {
                             isForComment={false}
                             initRating={comment.rating}
                             initUsername={"xuanphuc191"}
-                            initComment="Test Coment -- Best Service 5 starts. "
+                            initComment="Test Comment -- Best Service 5 stars. "
                         ></Comment>
                     )
                 })
