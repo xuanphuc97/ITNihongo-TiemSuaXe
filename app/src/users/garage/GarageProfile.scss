@@ -4,8 +4,10 @@
   box-sizing: border-box;
 }
 .garage {
+  background-color: var(--color-white) !important;
+  margin-top: 10px !important;
   .label {
-    width: 100px;
+    width: 120px;
   }
   .content {
     width: 66%;
@@ -15,7 +17,8 @@
   }
 
   margin: auto;
-  margin-top: 120px;
+  margin-top: 100px;
+  margin-bottom: 50px;
   width: 100%;
   .garage-profile {
     .title::after {
@@ -69,11 +72,17 @@
 
     .service-list {
       overflow: scroll;
-      height: 310px;
+      height: 330px;
       margin-top: 60px;
       .service-name {
         width: 260px;
       }
     }
   }
+}
+.nav {
+  width: 100vw;
+  margin-top: 100px;
+  margin-bottom: 60px;
+  background-color: var(--color-background);
 }
