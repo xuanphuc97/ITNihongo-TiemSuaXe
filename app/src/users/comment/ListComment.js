@@ -40,15 +40,16 @@ function ListComment(props) {
                         width={100}
                     />
                 </div> :
-                listComment.map(comment => {
+                listComment.map((comment, idx) => {
                     return (
                         <Comment
                             className='comment'
-                            key={comment.id}
+                            key={`comment-${idx}`}
                             isForComment={false}
                             initRating={comment.rating}
                             initUsername={"xuanphuc191"}
                             initComment="Test Comment -- Best Service 5 stars. "
+
                         ></Comment>
                     )
                 })
