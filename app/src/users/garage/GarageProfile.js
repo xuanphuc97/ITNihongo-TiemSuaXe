@@ -34,47 +34,46 @@ function GarageProfile() {
     price: "",
   };
   const [garage, setGarage] = useState(initialState);
-  const [services, setService] = useState([]);
+  const [service, setService] = useState([]);
+  const getService = async () => {
+    try {
+      const res = await axios.get(garageApis.getService(id.id));
+      console.log(res.data);
+      setService([...service, ...res.data]);
+      setLoading(true);
+    } catch (err) {
+      if (err) {
+        console.log(err);
+      }
+    }
+  };
+  const getGarage = async () => {
+    try {
+      const res = await axios.get(garageApis.getGarageInfo(id.id));
+      console.log(res.data);
+      var resInfo = res.data;
+      setGarage({
+        ...garage,
+        garageId: resInfo.garageId,
+        name: resInfo.garageName,
+        address: resInfo.address,
+        location: resInfo.location,
+        phoneNumber: resInfo.phoneNumber,
+        openAt: resInfo.startAt,
+        closeAt: resInfo.endAt,
+      });
+    } catch (err) {
+      if (err) {
+        console.log(err);
+      }
+    }
+  };
 
   useEffect(() => {
-    const getGarage = async () => {
-      try {
-        const res = await axios.get(garageApis.getGarageInfo(id.id));
-        console.log(res.data);
-        var resInfo = res.data;
-        setGarage({
-          ...garage,
-          garageId: resInfo.garageId,
-          name: resInfo.garageName,
-          address: resInfo.address,
-          location: resInfo.location,
-          phoneNumber: resInfo.phoneNumber,
-          openAt: resInfo.startAt,
-          closeAt: resInfo.endAt,
-        });
-        // setLoading(true);
-      } catch (err) {
-        if (err) {
-          console.log(err);
-        }
-      }
-    };
-    const getService = async () => {
-      try {
-        const res = await axios.get(garageApis.getService(id.id));
-        console.log(res.data);
-        var resInfo = res.data;
-        setService([...services, ...res.data]);
-        setLoading(true);
-      } catch (err) {
-        if (err) {
-          console.log(err);
-        }
-      }
-    };
     getGarage();
     getService();
-  }, []);
+    setLoading(true);
+  }, [garage, service]);
 
   return (
     <>
@@ -138,7 +137,7 @@ function GarageProfile() {
               <div className="garage-service">
                 <h3 className="title">Services</h3>
                 <div className="service-list">
-                  {services.map((service, idx) => {
+                  {service.map((service, idx) => {
                     return (
                       <div className="flex-row">
                         <span className="label service-name">
