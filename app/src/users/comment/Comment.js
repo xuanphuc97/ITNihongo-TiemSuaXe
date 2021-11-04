@@ -6,8 +6,14 @@ import './Comment.scss'
 function Comment(props) {
   const {
     isForComment = true,
+<<<<<<< Updated upstream
     initRating = 5, initComment = '',
     initUsername = 'Noname'
+=======
+    initRating = 5,
+    initComment = '',
+    initUsername = 'Noname',
+>>>>>>> Stashed changes
   } = props;
   const [rating, setRating] = useState(initRating);
   const [comment, setComment] = useState(initComment);
@@ -32,13 +38,13 @@ function Comment(props) {
         <div className="row-1">
           <div className="col-1">
             <span className="label">Rating:</span>
-            <span className="rating" style={{ pointerEvents: isForComment ? 'auto' : 'none' }}>
+            <span className="rating" >
               <Rating
-                name="half-rating-read"
+                name="half-rating"
                 defaultValue={rating}
                 precision={0.1}
                 readOnly
-                onChange={(event, newValue) => {
+                onChange={(newValue) => {
                   setRating(newValue);
                 }}
               />
