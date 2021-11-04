@@ -6,14 +6,9 @@ import './Comment.scss'
 function Comment(props) {
   const {
     isForComment = true,
-<<<<<<< Updated upstream
-    initRating = 5, initComment = '',
-    initUsername = 'Noname'
-=======
     initRating = 5,
     initComment = '',
     initUsername = 'Noname',
->>>>>>> Stashed changes
   } = props;
   const [rating, setRating] = useState(initRating);
   const [comment, setComment] = useState(initComment);
@@ -44,7 +39,7 @@ function Comment(props) {
                 defaultValue={rating}
                 precision={0.1}
                 readOnly
-                onChange={(newValue) => {
+                onChange={(e, newValue) => {
                   setRating(newValue);
                 }}
               />
