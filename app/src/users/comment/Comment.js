@@ -34,13 +34,13 @@ function Comment(props) {
             <span className="label">Rating:</span>
             <span className="rating" style={{ pointerEvents: isForComment ? 'auto' : 'none' }}>
               <Rating
-                onClick={handleRating}
-                ratingValue={rating}
-                size={20}
-                label
-                transition
-                fillColor='orange'
-                emptyColor='gray'
+                name="half-rating-read"
+                defaultValue={rating}
+                precision={0.1}
+                readOnly
+                onChange={(event, newValue) => {
+                  setRating(newValue);
+                }}
               />
 
             </span>
