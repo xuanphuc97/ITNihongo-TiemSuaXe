@@ -5,11 +5,12 @@
 }
 
 .top-page {
-    padding-top: 80px;
+    padding-top: 70px;
     // height: calc(100vh) !important;
 
     .garage-side {
-        height: calc(100vh - 140px) !important;
+        overflow: scroll;
+        height: calc(100vh - 110px) !important;
         .search-box {
             width: 80%;
             margin: auto;
@@ -63,12 +64,13 @@
         background-color: #fff;
         // height: ;
         padding-bottom: 14px;
-        height: calc(100vh - 140px) !important;
+        height: calc(100vh - 110px) !important;
     }
     .marker {
         z-index: 100;
         .marker-name {
-            color: #b22222;
+            // color: #b22222;
+            color: #fff;
             font-weight: 600;
 
             font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;

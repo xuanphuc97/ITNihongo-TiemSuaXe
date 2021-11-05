@@ -39,7 +39,7 @@ function Header() {
         <div className="menu container">
           <div className="menu__left">
             <Link className="logo-container" to="/">
-              <img className="logo" src={logo} alt="logo" />
+              {/* <img className="logo" src={logo} alt="logo" /> */}
               <span>Home</span>
             </Link>
             {auth.isLogged ? (

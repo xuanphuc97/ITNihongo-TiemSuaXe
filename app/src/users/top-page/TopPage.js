@@ -12,6 +12,7 @@ import Pagination from "react-js-pagination"
 // import { Rating } from 'react-simple-star-rating'
 import Rating from '@mui/material/Rating';
 import GoogleMapReact from "google-map-react";
+import GarageInfo from './GarageInfo';
 
 
 const getLocation = (str) => {
@@ -59,7 +60,7 @@ function TopPage() {
         lng: 108.206230
     })
 
-
+    const [garage, setGarage] = useState()
     const handleGarageClick = (garage) => {
 
         setLocation(
@@ -68,6 +69,9 @@ function TopPage() {
                 lng: getLocation(garage.location)[1]
             }
         )
+        setGarage(garage)
+        setShowGarage(true)
+
 
     }
 
@@ -79,87 +83,99 @@ function TopPage() {
     };
 
 
-    const [show, setShow] = useState(false);
+    const [showGarage, setShowGarage] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+
 
     return (
 
         <div className="top-page">
+
             <Container fluid>
                 <Row>
                     <Col xs={12} md={5} className="garage-side">
-                        <div className="search-box">
-                            <Form>
-                                <Form.Group controlId="searchBox">
-                                    <Form.Control type="Text" placeholder="Search..." />
-                                    <Form.Control as="select" custom>
-                                        <option value="0">Near you</option>
-                                        <option value="1">Name</option>
-                                        <option value="2">Address</option>
-                                        <option value="3">Rating</option>
-                                    </Form.Control>
+                        {!showGarage ?
+                            <>
+                                <div className="search-box">
+                                    <Form>
+                                        <Form.Group controlId="searchBox">
+                                            <Form.Control type="Text" placeholder="Search..." />
+                                            <Form.Control as="select" custom>
+                                                <option value="0">Near you</option>
+                                                <option value="1">Name</option>
+                                                <option value="2">Address</option>
+                                                <option value="3">Rating</option>
+                                            </Form.Control>
 
-                                </Form.Group>
+                                        </Form.Group>
 
-                            </Form>
-                        </div>
-                        <div className="list-garage">
+                                    </Form>
+                                </div>
+                                <div className="list-garage">
 
-                            <ListGroup>
-                                {page.data.slice(page.activePage * page.limit - page.limit,
-                                    page.activePage * page.limit > page.data.length
-                                        ? page.data.length
-                                        : page.activePage * page.limit)
-                                    .map((garage, idx) => {
-                                        return (
-                                            <ListGroup.Item key={`${idx}`}>
-                                                <Card className="curr-garage" onClick={() => handleGarageClick(garage)}>
-                                                    <Card.Body>
+                                    <ListGroup>
+                                        {page.data.slice(page.activePage * page.limit - page.limit,
+                                            page.activePage * page.limit > page.data.length
+                                                ? page.data.length
+                                                : page.activePage * page.limit)
+                                            .map((garage, idx) => {
+                                                return (
+                                                    <ListGroup.Item>
+                                                        <Card key={`${idx}`} className="curr-garage" onClick={() => handleGarageClick(garage)}>
+                                                            <Card.Body>
 
-                                                        <Card.Title>
-                                                            <Row>
-                                                                <Col xs={7}>
-                                                                    {garage.garageName}
-                                                                </Col>
-                                                                <Col xs={5}>
-                                                                    <span className="rating">
-                                                                        <Rating
-                                                                            name="half-rating-read"
-                                                                            defaultValue={3.3}
-                                                                            precision={0.1}
-                                                                            readOnly
-                                                                        />
+                                                                <Card.Title>
+                                                                    <Row>
+                                                                        <Col xs={7}>
+                                                                            {garage.garageName}
+                                                                        </Col>
+                                                                        <Col xs={5}>
+                                                                            <span className="rating">
+                                                                                <Rating
+                                                                                    name="half-rating-read"
+                                                                                    defaultValue={3.3}
+                                                                                    precision={0.1}
+                                                                                    readOnly
+                                                                                />
 
-                                                                    </span>
-                                                                </Col>
-                                                            </Row>
-                                                        </Card.Title>
-                                                        <Card.Text>
-                                                            {garage.address}
-                                                        </Card.Text>
+                                                                            </span>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </Card.Title>
+                                                                <Card.Text>
+                                                                    {garage.address}
+                                                                </Card.Text>
 
-                                                    </Card.Body>
-                                                </Card></ListGroup.Item>
-                                        )
-                                    })}
+                                                            </Card.Body>
+                                                        </Card></ListGroup.Item>
+                                                )
+                                            })}
 
-                            </ListGroup>
+                                    </ListGroup>
 
 
-                        </div>
-                        <Pagination
-                            activePage={page.activePage}
-                            itemsCountPerPage={page.limit}
-                            totalItemsCount={page.data.length}
-                            pageRangeDisplayed={1}
-                            onChange={handlePageChange}
-                            itemClass="page-item"
-                            linkClass="page-link"
-                        />
+                                </div>
+                                <Pagination
+                                    activePage={page.activePage}
+                                    itemsCountPerPage={page.limit}
+                                    totalItemsCount={page.data.length}
+                                    pageRangeDisplayed={1}
+                                    onChange={handlePageChange}
+                                    itemClass="page-item"
+                                    linkClass="page-link"
+                                />
+                            </>
+                            : <>
+                                <Button variant="primary" onClick={() => setShowGarage(false)}>Back</Button>
+                                <GarageInfo
+                                    garage={garage}
+
+                                >
+                                </GarageInfo>
+                            </>
+                        }
                     </Col>
-                    <Col xs={12} md={7} className="map-side" >
+                    <Col xs={{ span: 12, order: "first" }} md={{ span: 7, order: "last" }} className="map-side" >
                         <GoogleMapReact
                             bootstrapURLKeys={{
                                 // remove the key if you want to fork
