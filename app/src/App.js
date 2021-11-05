@@ -19,6 +19,7 @@ import GarageProfile from "./users/garage/GarageProfile";
 import GarageEditProfile from "./users/garage/GarageEditProfile";
 import NewGarage from "./users/garage/NewGarage";
 import NewService from "./users/garage/NewService";
+import '@goongmaps/goong-js/dist/goong-js.css';
 
 function App() {
   const dispatch = useDispatch();

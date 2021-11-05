@@ -6,11 +6,18 @@
 
 .top-page {
     padding-top: 80px;
-    padding-top: 80px;
-    height: calc(100vh) !important;
+    // height: calc(100vh) !important;
 
     .garage-side {
+        height: calc(100vh - 140px) !important;
+        .search-box {
+            width: 80%;
+            margin: auto;
+        }
         // background-color: #ccc;
+        .list-garage {
+            height: calc(100vh - 210px);
+        }
         .pagination {
             display: flex;
             justify-content: center;
@@ -54,5 +61,25 @@
     }
     .map-side {
         background-color: #fff;
+        // height: ;
+        padding-bottom: 14px;
+        height: calc(100vh - 140px) !important;
+    }
+    .marker {
+        z-index: 100;
+        .marker-name {
+            color: #b22222;
+            font-weight: 600;
+
+            font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+            font-size: 16px;
+            margin-top: 20px;
+            font-style: normal;
+            white-space: nowrap;
+        }
+    }
+    .curr-garage:hover {
+        background-color: #b4f4ff;
+        border: 1px solid #b6f4ff;
     }
 }

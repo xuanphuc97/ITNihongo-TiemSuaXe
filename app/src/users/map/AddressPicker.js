@@ -56,7 +56,7 @@ function AddressPicker() {
         address.address = address.street_number + " " + address.street;
         delete address.street_number;
         delete address.street;
-        if (address.country === "VI") {
+        if (address.country === "US") {
             address.state = address.province;
             delete address.province;
         }
@@ -78,10 +78,10 @@ function AddressPicker() {
     }, [address]);
 
     return (
-        <div className="address-picker">
+        <div className="App">
             <h1>Google Places - Address Autocomplete</h1>
             <GooglePlacesAutocomplete
-                apiKey="AIzaSyC6Q0xSRv96Rx88x004_FJUeAAe4QUGEao"
+                apiKey="AIzaSyAkYT3jceNj1z0OxFU5y0qIntwdrOty_bI"
                 selectProps={{
                     isClearable: true,
                     value: address,
@@ -93,9 +93,8 @@ function AddressPicker() {
             <pre style={{ textAlign: "left", background: "#f0f0f0", padding: 20 }}>
                 {JSON.stringify(addressObj, 0, 2)}
             </pre>
-
-        </div >
-    )
+        </div>
+    );
 }
 
 export default AddressPicker

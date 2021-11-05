@@ -17,19 +17,25 @@ function Profile() {
   const [loading, setLoading] = useState(false);
 
   const getGarages = async () => {
-    // console.log("---")
-    const res = await axios.get(
-      profileApis.getGaragesOfUser(userInfor.accountId)
-    );
-    if (res) {
-      setGarages([...garages, ...res.data]);
+    try {
+      const res = await axios.get(
+        profileApis.getGaragesOfUser(userInfor.accountId)
+      );
+      if (res.data) {
+        setGarages([...garages, ...res.data]);
+        setLoading(true);
+      }
+
+    }
+    catch (err) {
       setLoading(true);
+      if (err) {
+        console.log(err);
+      }
     }
   };
   useEffect(() => {
-    // if (userInfor.accountId) {
     getGarages();
-    // }
   }, [userInfor]);
   return (
     <div>

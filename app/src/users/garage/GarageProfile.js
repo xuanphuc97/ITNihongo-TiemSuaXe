@@ -12,13 +12,15 @@ import ListComment from "../comment/ListComment";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 function GarageProfile() {
+  console.log(2)
   const location = useLocation();
   const id = useParams();
   const history = useHistory();
-  const auth = useSelector((state) => state.auth);
+  // const auth = useSelector((state) => state.auth);
+  // const userInfo = auth.user;
   // const [services, setService] = useState([1, 2]);
   const [loading, setLoading] = useState(false);
-  const userInfo = auth.user;
+
   const initialState = {
     garageId: 0,
     image: "",
@@ -36,45 +38,49 @@ function GarageProfile() {
   const [garage, setGarage] = useState(initialState);
   const [services, setService] = useState([]);
 
-  useEffect(() => {
-    const getGarage = async () => {
-      try {
-        const res = await axios.get(garageApis.getGarageInfo(id.id));
-        console.log(res.data);
-        var resInfo = res.data;
-        setGarage({
-          ...garage,
-          garageId: resInfo.garageId,
-          name: resInfo.garageName,
-          address: resInfo.address,
-          location: resInfo.location,
-          phoneNumber: resInfo.phoneNumber,
-          openAt: resInfo.startAt,
-          closeAt: resInfo.endAt,
-        });
-        // setLoading(true);
-      } catch (err) {
-        if (err) {
-          console.log(err);
-        }
-      }
-    };
-    const getService = async () => {
-      try {
-        const res = await axios.get(garageApis.getService(id.id));
-        console.log(res.data);
-        var resInfo = res.data;
-        setService([...services, ...res.data]);
+  const getGarage = async () => {
+    try {
+      console.log(id);
+      const res = await axios.get(garageApis.getGarageInfo(id.id));
+      var resInfo = res.data;
+      setGarage({
+        ...garage,
+        garageId: resInfo.garageId,
+        name: resInfo.garageName,
+        address: resInfo.address,
+        location: resInfo.location,
+        phoneNumber: resInfo.phoneNumber,
+        openAt: resInfo.startAt,
+        closeAt: resInfo.endAt,
+      });
+      if (res) {
         setLoading(true);
-      } catch (err) {
-        if (err) {
-          console.log(err);
-        }
       }
-    };
+
+    } catch (err) {
+      if (err) {
+        console.log(err);
+      }
+    }
+  };
+  const getService = async () => {
+    try {
+      const res = await axios.get(garageApis.getService(id.id));
+      setService([...services, ...res.data]);
+    } catch (err) {
+      if (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  useEffect(() => {
+
     getGarage();
     getService();
-  }, []);
+
+  }, [id]);
+
 
   return (
     <>
@@ -140,7 +146,7 @@ function GarageProfile() {
                 <div className="service-list">
                   {services.map((service, idx) => {
                     return (
-                      <div className="flex-row">
+                      <div className="flex-row" key={`service-${idx}`} >
                         <span className="label service-name">
                           {idx + 1}. {service.serviceName}
                         </span>

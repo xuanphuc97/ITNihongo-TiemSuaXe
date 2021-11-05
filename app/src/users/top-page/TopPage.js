@@ -11,7 +11,12 @@ import Loader from "react-loader-spinner";
 import Pagination from "react-js-pagination"
 // import { Rating } from 'react-simple-star-rating'
 import Rating from '@mui/material/Rating';
+import GoogleMapReact from "google-map-react";
 
+
+const getLocation = (str) => {
+    return str.split(' ').map(val => Number(val));
+}
 
 function TopPage() {
     const auth = useSelector((state) => state.auth);
@@ -48,7 +53,39 @@ function TopPage() {
             activePage: pageNumber
         }))
     }
+
+    const [location, setLocation] = useState({
+        lat: 16.047079,
+        lng: 108.206230
+    })
+
+
+    const handleGarageClick = (garage) => {
+
+        setLocation(
+            {
+                lat: getLocation(garage.location)[0],
+                lng: getLocation(garage.location)[1]
+            }
+        )
+
+    }
+
+    const markerStyle = {
+        position: "absolute",
+        top: "100%",
+        left: "50%",
+        transform: "translate(-50%, -100%)"
+    };
+
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
+
         <div className="top-page">
             <Container fluid>
                 <Row>
@@ -77,8 +114,8 @@ function TopPage() {
                                         : page.activePage * page.limit)
                                     .map((garage, idx) => {
                                         return (
-                                            <ListGroup.Item key={`tp-lgi-${idx}`}>
-                                                <Card >
+                                            <ListGroup.Item key={`${idx}`}>
+                                                <Card className="curr-garage" onClick={() => handleGarageClick(garage)}>
                                                     <Card.Body>
 
                                                         <Card.Title>
@@ -107,24 +144,63 @@ function TopPage() {
                                                 </Card></ListGroup.Item>
                                         )
                                     })}
-                                <Pagination
-                                    activePage={page.activePage}
-                                    itemsCountPerPage={page.limit}
-                                    totalItemsCount={page.data.length}
-                                    pageRangeDisplayed={1}
-                                    onChange={handlePageChange}
-                                    itemClass="page-item"
-                                    linkClass="page-link"
-                                />
+
                             </ListGroup>
 
+
                         </div>
+                        <Pagination
+                            activePage={page.activePage}
+                            itemsCountPerPage={page.limit}
+                            totalItemsCount={page.data.length}
+                            pageRangeDisplayed={1}
+                            onChange={handlePageChange}
+                            itemClass="page-item"
+                            linkClass="page-link"
+                        />
                     </Col>
-                    <Col xs={12} md={7} className="map-side"> ádasdasdsa</Col>
+                    <Col xs={12} md={7} className="map-side" >
+                        <GoogleMapReact
+                            bootstrapURLKeys={{
+                                // remove the key if you want to fork
+                                key: "AIzaSyAkYT3jceNj1z0OxFU5y0qIntwdrOty_bI",
+                                language: "vi",
+                                region: "VI"
+                            }}
+                            defaultCenter={{ lat: 16.047079, lng: 108.268950 }}
+                            center={location}
+
+                            defaultZoom={15}
+                        // distanceToMouse={distanceToMouse}
+                        >
+                            {
+                                page.data.slice(page.activePage * page.limit - page.limit,
+                                    page.activePage * page.limit > page.data.length
+                                        ? page.data.length
+                                        : page.activePage * page.limit)
+                                    .map((garage, idx) => {
+                                        return (
+                                            <i className="marker" key={idx} lat={getLocation(garage.location)[0]} lng={getLocation(garage.location)[1]}>
+
+                                                <img
+                                                    style={markerStyle}
+                                                    src="https://iconarchive.com/download/i103443/paomedia/small-n-flat/map-marker.ico"
+                                                    alt="pin" width="40" height="40"
+                                                />
+                                                <div style={markerStyle} className="marker-name">{garage.garageName}</div>
+                                            </i>
+                                        )
+                                    })}
+
+
+                        </GoogleMapReact>
+
+
+                    </Col>
                 </Row>
             </Container>
 
-        </div>
+        </div >
     );
 }
 
