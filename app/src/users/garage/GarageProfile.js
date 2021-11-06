@@ -123,7 +123,7 @@ function GarageProfile() {
                 </div>
                 <div className="flex-row">
                   <span className="label">Phone:</span>
-                  <span className="content">{garage.phoneNumber}</span>
+                  <span className="content">{garage.phone}</span>
                 </div>
                 <div className="flex-row">
                   <span className="label">Open At:</span>

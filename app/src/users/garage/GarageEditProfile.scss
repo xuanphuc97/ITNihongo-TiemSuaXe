@@ -34,6 +34,27 @@
       outline: none;
       border: 1px solid rgb(225, 225, 225);
     }
+
+    .address-input {
+      width: 70%;
+      .css-yk16xz-control {
+        height: 40px;
+        font-size: 18px;
+        padding-left: 18px;
+        border-radius: 15px;
+        outline: none;
+        border: 1px solid rgb(225, 225, 225);
+        .css-1hwfws3 {
+          font-size: 18px;
+          height: 40px;
+        }
+        .css-1wy0on6 {
+          font-size: 18px;
+          height: 40px;
+        }
+    
+      }
+    }
   }
   .service-edit {
     border-radius: 8px;

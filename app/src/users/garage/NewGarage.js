@@ -21,6 +21,7 @@ import profileApis from "../profile/enum/profile-apis";
 import garageApis from "./enum/garage-apis";
 import LoadingOverlay from "react-loading-overlay";
 import Loader from "react-loader-spinner";
+import GooglePlacesAutocomplete, { geocodeByPlaceId, getLatLng } from 'react-google-places-autocomplete';
 const NewGarage = () => {
   const initialState = {
     name: "",
@@ -96,6 +97,9 @@ const NewGarage = () => {
       });
     }
   };
+  const [address, setAddress] = useState(newInforGarage.address)
+  const [location, setLocation] = useState(newInforGarage.location)
+
 
   return (
     <>
@@ -148,7 +152,7 @@ const NewGarage = () => {
                 onChange={handleChangeInput}
               />
             </div>
-            <div className="edit-field flex-row">
+            {/* <div className="edit-field flex-row">
               <span className="label">Address: </span>
               <input
                 type="text"
@@ -156,10 +160,47 @@ const NewGarage = () => {
                 value={newInforGarage.address}
                 onChange={handleChangeInput}
               />
+            </div> */}
+            <div className="edit-field flex-row">
+              <span className="label">Address: </span>
+              <div className="address-input">
+                <GooglePlacesAutocomplete
+                  apiKey="AIzaSyC8RZDBo5cTzzcykMrPS9qhykhSqH_4THU"
+                  apiOptions={{ language: 'vi', region: 'vi' }}
+                  selectProps={{
+                    isClearable: true,
+                    value: address,
+                    onChange: (val) => {
+                      try {
+                        console.log(val);
+                        geocodeByPlaceId(val.value.place_id)
+                          .then(results => getLatLng(results[0]))
+                          .then(({ lat, lng }) => {
+                            setNewInforGarage({
+                              ...newInforGarage,
+                              location: val === null ? newInforGarage.address : `${lat} ${lng}`,
+                              address: val === null ? newInforGarage.address : val.label,
+                              err: "",
+                              success: "",
+                            });
+                            setLocation(val === null ? newInforGarage.address : `${lat} ${lng}`)
+                            setAddress(val);
+                          })
+                          .catch(error => console.error(error));
+                      } catch (e) { }
+
+                    }
+                  }}
+                />
+              </div>
+
             </div>
+
             <div className="edit-field flex-row">
               <span className="label">Location: </span>
               <input
+
+                disabled
                 type="text"
                 name="location"
                 value={newInforGarage.location}
