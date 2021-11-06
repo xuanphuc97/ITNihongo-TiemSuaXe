@@ -13,21 +13,21 @@ function ListComment(props) {
     const auth = useSelector((state) => state.auth)
     const userInfor = auth.user;
 
-    const getListComment = async () => {
+    // const getListComment = async () => {
 
-        const garage = await axios.get(
-            profileApis.getGaragesOfUser(userInfor.accountId)
-        );
-        const comments = await getListComment(garage.id)
-        if (comments) {
-            setIsLoading(false);
-        }
-        setListComment(comments)
-    }
+    //     const garage = await axios.get(
+    //         profileApis.getGaragesOfUser(userInfor.accountId)
+    //     );
+    //     const comments = await getListComment(garage.id)
+    //     if (comments) {
+    //         setIsLoading(false);
+    //     }
+    //     setListComment(comments)
+    // }
 
-    useEffect(() => {
-        getListComment()
-    }, [])
+    // useEffect(() => {
+    //     getListComment()
+    // }, [])
 
     return (
         <div className='list-comment'>

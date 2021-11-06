@@ -7,8 +7,8 @@ function Home() {
   return (
     <div>
       <TopPage></TopPage>
-      <AddressPicker ></AddressPicker>
-      {/* <TopPage></TopPage> */}
+      {/* <AddressPicker ></AddressPicker>
+      <TopPage></TopPage> */}
     </div>
   );
 }
