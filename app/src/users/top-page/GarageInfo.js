@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ListComment from '../comment/ListComment'
 import Comment from '../comment/Comment'
-
+import { Button, Modal, Row, Col, Container } from 'react-bootstrap'
+import { Rating } from 'react-simple-star-rating'
+import './GarageInfo.scss'
 function GarageInfo(props) {
 
     const {
@@ -9,6 +11,25 @@ function GarageInfo(props) {
         services,
         comments
     } = props
+
+    const [rating, setRating] = useState(5);
+    const [comment, setComment] = useState();
+    const [username, setUsername] = useState();
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const handleRating = (e) => {
+        setRating(e)
+    }
+
+    const handleChange = (e) => {
+        setComment(e.target.value)
+
+    }
+
+    const handleSubmit = (e) => { }
 
     return (
         <>
@@ -69,14 +90,54 @@ function GarageInfo(props) {
                 </div>
             </div>
             <h2>Comment</h2>
-            <Comment
-                className='comment'
-                isForComment={true}
-                initRating={5}
-                initUsername={"xuanphuc191"}
-                initComment="Test Comment -- Best Service 5 stars. "
+            <Button variant="primary" onClick={handleShow}>
+                Write your Review
+            </Button>
 
-            ></Comment>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Container>
+                        <Row>
+                            <Col sm={12}>
+                                <span className="label">Rating: </span>
+
+                                <span className="rating" >
+                                    <Rating
+                                        onClick={handleRating}
+                                        ratingValue={rating}
+                                        size={20}
+                                        label
+                                        transition
+                                        fillColor='orange'
+                                        emptyColor='gray'
+                                    />
+                                </span>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Modal.Header>
+                <Modal.Body>
+                    <Container>
+                        <Col sm={12} className="text-area-container">
+                            <textarea
+                                className="text-area"
+
+                                value={comment}
+                                onChange={handleChange}
+                                placeholder='Write your comment here...'
+                            />
+                        </Col>
+                    </Container>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Post
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <h2>List of reviews</h2>
             <ListComment>
 

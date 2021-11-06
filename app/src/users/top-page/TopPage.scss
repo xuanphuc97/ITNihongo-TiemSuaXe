@@ -84,4 +84,15 @@
         background-color: #b4f4ff;
         border: 1px solid #b6f4ff;
     }
+    .card-text {
+        overflow: hidden;
+
+        height: 20px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .garage-side {
+        padding-bottom: 60px;
+    }
 }
