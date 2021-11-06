@@ -1,12 +1,13 @@
 const baseUrl = "http://localhost:8080";
 
 export default {
+  getAllGarages: `${baseUrl}/api/garages`,
   // uploadImg: `${baseUrl}/upload`,
-  updateInfor: `${baseUrl}/users/update`,
-  updatePassword: `${baseUrl}/auth/changepwd`,
-  getGaragesOfUser(accountId) {
-    return `${baseUrl}/api/user/${accountId}/garages`;
-  },
+  // updateInfor: `${baseUrl}/users/update`,
+  // updatePassword: `${baseUrl}/auth/changepwd`,
+  // getGaragesOfUser(accountId) {
+  //   return `${baseUrl}/api/user/${accountId}/garages`;
+  // },
   //     getDraftsOfUser: `${baseUrl}/user/drafts`,
   //     deleteDraft(postId){
   //         return  `${baseUrl}/post/${postId}`

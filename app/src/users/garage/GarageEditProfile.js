@@ -58,6 +58,7 @@ const GarageEditProfile = () => {
 
   useEffect(() => {
     const getGarage = async () => {
+      console.log("x")
       try {
         const res = await axios.get(garageApis.getGarageInfo(id.id));
         var resInfo = res.data;
@@ -79,10 +80,10 @@ const GarageEditProfile = () => {
       }
     };
     const getService = async () => {
+      console.log("y");
       try {
         const res = await axios.get(garageApis.getService(id.id));
         var resInfo = res.data;
-        console.log(resInfo);
         setService([...services, ...res.data]);
         setLoading(true);
       } catch (err) {

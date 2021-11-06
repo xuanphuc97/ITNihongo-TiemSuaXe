@@ -1,15 +1,11 @@
-// import React from 'react';
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, ListGroup, Card } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import "./TopPage.scss"
 import axios from "axios";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import profileApis from "../top-page/enum/profile-apis";
 import Loader from "react-loader-spinner";
 import Pagination from "react-js-pagination"
-// import { Rating } from 'react-simple-star-rating'
 import Rating from '@mui/material/Rating';
 import GoogleMapReact from "google-map-react";
 import GarageInfo from './GarageInfo';
@@ -20,8 +16,8 @@ const getLocation = (str) => {
 }
 
 function TopPage() {
-    const auth = useSelector((state) => state.auth);
-    const userInfor = auth.user;
+    // const auth = useSelector((state) => state.auth);
+    // const userInfor = auth.user;
     const [page, setPage] = useState({
         data: [],
         limit: 7,
@@ -29,24 +25,19 @@ function TopPage() {
     });
     const [loading, setLoading] = useState(false);
 
-    const getPage = async () => {
-        if (userInfor.accountId === undefined) return;
-        const res = await axios.get(
-            profileApis.getGaragesOfUser(userInfor.accountId)
-        );
-        if (res) {
-            console.log(res)
-            setPage(prev => ({
-                ...prev,
-                data: res.data
-            }));
-            setLoading(true);
-        }
-    }
-
     useEffect(() => {
+        const getPage = async () => {
+            console.log("XXX")
+            const res = await axios.get(profileApis.getAllGarages);
+            if (res) {
+                setPage(prev => ({
+                    ...prev,
+                    data: res.data
+                }));
+            }
+        }
         getPage();
-    }, [userInfor]);
+    }, []);
 
     const handlePageChange = (pageNumber) => {
         setPage(prev => ({
@@ -120,8 +111,8 @@ function TopPage() {
                                                 : page.activePage * page.limit)
                                             .map((garage, idx) => {
                                                 return (
-                                                    <ListGroup.Item>
-                                                        <Card key={`${idx}`} className="curr-garage" onClick={() => handleGarageClick(garage)}>
+                                                    <ListGroup.Item key={`list-garage${idx}`}>
+                                                        <Card className="curr-garage" onClick={() => handleGarageClick(garage)}>
                                                             <Card.Body>
 
                                                                 <Card.Title>
@@ -179,7 +170,7 @@ function TopPage() {
                         <GoogleMapReact
                             bootstrapURLKeys={{
                                 // remove the key if you want to fork
-                                key: "AIzaSyAkYT3jceNj1z0OxFU5y0qIntwdrOty_bI",
+                                key: "AIzaSyC8RZDBo5cTzzcykMrPS9qhykhSqH_4THU",
                                 language: "vi",
                                 region: "VI"
                             }}

@@ -12,7 +12,6 @@ import ListComment from "../comment/ListComment";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 function GarageProfile() {
-  console.log(2)
   const location = useLocation();
   const id = useParams();
   const history = useHistory();
@@ -38,48 +37,47 @@ function GarageProfile() {
   const [garage, setGarage] = useState(initialState);
   const [services, setService] = useState([]);
 
-  const getGarage = async () => {
-    try {
-      console.log(id);
-      const res = await axios.get(garageApis.getGarageInfo(id.id));
-      var resInfo = res.data;
-      setGarage({
-        ...garage,
-        garageId: resInfo.garageId,
-        name: resInfo.garageName,
-        address: resInfo.address,
-        location: resInfo.location,
-        phoneNumber: resInfo.phoneNumber,
-        openAt: resInfo.startAt,
-        closeAt: resInfo.endAt,
-      });
-      if (res) {
-        setLoading(true);
-      }
 
-    } catch (err) {
-      if (err) {
-        console.log(err);
-      }
-    }
-  };
-  const getService = async () => {
-    try {
-      const res = await axios.get(garageApis.getService(id.id));
-      setService([...services, ...res.data]);
-    } catch (err) {
-      if (err) {
-        console.log(err);
-      }
-    }
-  };
 
   useEffect(() => {
-
+    const getGarage = async () => {
+      try {
+        const res = await axios.get(garageApis.getGarageInfo(id.id));
+        var resInfo = res.data;
+        console.log("garage")
+        setGarage({
+          ...garage,
+          garageId: resInfo.garageId,
+          name: resInfo.garageName,
+          address: resInfo.address,
+          location: resInfo.location,
+          phone: resInfo.phoneNumber,
+          openAt: resInfo.startAt,
+          closeAt: resInfo.endAt,
+        });
+        setLoading(true);
+      } catch (err) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    };
+    const getService = async () => {
+      try {
+        const res = await axios.get(garageApis.getService(id.id));
+        var resInfo = res.data;
+        console.log("service")
+        setService([...services, ...res.data]);
+        setLoading(true);
+      } catch (err) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    };
     getGarage();
     getService();
-
-  }, [id]);
+  }, []);
 
 
   return (
