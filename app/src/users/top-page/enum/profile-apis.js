@@ -6,6 +6,9 @@ export default {
   getService(id) {
     return `${baseUrl}/serviceshopid/${id}`;
   },
+  getGaragesByName(name) {
+    return `${baseUrl}/api/garages/name/${name}`;
+  }
   // uploadImg: `${baseUrl}/upload`,
   // updateInfor: `${baseUrl}/users/update`,
   // updatePassword: `${baseUrl}/auth/changepwd`,

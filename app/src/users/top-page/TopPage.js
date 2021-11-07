@@ -24,19 +24,124 @@ function TopPage() {
   });
   const [loading, setLoading] = useState(false);
 
+  const [showGarage, setShowGarage] = useState(false);
+  const [config, setConfig] = useState("0")
+  const [keyword, setKeyword] = useState("")
+  const [garages, setGarages] = useState([])
+  const [showPosition, setShowPosition] = useState(false)
+  const [showGarageLocation, setShowGarageLocation] = useState(false)
+  const [location, setLocation] = useState({
+    lat: 16.047079,
+    lng: 108.20623,
+  });
+  const [yourLocation, setYourLocation] = useState({
+    lat: 16.047079,
+    lng: 108.20623,
+  });
+
+  const [garage, setGarage] = useState();
+
+  function reForm(str) {
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+    str = str.replace(/đ/g, "d");
+    str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+    str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+    str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+    str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+    str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+    str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+    str = str.replace(/Đ/g, "D");
+    return str;
+  }
+
   useEffect(() => {
     const getPage = async () => {
-      console.log("XXX");
+
       const res = await axios.get(profileApis.getAllGarages);
       if (res) {
         setPage((prev) => ({
           ...prev,
           data: res.data,
         }));
+        setGarages(res.data)
       }
+
+
     };
     getPage();
   }, []);
+  useEffect(() => {
+    const getPage = async () => {
+      switch (config) {
+        case "Name":
+          const data1 = garages.filter(garage => reForm(garage.garageName).toLowerCase().includes(keyword))
+          if (data1) {
+            setPage((prev) => ({
+              ...prev,
+              data: data1,
+            }));
+          }
+          break
+        case "Address":
+          const data2 = garages.filter(garage => reForm(garage.address).toLowerCase().includes(keyword))
+          if (data2) {
+            setPage((prev) => ({
+              ...prev,
+              data: data2,
+            }));
+          }
+          break
+
+        case "Near you":
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(val => {
+              setYourLocation({ lat: val.coords.latitude, lng: val.coords.longitude })
+              setLocation({ lat: val.coords.latitude, lng: val.coords.longitude })
+
+              const data4 = [...garages].sort((a, b) => ((
+                (getLocation(a.location)[0] - val.coords.latitude) ** 2
+                + (getLocation(a.location)[1] - val.coords.longitude) ** 2
+                - (getLocation(b.location)[0] - val.coords.latitude) ** 2
+                - (getLocation(a.location)[1] - val.coords.longitude) ** 2)))
+              if (data4) {
+                setPage((prev) => ({
+                  ...prev,
+                  data: data4,
+                }));
+              }
+              setShowPosition(true)
+            });
+          } else {
+            console.log("Geolocation is not supported by this browser.")
+          }
+
+          break
+
+        case "Rating":
+          const data4 = [...garages].sort((a, b) => (b.averageRating - a.averageRating))
+          if (data4) {
+            setPage((prev) => ({
+              ...prev,
+              data: data4,
+            }));
+          }
+          break
+
+        default:
+          setPage((prev) => ({
+            ...prev,
+            data: garages,
+          }));
+
+      }
+    };
+    getPage();
+  }, [keyword, config]);
 
   const handlePageChange = (pageNumber) => {
     setPage((prev) => ({
@@ -45,19 +150,16 @@ function TopPage() {
     }));
   };
 
-  const [location, setLocation] = useState({
-    lat: 16.047079,
-    lng: 108.20623,
-  });
 
-  const [garage, setGarage] = useState();
   const handleGarageClick = (garage) => {
     setLocation({
       lat: getLocation(garage.location)[0],
       lng: getLocation(garage.location)[1],
     });
+    setShowGarageLocation(true);
     setGarage(garage);
     setShowGarage(true);
+
   };
 
   const markerStyle = {
@@ -67,7 +169,7 @@ function TopPage() {
     transform: "translate(-50%, -100%)",
   };
 
-  const [showGarage, setShowGarage] = useState(false);
+
 
   return (
     <div className="top-page">
@@ -79,12 +181,24 @@ function TopPage() {
                 <div className="search-box">
                   <Form>
                     <Form.Group controlId="searchBox">
-                      <Form.Control type="Text" placeholder="Search..." />
-                      <Form.Control as="select" custom>
-                        <option value="0">Near you</option>
-                        <option value="1">Name</option>
-                        <option value="2">Address</option>
-                        <option value="3">Rating</option>
+                      <Form.Control
+                        type="Text"
+                        placeholder="Search..."
+                        onChange={(e) => setKeyword(reForm(e.target.value.trim().toLowerCase()))}
+                        disabled={["Name", "Address"].includes(config) ? false : true}
+                        Value={keyword}
+                      />
+                      <Form.Control
+                        as="select"
+                        custom
+                        onChange={(e) => setConfig(e.target.value)}
+                        value={config}
+                      >
+                        <option value="All">All</option>
+                        <option value="Name">Name</option>
+                        <option value="Address">Address</option>
+                        <option value="Near you">Near you</option>
+                        <option value="Rating">Rating</option>
                       </Form.Control>
                     </Form.Group>
                   </Form>
@@ -113,7 +227,7 @@ function TopPage() {
                                       <span className="rating">
                                         <Rating
                                           name="half-rating-read"
-                                          defaultValue={garage.averageRating}
+                                          value={garage.averageRating}
                                           precision={0.1}
                                           readOnly
                                         />
@@ -163,9 +277,50 @@ function TopPage() {
               }}
               defaultCenter={{ lat: 16.047079, lng: 108.26895 }}
               center={location}
-              defaultZoom={15}
-              // distanceToMouse={distanceToMouse}
+              defaultZoom={10}
+            // distanceToMouse={distanceToMouse}
             >
+              {showPosition
+                ? <i
+                  className="marker"
+                  lat={yourLocation.lat}
+                  lng={yourLocation.lng}
+                >
+                  <img
+                    style={markerStyle}
+                    className="your-marker"
+                    src="https://www.iconpacks.net/icons/2/free-location-icon-2955-thumb.png"
+                    alt="Current Position"
+                    width="50"
+                    height="50"
+                  />
+                  <div style={markerStyle} className="marker-you">
+                    You
+                  </div>
+                </i>
+                : <></>
+              }
+
+              {
+                showGarageLocation
+                  ? <i className="big-marker"
+                    lat={location.lat}
+                    lng={location.lng}
+                  >
+                    <img
+                      style={markerStyle}
+                      className="big-marker"
+                      src="https://s3.amazonaws.com/use-cache.salvationarmy.org/4de13d4e-a10d-4a16-87bc-a7a73ffa877f_location_pin_gps-512.png"
+                      alt="Current Position"
+                      width="40"
+                      height="40"
+                    />
+                    {/* <div style={markerStyle} className="marker-name">
+                      
+                    </div> */}
+                  </i>
+                  : <></>
+              }
               {page.data
                 .slice(
                   page.activePage * page.limit - page.limit,
@@ -183,10 +338,10 @@ function TopPage() {
                     >
                       <img
                         style={markerStyle}
-                        src="https://iconarchive.com/download/i103443/paomedia/small-n-flat/map-marker.ico"
+                        src="https://i.pinimg.com/originals/7a/80/c9/7a80c9fbeb2158487b68c827a17bbbea.png"
                         alt="pin"
-                        width="40"
-                        height="40"
+                        width="30"
+                        height="30"
                       />
                       <div style={markerStyle} className="marker-name">
                         {garage.garageName}
@@ -198,7 +353,7 @@ function TopPage() {
           </Col>
         </Row>
       </Container>
-    </div>
+    </div >
   );
 }
 
