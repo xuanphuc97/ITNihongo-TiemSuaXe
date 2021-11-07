@@ -15,6 +15,7 @@ function GarageInfo(props) {
   const [username, setUsername] = useState();
   const [newReview, setNewReview] = useState(props);
   const [show, setShow] = useState(false);
+  const [reload, setReload] = useState(false);
   useEffect(() => {
     const getService = async () => {
       try {
@@ -55,7 +56,9 @@ function GarageInfo(props) {
         console.log("OK");
         setComment();
         handleClose();
+        setReload(!reload)
       }
+
     } catch (error) {
       console.log(error);
     }
@@ -169,7 +172,7 @@ function GarageInfo(props) {
         </Modal.Footer>
       </Modal>
       <h2>List of reviews</h2>
-      <ListComment garage={garage}></ListComment>
+      <ListComment garage={garage} reload={reload}></ListComment>
     </>
   );
 }

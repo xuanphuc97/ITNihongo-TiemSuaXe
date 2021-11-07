@@ -8,7 +8,7 @@ import "./ListComment.scss";
 import commentApis from "./enum/comment-apis";
 
 function ListComment(props) {
-  const { garage, services, comments } = props;
+  const { garage, services, reload } = props;
   const [listComment, setListComment] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -26,11 +26,11 @@ function ListComment(props) {
       if (res) {
         console.log(res.data);
         setListComment([...listComment, ...res.data]);
-        setIsLoading(true);
+        setIsLoading(false);
         console.log(listComment);
       }
     } catch (err) {
-      setIsLoading(true);
+      setIsLoading(false)
       if (err) {
         console.log(err);
       }
@@ -39,11 +39,11 @@ function ListComment(props) {
 
   useEffect(() => {
     getListComment();
-  }, []);
+  }, [reload]);
 
   return (
     <div className="list-comment">
-      {!isLoading ? ( // Load duoc du lieu thi bo dau !
+      {isLoading ? (
         <div className="loader">
           <Loader type="Oval" color="#00BFFF" height={100} width={100} />
         </div>
