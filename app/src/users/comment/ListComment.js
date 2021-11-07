@@ -25,7 +25,7 @@ function ListComment(props) {
       console.log(res.data);
       if (res) {
         console.log(res.data);
-        setListComment([...listComment, ...res.data]);
+        setListComment([...res.data]);
         setIsLoading(false);
         console.log(listComment);
       }
