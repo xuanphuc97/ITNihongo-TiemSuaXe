@@ -18,4 +18,12 @@ public interface IGarageService {
     GarageDTO updateGarage(GarageRequestDTO garageRequestDTO, int id);
 
     Garage deleteGarage(int garageId);
+
+    List<GarageDTO> findGaragesByName(String name);
+
+    List<GarageDTO> findGaragesByAddress(String address);
+
+    List<GarageDTO> findGaragesByLocation(String location);
+
+    List<GarageDTO> findAllGaragesOrderedByRating();
 }

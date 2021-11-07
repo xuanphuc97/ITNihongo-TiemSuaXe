@@ -28,7 +28,7 @@ public class ReviewController {
 
     @GetMapping("/reviewshopid/{id}")
     public ResponseEntity<Object> getAllReviewShopId(@PathVariable("id") int id) {
-        Review reviews = reviewService.findByGarage_GarageId(id);
+        List<Review> reviews = reviewService.findByGarage_GarageId(id);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
@@ -41,7 +41,7 @@ public class ReviewController {
 
     @GetMapping("/reviewuserid/{id}")
     public ResponseEntity<Object> getAllReviewuserID(@PathVariable("id") int id){
-        Review reviews = reviewService.findByUser_Userid(id);
+        List<Review> reviews = reviewService.findByUser_Userid(id);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
