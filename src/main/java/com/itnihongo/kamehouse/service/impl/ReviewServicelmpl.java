@@ -36,7 +36,7 @@ public class ReviewServicelmpl implements ReviewService {
     }
 
     @Override
-    public Review findByUser_Userid(int id) {
+    public List<Review> findByUser_Userid(int id) {
         return repository.findAllByUser_Id(id);
     }
 
@@ -52,7 +52,7 @@ public class ReviewServicelmpl implements ReviewService {
     }
 
     @Override
-    public Review findByGarage_GarageId(int id) {
-        return repository.findAllByGarage_Id(id);
+    public List<Review> findByGarage_GarageId(int garageId) {
+        return repository.findAllByGarage_Id(garageId);
     }
 }

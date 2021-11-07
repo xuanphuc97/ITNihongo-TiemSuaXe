@@ -25,6 +25,7 @@ public class GarageDTO {
     private LocalTime startAt;
     private LocalTime endAt;
     private Boolean active;
+    private double averageRating;
 
     public GarageDTO(int garageId, Boolean active) {
         this.garageId = garageId;

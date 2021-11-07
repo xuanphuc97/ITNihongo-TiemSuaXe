@@ -96,4 +96,21 @@ public class ShopController {
 ////        return ResponseEntity.accepted().build();
 //    }
 
+    @GetMapping("/garages/name/{keyword}")
+    public ResponseEntity<Object> findGaragesByName(@PathVariable("keyword") String name) {
+        List<GarageDTO> garageDTOs = garageService.findGaragesByName(name);
+        return ResponseEntity.ok(garageDTOs);
+    }
+
+    @GetMapping("/garages/address/{keyword}")
+    public ResponseEntity<Object> findGaragesByAddress(@PathVariable("keyword") String address) {
+        List<GarageDTO> garageDTOs = garageService.findGaragesByAddress(address);
+        return ResponseEntity.ok(garageDTOs);
+    }
+
+    @GetMapping("/garages/rating")
+    public ResponseEntity<Object> findAllGaragesOrderedByRating() {
+        List<GarageDTO> garageDTOs = garageService.findAllGaragesOrderedByRating();
+        return ResponseEntity.ok(garageDTOs);
+    }
 }

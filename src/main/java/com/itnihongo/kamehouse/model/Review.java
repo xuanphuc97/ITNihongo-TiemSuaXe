@@ -1,6 +1,7 @@
 package com.itnihongo.kamehouse.model;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -26,6 +27,7 @@ public class Review {
     private Garage garage;
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "comment")
     private String comment;
 
