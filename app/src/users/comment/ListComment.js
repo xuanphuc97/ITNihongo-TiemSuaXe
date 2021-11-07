@@ -1,61 +1,68 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from "react-redux"
-import axios from "axios"
-import profileApis from "../profile/enum/profile-apis"
-import Comment from './Comment'
-import Loader from "react-loader-spinner"
-import './ListComment.scss'
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import profileApis from "../profile/enum/profile-apis";
+import Comment from "./Comment";
+import Loader from "react-loader-spinner";
+import "./ListComment.scss";
+import commentApis from "./enum/comment-apis";
 
 function ListComment(props) {
-    const [listComment, setListComment] = useState([1, 2, 3, 4, 5])
-    const [isLoading, setIsLoading] = useState(true)
+  const { garage, services, comments } = props;
+  const [listComment, setListComment] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const auth = useSelector((state) => state.auth)
-    const userInfor = auth.user;
+  const auth = useSelector((state) => state.auth);
+  const userInfor = auth.user;
 
-    // const getListComment = async () => {
+  const getListComment = async () => {
+    try {
+      const res = await axios.get(
+        commentApis.getReviewsOfGarage(garage.garageId)
+      );
+      console.log(garage.garageId);
+      console.log("service");
+      console.log(res.data);
+      if (res) {
+        console.log(res.data);
+        setListComment([...listComment, ...res.data]);
+        setIsLoading(true);
+        console.log(listComment);
+      }
+    } catch (err) {
+      setIsLoading(true);
+      if (err) {
+        console.log(err);
+      }
+    }
+  };
 
-    //     const garage = await axios.get(
-    //         profileApis.getGaragesOfUser(userInfor.accountId)
-    //     );
-    //     const comments = await getListComment(garage.id)
-    //     if (comments) {
-    //         setIsLoading(false);
-    //     }
-    //     setListComment(comments)
-    // }
+  useEffect(() => {
+    getListComment();
+  }, []);
 
-    // useEffect(() => {
-    //     getListComment()
-    // }, [])
-
-    return (
-        <div className='list-comment'>
-            {!isLoading ?  // Load duoc du lieu thi bo dau !
-                <div className="loader">
-                    <Loader
-                        type="Oval"
-                        color="#00BFFF"
-                        height={100}
-                        width={100}
-                    />
-                </div> :
-                listComment.map((comment, idx) => {
-                    return (
-                        <Comment
-                            className='comment'
-                            key={`comment-${idx}`}
-                            isForComment={false}
-                            initRating={comment.rating}
-                            initUsername={"xuanphuc191"}
-                            initComment="Test Comment -- Best Service 5 stars. "
-
-                        ></Comment>
-                    )
-                })
-            }
+  return (
+    <div className="list-comment">
+      {!isLoading ? ( // Load duoc du lieu thi bo dau !
+        <div className="loader">
+          <Loader type="Oval" color="#00BFFF" height={100} width={100} />
         </div>
-    )
+      ) : (
+        listComment.map((comment, idx) => {
+          return (
+            <Comment
+              className="comment"
+              key={`comment-${idx}`}
+              isForComment={false}
+              initRating={comment.rating}
+              initUsername={comment.user.username}
+              initComment={comment.comment}
+            ></Comment>
+          );
+        })
+      )}
+    </div>
+  );
 }
 
-export default ListComment
+export default ListComment;

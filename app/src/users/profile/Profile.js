@@ -8,7 +8,7 @@ import "./Profile.scss";
 import profileApis from "../profile/enum/profile-apis";
 import LoadingOverlay from "react-loading-overlay";
 import Loader from "react-loader-spinner";
-import { Rating } from 'react-simple-star-rating'
+import { Rating } from "react-simple-star-rating";
 
 function Profile() {
   const auth = useSelector((state) => state.auth);
@@ -16,10 +16,9 @@ function Profile() {
   const [garages, setGarages] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     const getGarages = async () => {
-      console.log("Profile")
+      console.log("Profile");
       try {
         const res = await axios.get(
           profileApis.getGaragesOfUser(userInfor.accountId)
@@ -29,9 +28,7 @@ function Profile() {
           setGarages([...garages, ...res.data]);
           setLoading(true);
         }
-
-      }
-      catch (err) {
+      } catch (err) {
         setLoading(true);
         if (err) {
           console.log(err);
@@ -39,6 +36,7 @@ function Profile() {
       }
     };
     getGarages();
+    // }
   }, [userInfor]);
   return (
     <div>

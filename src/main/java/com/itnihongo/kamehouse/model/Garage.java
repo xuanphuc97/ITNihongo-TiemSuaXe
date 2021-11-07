@@ -49,7 +49,7 @@ public class Garage {
     private Boolean active = false;
 
     @Column(name = "del_flag", nullable = false)
-    private Boolean delFlag = false;
+    public Boolean delFlag = false;
 
     public Garage(String garageName, String phoneNumber, String address, String location, String image, String startAt, String endAt) {
         this.garageName = garageName;

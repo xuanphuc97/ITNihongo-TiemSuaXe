@@ -1,17 +1,14 @@
 const baseUrl = "http://localhost:8080";
 
 export default {
-  getAllGarages: `${baseUrl}/api/garages`,
-  addReview: `${baseUrl}/review/add`,
-  getService(id) {
-    return `${baseUrl}/serviceshopid/${id}`;
-  },
+  //   getAllGarages: `${baseUrl}/api/garages`,
+  //   getReview: `${baseUrl}/api/review/add`,
   // uploadImg: `${baseUrl}/upload`,
   // updateInfor: `${baseUrl}/users/update`,
   // updatePassword: `${baseUrl}/auth/changepwd`,
-  // getGaragesOfUser(accountId) {
-  //   return `${baseUrl}/api/user/${accountId}/garages`;
-  // },
+  getReviewsOfGarage(garageId) {
+    return `${baseUrl}/reviewshopid/${garageId}`;
+  },
   //     getDraftsOfUser: `${baseUrl}/user/drafts`,
   //     deleteDraft(postId){
   //         return  `${baseUrl}/post/${postId}`

@@ -4,6 +4,10 @@
   box-sizing: border-box;
   //   height: 100%;
 }
+
+// .del {
+//   align-items: center;
+// }
 .garage-profile-edit {
   margin-bottom: 0px !important;
   .title {
@@ -52,9 +56,12 @@
           font-size: 18px;
           height: 40px;
         }
-    
+
       }
     }
+  }
+  .delete {
+    padding-left: 500px;
   }
   .service-edit {
     border-radius: 8px;

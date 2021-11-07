@@ -1,8 +1,9 @@
 package com.itnihongo.kamehouse.service.impl;
 
-import com.itnihongo.kamehouse.model.Garage;
 import com.itnihongo.kamehouse.model.Review;
+import com.itnihongo.kamehouse.repository.GarageRepository;
 import com.itnihongo.kamehouse.repository.ReviewRepository;
+import com.itnihongo.kamehouse.repository.UserRepository;
 import com.itnihongo.kamehouse.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,13 @@ import java.util.List;
 public class ReviewServicelmpl implements ReviewService {
     @Autowired
     ReviewRepository repository;
+
+    @Autowired
+    GarageRepository garageRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
     @Override
     public List<Review> finAll() {
         return repository.findAll();
@@ -36,8 +44,8 @@ public class ReviewServicelmpl implements ReviewService {
     }
 
     @Override
-    public List<Review> findByUser_Userid(int id) {
-        return repository.findAllByUser_Id(id);
+    public Review findByUser_Userid(int id) {
+        return (Review) repository.findAllByUser_Id(id);
     }
 
     @Override
@@ -52,7 +60,24 @@ public class ReviewServicelmpl implements ReviewService {
     }
 
     @Override
-    public List<Review> findByGarage_GarageId(int garageId) {
-        return repository.findAllByGarage_Id(garageId);
+    public List<com.itnihongo.kamehouse.model.Review> getAllReviewOfGarage(int id) {
+        return repository.findAllByGarage_Id(id);
+    }
+
+//    @Override
+//    public Review findByGarage_GarageId(int id) {
+//        return repository.findAllByGarage_Id(id);
+//
+//    }
+
+    @Override
+    public Review addReview(String username, int garageId, String comment, int rating) {
+        Review review = new Review();
+        review.setGarage(garageRepository.findById(garageId));
+        review.setUser(userRepository.findByUsername(username));
+        review.setComment(comment);
+        review.setRating(rating);
+        repository.save(review);
+        return review;
     }
 }
