@@ -54,9 +54,9 @@ public class GarageServiceImpl implements IGarageService {
     public List<GarageDTO> getAllGaragesOfUser(int userId) {
         List<Garage> garages = garageRepository.findAllByUser_IdAndDelFlagIsFalse(userId);
 
-        if (garages.isEmpty()) {
-            throw new ResourceNotFoundException("User is not having any garages");
-        }
+//        if (garages.isEmpty()) {
+//            throw new ResourceNotFoundException("User is not having any garages");
+//        }
 
         return garages.stream().map(this::entityToDTO).collect(Collectors.toList());
     }

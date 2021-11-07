@@ -32,7 +32,10 @@ import profileApis from "../profile/enum/profile-apis";
 import garageApis from "./enum/garage-apis";
 import LoadingOverlay from "react-loading-overlay";
 import Loader from "react-loader-spinner";
-import GooglePlacesAutocomplete, { geocodeByPlaceId, getLatLng } from 'react-google-places-autocomplete';
+import GooglePlacesAutocomplete, {
+  geocodeByPlaceId,
+  getLatLng,
+} from "react-google-places-autocomplete";
 
 const GarageEditProfile = () => {
   const initialState = {
@@ -60,7 +63,7 @@ const GarageEditProfile = () => {
 
   useEffect(() => {
     const getGarage = async () => {
-      console.log("x")
+      console.log("x");
       try {
         const res = await axios.get(garageApis.getGarageInfo(id.id));
         var resInfo = res.data;
@@ -146,18 +149,13 @@ const GarageEditProfile = () => {
 
   const showDelAlert = () => {
     return (
-      <div className="dialog-container post__delete-dialog">
-        <h5>Lưu ý</h5>
-        <p>Xoá Garage</p>
-        <div className="post__report-delete-dialog--btn-container">
-          <button
-            className="button button-red-no-hover mr-5"
-            onClick={() => handleClickDel(false)}
-          >
-            Hủy
-          </button>
+      <div className="garage-profile-edit delete">
+        <h5>Warning</h5>
+        <p>Delete Garage</p>
+        <div>
+          <button onClick={() => handleClickDel(false)}>Cancel</button>
           <button className="button button-red" onClick={handleDelGarage}>
-            Xóa
+            Delete
           </button>
         </div>
       </div>
@@ -226,8 +224,8 @@ const GarageEditProfile = () => {
     };
   }, [avatar]);
 
-  const [address, setAddress] = useState(newInforGarage.address)
-  const [location, setLocation] = useState(newInforGarage.location)
+  const [address, setAddress] = useState(newInforGarage.address);
+  const [location, setLocation] = useState(newInforGarage.location);
 
   return (
     <>
@@ -280,7 +278,6 @@ const GarageEditProfile = () => {
                     </div>
                   </div>
                 </div>
-
                 <div className="edit-field flex-row">
                   <span className="label">Name: </span>
                   <input
@@ -303,8 +300,8 @@ const GarageEditProfile = () => {
                   <span className="label">Address: </span>
                   <div className="address-input">
                     <GooglePlacesAutocomplete
-                      apiKey="AIzaSyDPOAS-m9ldTUdx_lttqTAWn-JM_m4BkuE"
-                      apiOptions={{ language: 'vi', region: 'vi' }}
+                      apiKey="AIzaSyCh84-bMIz1xJIbDPQDrFJ2zECSMs3L168"
+                      apiOptions={{ language: "vi", region: "vi" }}
                       selectProps={{
                         isClearable: true,
                         value: address,
@@ -312,27 +309,36 @@ const GarageEditProfile = () => {
                           try {
                             console.log(val);
                             geocodeByPlaceId(val.value.place_id)
-                              .then(results => getLatLng(results[0]))
+                              .then((results) => getLatLng(results[0]))
                               .then(({ lat, lng }) => {
                                 setNewInforGarage({
                                   ...newInforGarage,
-                                  location: val === null ? newInforGarage.address : `${lat} ${lng}`,
-                                  address: val === null ? newInforGarage.address : val.label,
+                                  location:
+                                    val === null
+                                      ? newInforGarage.address
+                                      : `${lat} ${lng}`,
+                                  address:
+                                    val === null
+                                      ? newInforGarage.address
+                                      : val.label,
                                   err: "",
                                   success: "",
                                 });
-                                setLocation(val === null ? newInforGarage.address : `${lat} ${lng}`)
+                                setLocation(
+                                  val === null
+                                    ? newInforGarage.address
+                                    : `${lat} ${lng}`
+                                );
                                 setAddress(val);
                               })
-                              .catch(error => console.error(error));
-                          } catch (e) { }
-
-                        }
+                              .catch((error) => console.error(error));
+                          } catch (e) {}
+                        },
                       }}
                     />
                   </div>
-
-                </div> <div className="edit-field flex-row">
+                </div>{" "}
+                <div className="edit-field flex-row">
                   <span className="label">Location: </span>
                   <input
                     disabled

@@ -6,6 +6,7 @@
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@fortawesome/fontawesome-free": "^5.15.4",
+    "@goongmaps/goong-js": "^1.0.9",
     "@goongmaps/goong-map-react": "^1.1.0",
     "@mui/material": "^5.0.6",
     "@react-google-maps/api": "^2.5.0",

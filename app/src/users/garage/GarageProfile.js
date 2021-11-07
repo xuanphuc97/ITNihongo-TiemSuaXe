@@ -9,8 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import garageApis from "./enum/garage-apis";
 import Loader from "react-loader-spinner";
 import ListComment from "../comment/ListComment";
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
 function GarageProfile() {
   const location = useLocation();
   const id = useParams();
@@ -37,14 +37,12 @@ function GarageProfile() {
   const [garage, setGarage] = useState(initialState);
   const [services, setService] = useState([]);
 
-
-
   useEffect(() => {
     const getGarage = async () => {
       try {
         const res = await axios.get(garageApis.getGarageInfo(id.id));
         var resInfo = res.data;
-        console.log("garage")
+        console.log("garage");
         setGarage({
           ...garage,
           garageId: resInfo.garageId,
@@ -66,7 +64,7 @@ function GarageProfile() {
       try {
         const res = await axios.get(garageApis.getService(id.id));
         var resInfo = res.data;
-        console.log("service")
+        console.log("service");
         setService([...services, ...res.data]);
         setLoading(true);
       } catch (err) {
@@ -79,11 +77,9 @@ function GarageProfile() {
     getService();
   }, []);
 
-
   return (
     <>
       <Tabs defaultActiveKey="profile" id="" className="nav" variant="pills">
-
         <Tab eventKey="profile" title="Profile">
           {/* <Nav.Item className="nav">
           <Nav.Link href={`/garages/${garage.garageId}`} >Profile</Nav.Link> */}
@@ -144,7 +140,7 @@ function GarageProfile() {
                 <div className="service-list">
                   {services.map((service, idx) => {
                     return (
-                      <div className="flex-row" key={`service-${idx}`} >
+                      <div className="flex-row" key={`service-${idx}`}>
                         <span className="label service-name">
                           {idx + 1}. {service.serviceName}
                         </span>
@@ -159,13 +155,10 @@ function GarageProfile() {
               </div>
             </div>
           )}
-
         </Tab>
         <Tab eventKey="comments" title="Comments">
-          <ListComment></ListComment>
-
+          <ListComment garage={garage}></ListComment>
         </Tab>
-
       </Tabs>
     </>
   );
