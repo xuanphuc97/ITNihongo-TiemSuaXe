@@ -23,7 +23,7 @@ public interface IGarageService {
 
     List<GarageDTO> findGaragesByAddress(String address);
 
-    List<GarageDTO> findGaragesByLocation(String location);
+    List<GarageDTO> findAllGaragesOrderedByDistance(String location);
 
     List<GarageDTO> findAllGaragesOrderedByRating();
 }

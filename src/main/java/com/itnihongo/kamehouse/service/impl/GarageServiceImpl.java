@@ -117,7 +117,7 @@ public class GarageServiceImpl implements IGarageService {
         List<Garage> garages = garageRepository.findByGarageNameContaining(name);
         if (garages.isEmpty())
             throw new ResourceNotFoundException("Garage with name: " + name + " not found!");
-        return garages.stream().map(GarageDTO::toGarageDTO).collect(Collectors.toList());
+        return garages.stream().map(this::entityToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -125,12 +125,18 @@ public class GarageServiceImpl implements IGarageService {
         List<Garage> garages = garageRepository.findByAddressContaining(address);
         if (garages.isEmpty())
             throw new ResourceNotFoundException("Garage with address: " + address + " not found!");
-        return garages.stream().map(GarageDTO::toGarageDTO).collect(Collectors.toList());
+        return garages.stream().map(this::entityToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<GarageDTO> findGaragesByLocation(String location) {
-        return null;
+    public List<GarageDTO> findAllGaragesOrderedByDistance(String location) {
+        List<Garage> garages = garageRepository.findAll();
+
+        List<Garage> sortedList = garages.stream()
+                .sorted(Comparator.comparingDouble(o -> distance(o, location)))
+                .collect(Collectors.toList());
+
+        return sortedList.stream().map(this::entityToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -140,6 +146,22 @@ public class GarageServiceImpl implements IGarageService {
         return garageDTOs.stream()
                 .sorted(Comparator.comparing(GarageDTO::getAverageRating).reversed())
                 .collect(Collectors.toList());
+    }
+
+    public double distance(Garage garage, String myLocation) {
+        String garageLocation = garage.getLocation();
+        double xGarage;
+        double yGarage;
+        double xHome;
+        double yHome;
+
+        xGarage = Double.parseDouble(garageLocation.substring(0, garageLocation.indexOf(" ")));
+        yGarage = Double.parseDouble(garageLocation.substring(garageLocation.indexOf(" ")));
+
+        xHome = Double.parseDouble(myLocation.substring(0, myLocation.indexOf(" ")));
+        yHome = Double.parseDouble(myLocation.substring(myLocation.indexOf(" ")));
+
+        return Math.pow((xGarage - xHome), 2) + Math.pow((yGarage - yHome), 2);
     }
 
     public double averageRatingOfGarage(Garage garage) {
