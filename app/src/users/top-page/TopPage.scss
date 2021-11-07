@@ -85,9 +85,29 @@
         border: 1px solid #b6f4ff;
     }
     .card-text {
-        overflow: hidden;
+        overflow-x: auto;
+        white-space: nowrap;
+        overflow-y: hidden;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
 
-        height: 20px;
+        // height: 20px;
+    }
+    .card-text::-webkit-scrollbar {
+        display: none;
+    }
+    .garage-name::-webkit-scrollbar {
+        display: none;
+    }
+    .garage-name {
+        color: var(--color-primary);
+        overflow-x: auto;
+        white-space: nowrap;
+        overflow-y: hidden;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        font-weight: 600;
+        text-overflow: ellipsis;
     }
     .big-marker {
         z-index: 100 !important;
@@ -105,6 +125,16 @@
     }
     .your-marker {
         z-index: 1000;
+    }
+    .loader {
+        height: calc(100vh - 120px) !important;
+    }
+    .rating-number {
+        padding-left: 2px;
+        position: relative;
+        bottom: 20%;
+        font-size: 16px;
+        color: #333;
     }
 }
 

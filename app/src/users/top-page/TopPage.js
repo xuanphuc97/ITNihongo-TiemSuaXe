@@ -41,6 +41,7 @@ function TopPage() {
 
   const [garage, setGarage] = useState();
 
+
   function reForm(str) {
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
     str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
@@ -69,6 +70,7 @@ function TopPage() {
           data: res.data,
         }));
         setGarages(res.data)
+        setLoading(true)
       }
 
 
@@ -178,80 +180,89 @@ function TopPage() {
           <Col xs={12} md={5} className="garage-side">
             {!showGarage ? (
               <>
-                <div className="search-box">
-                  <Form>
-                    <Form.Group controlId="searchBox">
-                      <Form.Control
-                        type="Text"
-                        placeholder="Search..."
-                        onChange={(e) => setKeyword(reForm(e.target.value.trim().toLowerCase()))}
-                        disabled={["Name", "Address"].includes(config) ? false : true}
-                        Value={keyword}
-                      />
-                      <Form.Control
-                        as="select"
-                        custom
-                        onChange={(e) => setConfig(e.target.value)}
-                        value={config}
-                      >
-                        <option value="All">All</option>
-                        <option value="Name">Name</option>
-                        <option value="Address">Address</option>
-                        <option value="Near you">Near you</option>
-                        <option value="Rating">Rating</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Form>
-                </div>
-                <div className="list-garage">
-                  <ListGroup>
-                    {page.data
-                      .slice(
-                        page.activePage * page.limit - page.limit,
-                        page.activePage * page.limit > page.data.length
-                          ? page.data.length
-                          : page.activePage * page.limit
-                      )
-                      .map((garage, idx) => {
-                        return (
-                          <ListGroup.Item key={`list-garage${idx}`}>
-                            <Card
-                              className="curr-garage"
-                              onClick={() => handleGarageClick(garage)}
-                            >
-                              <Card.Body>
-                                <Card.Title>
-                                  <Row>
-                                    <Col xs={7}>{garage.garageName}</Col>
-                                    <Col xs={5}>
-                                      <span className="rating">
-                                        <Rating
-                                          name="half-rating-read"
-                                          value={garage.averageRating}
-                                          precision={0.1}
-                                          readOnly
-                                        />
-                                      </span>
-                                    </Col>
-                                  </Row>
-                                </Card.Title>
-                                <Card.Text>{garage.address}</Card.Text>
-                              </Card.Body>
-                            </Card>
-                          </ListGroup.Item>
-                        );
-                      })}
-                  </ListGroup>
-                </div>
-                <Pagination
-                  activePage={page.activePage}
-                  itemsCountPerPage={page.limit}
-                  totalItemsCount={page.data.length}
-                  pageRangeDisplayed={1}
-                  onChange={handlePageChange}
-                  itemClass="page-item"
-                  linkClass="page-link"
-                />
+                {!loading
+                  ?
+                  <div className="loader">
+                    <Loader type="Oval" color="#00BFFF" height={100} width={100} />
+                  </div>
+                  : <>
+                    <div className="search-box">
+                      <Form>
+                        <Form.Group controlId="searchBox">
+                          <Form.Control
+                            type="Text"
+                            placeholder="Search..."
+                            onChange={(e) => setKeyword(reForm(e.target.value.trim().toLowerCase()))}
+                            disabled={["Name", "Address"].includes(config) ? false : true}
+                            Value={keyword}
+                          />
+                          <Form.Control
+                            as="select"
+                            custom
+                            onChange={(e) => setConfig(e.target.value)}
+                            value={config}
+                          >
+                            <option value="All">All</option>
+                            <option value="Name">Name</option>
+                            <option value="Address">Address</option>
+                            <option value="Near you">Near you</option>
+                            <option value="Rating">Rating</option>
+                          </Form.Control>
+                        </Form.Group>
+                      </Form>
+                    </div>
+                    <div className="list-garage">
+                      <ListGroup>
+                        {page.data
+                          .slice(
+                            page.activePage * page.limit - page.limit,
+                            page.activePage * page.limit > page.data.length
+                              ? page.data.length
+                              : page.activePage * page.limit
+                          )
+                          .map((garage, idx) => {
+                            return (
+                              <ListGroup.Item key={`list-garage${idx}`}>
+                                <Card
+                                  className="curr-garage"
+                                  onClick={() => handleGarageClick(garage)}
+                                >
+                                  <Card.Body>
+                                    <Card.Title>
+                                      <Row>
+                                        <Col className="garage-name" xs={6}>{garage.garageName}</Col>
+                                        <Col xs={6}>
+                                          <span className="rating">
+                                            <Rating
+                                              name="half-rating-read"
+                                              value={garage.averageRating}
+                                              precision={0.1}
+                                              readOnly
+                                            />
+                                          </span>
+                                          <span className="rating-number">{garage.averageRating.toFixed(1)}</span>
+                                        </Col>
+                                      </Row>
+                                    </Card.Title>
+                                    <Card.Text>{garage.address}</Card.Text>
+                                  </Card.Body>
+                                </Card>
+                              </ListGroup.Item>
+                            );
+                          })}
+                      </ListGroup>
+                    </div>
+                    <Pagination
+                      activePage={page.activePage}
+                      itemsCountPerPage={page.limit}
+                      totalItemsCount={page.data.length}
+                      pageRangeDisplayed={1}
+                      onChange={handlePageChange}
+                      itemClass="page-item"
+                      linkClass="page-link"
+                    />
+                  </>
+                }
               </>
             ) : (
               <>
@@ -277,7 +288,7 @@ function TopPage() {
               }}
               defaultCenter={{ lat: 16.047079, lng: 108.26895 }}
               center={location}
-              defaultZoom={10}
+              defaultZoom={12}
             // distanceToMouse={distanceToMouse}
             >
               {showPosition

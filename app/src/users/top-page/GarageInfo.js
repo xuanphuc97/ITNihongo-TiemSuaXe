@@ -46,6 +46,7 @@ function GarageInfo(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      handleClose();
       var CreateForm = new FormData();
       CreateForm.append("id", garage.garageId);
       CreateForm.append("comment", comment);
@@ -55,7 +56,7 @@ function GarageInfo(props) {
       if (res) {
         console.log("OK");
         setComment();
-        handleClose();
+
         setReload(!reload)
       }
 
