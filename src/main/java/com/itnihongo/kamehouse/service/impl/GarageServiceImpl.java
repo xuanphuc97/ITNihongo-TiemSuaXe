@@ -117,7 +117,7 @@ public class GarageServiceImpl implements IGarageService {
         List<Garage> garages = garageRepository.findByGarageNameContaining(name);
         if (garages.isEmpty())
             throw new ResourceNotFoundException("Garage with name: " + name + " not found!");
-        return garages.stream().map(GarageDTO::toGarageDTO).collect(Collectors.toList());
+        return garages.stream().map(this::entityToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -125,7 +125,7 @@ public class GarageServiceImpl implements IGarageService {
         List<Garage> garages = garageRepository.findByAddressContaining(address);
         if (garages.isEmpty())
             throw new ResourceNotFoundException("Garage with address: " + address + " not found!");
-        return garages.stream().map(GarageDTO::toGarageDTO).collect(Collectors.toList());
+        return garages.stream().map(this::entityToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -136,7 +136,7 @@ public class GarageServiceImpl implements IGarageService {
                 .sorted(Comparator.comparingDouble(o -> distance(o, location)))
                 .collect(Collectors.toList());
 
-        return sortedList.stream().map(GarageDTO::toGarageDTO).collect(Collectors.toList());
+        return sortedList.stream().map(this::entityToDTO).collect(Collectors.toList());
     }
 
     @Override
