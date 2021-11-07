@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
 @CrossOrigin(maxAge = 3600) // https://spring.io/guides/gs/rest-service-cors/
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
@@ -111,6 +112,12 @@ public class ShopController {
     @GetMapping("/garages/rating")
     public ResponseEntity<Object> findAllGaragesOrderedByRating() {
         List<GarageDTO> garageDTOs = garageService.findAllGaragesOrderedByRating();
+        return ResponseEntity.ok(garageDTOs);
+    }
+
+    @GetMapping(value = "/garages/distance", params = {"location"})
+    public ResponseEntity<Object> findAllGaragesOrderedByDistance(@RequestParam("location") String location) {
+        List<GarageDTO> garageDTOs = garageService.findAllGaragesOrderedByDistance(location);
         return ResponseEntity.ok(garageDTOs);
     }
 }
