@@ -165,7 +165,7 @@ const NewGarage = () => {
               <span className="label">Address: </span>
               <div className="address-input">
                 <GooglePlacesAutocomplete
-                  apiKey="AIzaSyC8RZDBo5cTzzcykMrPS9qhykhSqH_4THU"
+                  apiKey="AIzaSyDPOAS-m9ldTUdx_lttqTAWn-JM_m4BkuE"
                   apiOptions={{ language: 'vi', region: 'vi' }}
                   selectProps={{
                     isClearable: true,
