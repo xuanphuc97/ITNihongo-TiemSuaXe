@@ -120,4 +120,12 @@ public class ShopController {
         List<GarageDTO> garageDTOs = garageService.findAllGaragesOrderedByDistance(location);
         return ResponseEntity.ok(garageDTOs);
     }
+
+    @PostMapping("/garages/{garageId}/uploadImg")
+    public ResponseEntity<Object> saveImageLink(@PathVariable("garageId") int garageId,
+                                                @RequestParam("imageLink") String imageLink
+    ) {
+        garageService.saveImageLink(imageLink, garageId);
+        return ResponseEntity.ok().build();
+    }
 }

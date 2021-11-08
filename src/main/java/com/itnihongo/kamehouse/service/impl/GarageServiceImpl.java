@@ -148,6 +148,17 @@ public class GarageServiceImpl implements IGarageService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void saveImageLink(String imgLink, int garageId) {
+        Garage garage = garageRepository.findById(garageId);
+        System.out.println(garage);
+        if (garage == null) {
+            throw new ResourceNotFoundException("Garage with id: " + garageId + " not found");
+        }
+        garage.setImage(imgLink);
+        garageRepository.saveAndFlush(garage);
+    }
+
     public double distance(Garage garage, String myLocation) {
         String garageLocation = garage.getLocation();
         double xGarage;

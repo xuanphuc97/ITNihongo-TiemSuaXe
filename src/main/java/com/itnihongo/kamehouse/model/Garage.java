@@ -35,7 +35,6 @@ public class Garage {
     @Column(name = "location", nullable = false, length = 100)
     private String location;
 
-    @Transient
     @Column(name = "image")
     private String image;
 
