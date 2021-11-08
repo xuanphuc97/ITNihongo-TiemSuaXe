@@ -9,6 +9,9 @@ import Pagination from "react-js-pagination";
 import Rating from "@mui/material/Rating";
 import GoogleMapReact from "google-map-react";
 import GarageInfo from "./GarageInfo";
+import chosenGarage from "./chosen_garage.png";
+import garageLocation from "./garage_location.png";
+import currentLocation from "./your_location.png";
 
 const getLocation = (str) => {
   return str.split(" ").map((val) => Number(val));
@@ -300,7 +303,7 @@ function TopPage() {
                   <img
                     style={markerStyle}
                     className="your-marker"
-                    src="https://www.iconpacks.net/icons/2/free-location-icon-2955-thumb.png"
+                    src={currentLocation}
                     alt="Current Position"
                     width="50"
                     height="50"
@@ -321,7 +324,7 @@ function TopPage() {
                     <img
                       style={markerStyle}
                       className="big-marker"
-                      src="https://s3.amazonaws.com/use-cache.salvationarmy.org/4de13d4e-a10d-4a16-87bc-a7a73ffa877f_location_pin_gps-512.png"
+                      src={chosenGarage}
                       alt="Current Position"
                       width="40"
                       height="40"
@@ -349,7 +352,7 @@ function TopPage() {
                     >
                       <img
                         style={markerStyle}
-                        src="https://i.pinimg.com/originals/7a/80/c9/7a80c9fbeb2158487b68c827a17bbbea.png"
+                        src={garageLocation}
                         alt="pin"
                         width="30"
                         height="30"
