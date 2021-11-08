@@ -26,6 +26,9 @@ export default {
   createService(id) {
     return `${baseUrl}/createService/${id}`;
   },
+  updateService(id) {
+    return `${baseUrl}/service/${id}/edit`;
+  },
 
   //     getDraftsOfUser: `${baseUrl}/user/drafts`,
   //     deleteDraft(postId){

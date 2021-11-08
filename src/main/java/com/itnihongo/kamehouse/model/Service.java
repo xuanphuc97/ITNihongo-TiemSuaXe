@@ -10,8 +10,6 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +26,17 @@ public class Service {
     @Column(name = "service_price", nullable = false)
     private BigDecimal servicePrice;
 
+//    public void Service() {
+//        id = 0;
+//        serviceName = "";
+//        servicePrice = null;
+//    }
+//    public String setServiceName(String name){
+//        return this.serviceName = name;
+//    }
+//
+//    public BigDecimal setPrice(){
+//        return this.servicePrice;
+//    }
 
 }

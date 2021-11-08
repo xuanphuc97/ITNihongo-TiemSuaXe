@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import ListComment from "../comment/ListComment";
 import Comment from "../comment/Comment";
@@ -9,6 +10,8 @@ import profileApis from "../top-page/enum/profile-apis";
 
 function GarageInfo(props) {
   const { garage } = props;
+  const auth = useSelector((state) => state.auth);
+  const { isLogged } = auth;
   const [services, setService] = useState([]);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState();
@@ -57,9 +60,8 @@ function GarageInfo(props) {
         console.log("OK");
         setComment();
 
-        setReload(!reload)
+        setReload(!reload);
       }
-
     } catch (error) {
       console.log(error);
     }
@@ -124,8 +126,11 @@ function GarageInfo(props) {
           </div>
         </div>
       </div>
-      <h2>Comment</h2>
-      <Button variant="primary" onClick={handleShow}>
+      <Button
+        variant="primary"
+        onClick={handleShow}
+        disabled={!isLogged ? true : false}
+      >
         Write your Review
       </Button>
 

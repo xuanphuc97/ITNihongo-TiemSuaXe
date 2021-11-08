@@ -36,6 +36,14 @@ import GooglePlacesAutocomplete, {
   geocodeByPlaceId,
   getLatLng,
 } from "react-google-places-autocomplete";
+// import * as React from "react";
+// import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const GarageEditProfile = () => {
   const initialState = {
@@ -49,6 +57,7 @@ const GarageEditProfile = () => {
     err: "",
     success: "",
   };
+
   const [newInforGarage, setNewInforGarage] = useState(initialState);
   const auth = useSelector((state) => state.auth);
 
@@ -58,8 +67,10 @@ const GarageEditProfile = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [services, setService] = useState([]);
+  const [serviceUpdate, setServiceUpdate] = useState();
   const [isDel, setIsDel] = useState(false);
   const [delId, setDelId] = useState(null);
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     const getGarage = async () => {
@@ -89,7 +100,7 @@ const GarageEditProfile = () => {
       try {
         const res = await axios.get(garageApis.getService(id.id));
         var resInfo = res.data;
-        setService([...services, ...res.data]);
+        setService([...res.data]);
         setLoading(true);
       } catch (err) {
         if (err) {
@@ -100,6 +111,83 @@ const GarageEditProfile = () => {
     getGarage();
     getService();
   }, []);
+  const handleClickOpen = (service) => {
+    setOpen(true);
+    setServiceUpdate(service);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const dialog = () => {
+    return (
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Update Service</DialogTitle>
+        <DialogContent>
+          {/* <DialogContentText>
+            To subscribe to this website, please enter your email address here.
+            We will send updates occasionally.
+          </DialogContentText> */}
+          <TextField
+            autoFocus
+            margin="dense"
+            name="serviceName"
+            label="Name"
+            type="text"
+            required
+            value={serviceUpdate.serviceName}
+            onChange={handleChangeUpdate}
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            name="servicePrice"
+            label="Cost"
+            type="number"
+            required
+            value={serviceUpdate.servicePrice}
+            onChange={handleChangeUpdate}
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleUpdateService}>Update</Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+  const handleUpdateService = async () => {
+    if (
+      isEmpty(serviceUpdate.serviceName) ||
+      isEmpty(serviceUpdate.servicePrice)
+    ) {
+      alert("Please enter the full information");
+    } else {
+      try {
+        var formUpdate = new FormData();
+        formUpdate.append("serviceName", serviceUpdate.serviceName);
+        formUpdate.append("price", serviceUpdate.servicePrice);
+        const res = await axios.put(
+          garageApis.updateService(serviceUpdate.id),
+          formUpdate
+        );
+        if (res) {
+          var index = services.findIndex((x) => x.id === serviceUpdate.id);
+          services[index].serviceName = serviceUpdate.serviceName;
+          services[index].servicePrice = serviceUpdate.servicePrice;
+          // var newArr = services.filter((cate) => cate.id !== serviceUpdate.id);
+          // setService(newArr);
+          handleClose();
+          alert("Update success ✔");
+        }
+      } catch (error) {
+        alert("Have an error 😢");
+      }
+    }
+  };
   const [avatar, setAvatar] = useState();
   const handleClickDel = (value) => {
     setIsDel(value);
@@ -111,17 +199,6 @@ const GarageEditProfile = () => {
       );
       if (res) {
         alert("Delete success ✔");
-        // <ToastContainer
-        //   position="bottom-left"
-        //   autoClose={5000}
-        //   hideProgressBar={false}
-        //   newestOnTop={false}
-        //   closeOnClick
-        //   rtl={false}
-        //   pauseOnFocusLoss
-        //   draggable
-        //   pauseOnHover
-        // />;
         history.push("/");
       }
     } catch (error) {
@@ -213,6 +290,13 @@ const GarageEditProfile = () => {
       success: "",
     });
   };
+  const handleChangeUpdate = (e) => {
+    const { name, value } = e.target;
+    setServiceUpdate({
+      ...serviceUpdate,
+      [name]: value,
+    });
+  };
   const handleUploadFile = (e) => {
     const file = e.target.files[0];
     file.preview = URL.createObjectURL(file);
@@ -236,7 +320,7 @@ const GarageEditProfile = () => {
       ) : (
         <>
           {isDel ? showDelAlert() : null}
-
+          {open ? dialog() : null}
           <form onSubmit={handleSubmitGarageInfo}>
             <div className="garage-profile-edit main-flex">
               <div className="garage-profile-changeinfo">
@@ -385,15 +469,24 @@ const GarageEditProfile = () => {
                         type="text"
                         placeholder="Service name"
                         value={service.serviceName}
-                        onChange={handleChangeInput}
+                        // onChange={handleChangeInput}
+                        disabled
                       />
                       <input
                         className="cost"
                         type="text"
                         placeholder="Cost"
                         value={service.servicePrice}
-                        onChange={handleChangeInput}
+                        disabled
+                        // onChange={handleChangeInput}
                       />
+                      <button
+                        className="update-service"
+                        type="button"
+                        onClick={() => handleClickOpen(service)}
+                      >
+                        Edit
+                      </button>
                       <button
                         className="delete-service"
                         type="button"
