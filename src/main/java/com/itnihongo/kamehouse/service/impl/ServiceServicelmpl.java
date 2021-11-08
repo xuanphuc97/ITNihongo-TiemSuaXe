@@ -1,5 +1,7 @@
 package com.itnihongo.kamehouse.service.impl;
 
+import com.itnihongo.kamehouse.exception.ResourceNotFoundException;
+import com.itnihongo.kamehouse.model.User;
 import com.itnihongo.kamehouse.repository.ServiceRepository;
 import com.itnihongo.kamehouse.repository.GarageRepository;
 import com.itnihongo.kamehouse.service.ServiceService;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceServicelmpl  implements ServiceService {
@@ -23,7 +26,7 @@ public class ServiceServicelmpl  implements ServiceService {
 
     @Override
     public com.itnihongo.kamehouse.model.Service findById(int id) {
-        return serviceRepository.findById(id).orElse(null);
+        return serviceRepository.findById(id);
     }
 
     @Override
@@ -49,5 +52,16 @@ public class ServiceServicelmpl  implements ServiceService {
     @Override
     public List<com.itnihongo.kamehouse.model.Service> getAllServicesOfGarage(int id) {
         return serviceRepository.findAllByGarage_Id(id);
+    }
+
+    @Override
+    public void update(String serviceName, String price, int id) {
+        com.itnihongo.kamehouse.model.Service service = serviceRepository.findById(id);
+        if (service == null) {
+            throw new ResourceNotFoundException(service + "' not found");
+        }
+        service.setServicePrice(BigDecimal.valueOf(Long.parseLong(price)));
+        service.setServiceName(serviceName);
+        serviceRepository.saveAndFlush(service);
     }
 }

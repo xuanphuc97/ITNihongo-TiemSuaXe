@@ -18,5 +18,5 @@ public interface ServiceService {
 
     List<Service> getAllServicesOfGarage(int garageId);
 
-
+    void update(String serviceName, String price, int id);
 }

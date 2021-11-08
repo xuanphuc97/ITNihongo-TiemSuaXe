@@ -61,6 +61,20 @@ public class ServiceController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping(value = "/service/{id}/edit")
+    private ResponseEntity<?> edit(@RequestParam("serviceName") String serviceName,
+                                   @RequestParam("price") String price,
+                                   @PathVariable("id") int id) {
+        Service serviceEdit = this.serviceService.findById(id);
+        if (serviceEdit == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            this.serviceService.update(serviceName, price, id);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/service/{id}")
     private ResponseEntity<?> delete(@PathVariable("id") int id) {
         this.serviceService.delete(id);

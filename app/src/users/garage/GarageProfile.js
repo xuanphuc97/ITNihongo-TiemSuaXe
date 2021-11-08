@@ -66,7 +66,6 @@ function GarageProfile() {
         var resInfo = res.data;
         console.log("service");
         setService([...services, ...res.data]);
-        setLoading(true);
       } catch (err) {
         if (err) {
           console.log(err);

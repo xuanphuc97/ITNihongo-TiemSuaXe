@@ -56,7 +56,6 @@
           font-size: 18px;
           height: 40px;
         }
-
       }
     }
   }
@@ -113,6 +112,18 @@
       font-weight: 600;
     }
     .delete-service:hover {
+      font-weight: 800;
+    }
+    .update-service {
+      font-size: 18px;
+      width: 40px;
+      border-radius: 50%;
+      border: none;
+      background-color: var(--color-white);
+      color: rgb(82, 253, 60);
+      font-weight: 600;
+    }
+    .upadte-service:hover {
       font-weight: 800;
     }
   }
