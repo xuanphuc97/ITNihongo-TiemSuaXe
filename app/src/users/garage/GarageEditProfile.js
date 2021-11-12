@@ -294,8 +294,23 @@ const GarageEditProfile = () => {
       [name]: value,
     });
   };
-  const handleUploadFile = (e) => {
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+  const handleUploadFile = async (e) => {
     const file = e.target.files[0];
+    var createForm = new FormData();
+    // const imgBase64 = await getBase64(file);
+    const imgBase64 = "123"
+    createForm.append("imageLink", imgBase64)
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    const res = await axios.post(`http://localhost:8080/api/garage/${newInforGarage.garageId}/uploadImg`, createForm)
+    console.log(res)
     file.preview = URL.createObjectURL(file);
     setAvatar(file);
   };
@@ -413,7 +428,7 @@ const GarageEditProfile = () => {
                                 setAddress(val);
                               })
                               .catch((error) => console.error(error));
-                          } catch (e) {}
+                          } catch (e) { }
                         },
                       }}
                     />
@@ -475,7 +490,7 @@ const GarageEditProfile = () => {
                         placeholder="Cost"
                         value={service.servicePrice}
                         disabled
-                        // onChange={handleChangeInput}
+                      // onChange={handleChangeInput}
                       />
                       <button
                         className="update-service"

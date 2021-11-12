@@ -20,6 +20,10 @@ import GarageEditProfile from "./users/garage/GarageEditProfile";
 import NewGarage from "./users/garage/NewGarage";
 import NewService from "./users/garage/NewService";
 import '@goongmaps/goong-js/dist/goong-js.css';
+import Admin from "./admin/admin/Admin";
+import Dashboard from "./admin/dashboard/Dashboard";
+import UserTable from "./admin/users/UserTable";
+import GarageTable from "./admin/garages/GarageTable"
 
 function App() {
   const dispatch = useDispatch();
@@ -73,6 +77,24 @@ function App() {
             <Route path={`/garages/:id/service/new`} exact>
               {!isLogged ? <Login /> : <NewService />}
             </Route>
+
+            <Route path='/admin' exact>
+              <Admin></Admin>
+            </Route>
+
+            <Route path='/admin/dashboard' exact>
+              <Dashboard></Dashboard>
+            </Route>
+
+            <Route path='/admin/users' exact>
+              <UserTable></UserTable>
+            </Route>
+
+            <Route path='/admin/garages' exact>
+              <GarageTable></GarageTable>
+            </Route>
+
+
           </Switch>
         </Layout>
         {/* <div>
