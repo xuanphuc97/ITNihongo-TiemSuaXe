@@ -9,7 +9,7 @@ import { CgNotes } from 'react-icons/cg'
 
 function Sidebar() {
     const [collapsed, setCollapsed] = useState(() => {
-        if (window.innerWidth <= 960) {
+        if (window.innerWidth <= 768) {
             return true;
         }
         else {
@@ -17,7 +17,7 @@ function Sidebar() {
         }
     });
     const handleCollapsed = () => {
-        if (window.innerWidth <= 960) {
+        if (window.innerWidth <= 768) {
             setCollapsed(true);
         }
         else {
@@ -33,18 +33,18 @@ function Sidebar() {
                     <img src="" alt="" className="sidebar__logo" />
                 </div>
                 <Menu iconShape="circle" >
-                    <MenuItem icon={<AiOutlineDashboard />}>
+                    <MenuItem className="menu-item" icon={<AiOutlineDashboard />}>
                         <span className="title">Dashboard</span>
                         <Link to='/admin/dashboard' />
                     </MenuItem>
 
 
-                    <MenuItem icon={< AiOutlineUser />}>
+                    <MenuItem className="menu-item" icon={< AiOutlineUser />}>
                         <span className="title">Users</span>
                         <Link to="/admin/users" />
                     </MenuItem>
 
-                    <MenuItem icon={<AiOutlineCar />}>
+                    <MenuItem className="menu-item" icon={<AiOutlineCar />}>
                         <span className="title">Garages</span>
                         <Link to="/admin/garages" />
                     </MenuItem>

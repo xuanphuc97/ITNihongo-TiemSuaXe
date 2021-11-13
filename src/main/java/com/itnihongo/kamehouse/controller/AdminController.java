@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@RequiredArgsConstructor(onConstructor_ = { @Autowired })
 @PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/api")
 public class AdminController {
@@ -31,7 +32,7 @@ public class AdminController {
 
     @PutMapping("/users/{username}")
     public ResponseEntity<Object> updateRoleOfUser(@PathVariable("username") String username,
-                                                   @RequestParam("role") String role) {
+            @RequestParam("role") String role) {
         adminService.editRole(username, role);
         return ResponseEntity.accepted().build();
     }

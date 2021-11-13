@@ -88,6 +88,7 @@ function TopPage() {
           if (data1) {
             setPage((prev) => ({
               ...prev,
+              activePage: 1,
               data: data1,
             }));
           }
@@ -97,6 +98,7 @@ function TopPage() {
           if (data2) {
             setPage((prev) => ({
               ...prev,
+              activePage: 1,
               data: data2,
             }));
           }
@@ -116,6 +118,7 @@ function TopPage() {
               if (data4) {
                 setPage((prev) => ({
                   ...prev,
+                  activePage: 1,
                   data: data4,
                 }));
               }
@@ -132,6 +135,7 @@ function TopPage() {
           if (data4) {
             setPage((prev) => ({
               ...prev,
+              activePage: 1,
               data: data4,
             }));
           }
@@ -140,6 +144,7 @@ function TopPage() {
         default:
           setPage((prev) => ({
             ...prev,
+            activePage: 1,
             data: garages,
           }));
 

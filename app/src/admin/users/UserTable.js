@@ -5,7 +5,10 @@ import Rating from "@mui/material/Rating";
 import { BsFillEyeFill, BsFillTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import SideNav from "../slidebar/SideNav"
+import profileApis from '../api/profile-apis';
+import axios from "axios"
 import "./UserTable.scss"
+import Loader from "react-loader-spinner";
 
 
 
@@ -13,84 +16,139 @@ function UserTable() {
 
     const [users, setUsers] = useState([])
     const [keyword, setKeyword] = useState("")
+    const [loading, setLoading] = useState(true)
     const [page, setPage] = useState({
         data: [],
         limit: 10,
         activePage: 1,
     });
 
-
+    function reForm(str) {
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+        str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+        str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+        str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+        str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+        str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+        str = str.replace(/Đ/g, "D");
+        return str;
+    }
     const handlePageChange = (pageNumber) => {
         setPage((prev) => ({
             ...prev,
             activePage: pageNumber,
         }));
     };
+    const handleChangeInput = (e) => {
+        const keyword = reForm(e.target.value.trim().toLowerCase());
+        const data = users.filter(user => (
+            reForm(user.username).toLowerCase().includes(keyword)
+            || reForm(user.email).toLowerCase().includes(keyword)
+            || reForm(user.fullName).toLowerCase().includes(keyword)
+        ))
+        if (data) {
+            setPage((prev) => ({
+                ...prev,
+                activePage: 1,
+                data: data,
+            }));
+        }
+
+    }
+
+    useEffect(() => {
+        const getAllUsers = async () => {
+            const res = await axios.get(profileApis.getAllUsers)
+            if (res) {
+                setUsers(res.data)
+                setPage(prev => ({
+                    ...prev,
+                    data: res.data
+
+                }))
+                setLoading(false)
+                console.log(res.data)
+            }
+        }
+        getAllUsers()
+
+    }, [])
 
     return (
         <div className="user-table">
             <SideNav></SideNav>
-            <Container>
+
+            <Container fluid>
                 <Row className="heading">
-                    <h1>Garage</h1>
+                    <h2>User</h2>
                 </Row>
                 <Row className="search-box">
                     <Col>
                         <Form>
                             <Form.Group controlId="searchBox">
                                 <Form.Control
-                                    type="Text"
+                                    type="text"
                                     placeholder="Search..."
-                                    onChange={() => { }}
+                                    onChange={handleChangeInput}
                                     Value={keyword}
                                 />
                             </Form.Group>
                         </Form>
                     </Col>
-                    <Col>
-                        <Button>Search</Button>
-                    </Col>
                 </Row>
                 <Row className="table">
-                    <ListGroup>
+                    <ListGroup className="list-group">
                         <ListGroup.Item>
                             <Row>
-                                <Col xs={6} md={1}> id </Col>
-                                <Col xs={6} md={2}> Nickname </Col>
-                                <Col xs={0} md={3} className="d-none d-lg-block"> Email </Col>
-                                <Col xs={0} md={2} className="d-none d-lg-block"> Name </Col>
-                                <Col xs={0} md={2} className="d-none d-lg-block"> Role </Col>
-                                <Col xs={12} md={2}> Action </Col>
+                                <Col xs={6} md={{ span: 1, order: 0 }} className="tb-title"> id </Col>
+                                <Col xs={{ span: 6, order: "last" }} md={{ span: 2, order: 0 }} className="tb-title "> Nickname </Col>
+                                <Col xs={0} md={{ span: 3, order: 0 }} className="d-none d-lg-block tb-title"> Email </Col>
+                                <Col xs={0} md={{ span: 2, order: 3 }} className="d-none d-lg-block tb-title"> Name </Col>
+                                <Col xs={0} md={{ span: 2, order: 4 }} className="d-none d-lg-block tb-title"> Role </Col>
+                                <Col xs={6} md={{ span: 2, order: 5 }} className="tb-title"> Action </Col>
                             </Row>
                         </ListGroup.Item>
-                        {page.data
-                            .slice(
-                                page.activePage * page.limit - page.limit,
-                                page.activePage * page.limit > page.data.length
-                                    ? page.data.length
-                                    : page.activePage * page.limit
-                            )
-                            .map((user, idx) => {
-                                return (
-                                    <ListGroup.Item key={`list-user${idx}`}>
-                                        <Row>
-                                            <Col xs={6} md={1}> {user.id}</Col>
-                                            <Col xs={6} md={2}> {user.username} </Col>
-                                            <Col xs={0} md={3}> {user.email} </Col>
-                                            <Col xs={0} md={2}> {user.name} </Col>
-                                            <Col xs={0} md={2}> {user.role} </Col>
-                                            <Col xs={6} md={2}>
-                                                <Link to={`admin/user/${user.id}`}>
-                                                    <BsFillEyeFill></BsFillEyeFill>
-                                                </Link>
-
-                                                <BsFillTrashFill></BsFillTrashFill>
-                                            </Col>
-                                        </Row>
-
-                                    </ListGroup.Item>
+                        {loading
+                            ?
+                            <div className="loader">
+                                <Loader type="Oval" color="#00BFFF" height={100} width={100} />
+                            </div>
+                            :
+                            page.data
+                                .slice(
+                                    page.activePage * page.limit - page.limit,
+                                    page.activePage * page.limit > page.data.length
+                                        ? page.data.length
+                                        : page.activePage * page.limit
                                 )
-                            })
+                                .map((user, idx) => {
+                                    return (
+                                        <ListGroup.Item key={`list-user${idx}`}>
+                                            <Row>
+                                                <Col xs={6} md={{ span: 1, order: 0 }} className="tb-content"> {user.accountId}</Col>
+                                                <Col xs={{ span: 6, order: "last" }} md={{ span: 2, order: 0 }} className="tb-content tb-content--name"> {user.username} </Col>
+                                                <Col xs={0} md={{ span: 3, order: 0 }} className="tb-content d-none d-lg-block"> {user.email} </Col>
+                                                <Col xs={0} md={{ span: 2, order: 3 }} className="tb-content d-none d-lg-block"> {user.fullName} </Col>
+                                                <Col xs={0} md={{ span: 2, order: 4 }} className="tb-content d-none d-lg-block"> {user.role} </Col>
+                                                <Col xs={6} md={{ span: 2, order: 5 }} className="tb-content">
+                                                    <Link to={`admin/user/${user.id}`}>
+                                                        <BsFillEyeFill className="action-icon"></BsFillEyeFill>
+                                                    </Link>
+
+                                                    <BsFillTrashFill className="action-icon"></BsFillTrashFill>
+                                                </Col>
+                                            </Row>
+
+                                        </ListGroup.Item>
+                                    )
+                                })
                         }
 
                     </ListGroup>
@@ -112,7 +170,7 @@ function UserTable() {
             </Container>
 
 
-        </div>
+        </div >
     )
 }
 
