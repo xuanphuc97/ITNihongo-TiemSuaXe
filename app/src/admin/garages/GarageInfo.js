@@ -4,11 +4,11 @@ import LoadingOverlay from "react-loading-overlay";
 
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import { ListGroup, Button, Form, Nav } from "react-bootstrap";
-import "./GarageProfile.scss";
+import "./GarageInfo.scss";
 import { useSelector, useDispatch } from "react-redux";
 import garageApis from "./enum/garage-apis";
 import Loader from "react-loader-spinner";
-import ListComment from "../comment/ListComment";
+import ListComment from "../../users/comment/ListComment";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 function GarageInfo() {
