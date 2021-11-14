@@ -1,0 +1,94 @@
+.admin-userinfo {
+    margin-top: 100px;
+    margin-left: 200px;
+    .allbtn-container {
+        width: 100%;
+        display: inline-block !important;
+        background-color: var(--color-white) !important;
+        margin-bottom: 10px;
+
+        .cancel-col {
+            width: 100%;
+        }
+        .profile__cancelbtn {
+            font-size: 20px;
+            margin-right: 10px;
+            padding: 4px;
+
+            width: 80px;
+            border-radius: 30px;
+            border: 1px solid var(--color-muted);
+            background-color: rgb(141, 141, 141);
+            color: var(--color-white);
+        }
+        .profile__savebtn {
+            font-size: 20px;
+            float: right;
+            margin-right: 10px;
+            padding: 4px;
+
+            width: 80px;
+            border-radius: 30px;
+            border: 1px solid var(--color-muted);
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+        .profile__deletebtn {
+            font-size: 20px;
+            float: right;
+            margin-right: 10px;
+            padding: 4px;
+
+            width: 80px;
+            border-radius: 30px;
+            border: 1px solid var(--color-muted);
+            background-color: rgb(253, 60, 60);
+            color: var(--color-white);
+        }
+        .profile__cancelbtn:hover {
+            color: #fff;
+            background-color: rgb(141, 141, 141);
+            border-color: rgb(141, 141, 141);
+            box-shadow: 0 0 0 0.25rem rgb(141 141 141 / 50%);
+        }
+        .profile__deletebtn:hover {
+            color: #fff;
+            background-color: rgb(253, 60, 60);
+            border-color: rgb(253, 60, 60);
+            box-shadow: 0 0 0 0.25rem rgb(253 60 60 / 50%);
+        }
+        .profile__savebtn:hover {
+            color: #fff;
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+            box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
+        }
+    }
+    input,
+    select {
+        height: 40px;
+        width: 100%;
+        font-size: 18px;
+        padding-left: 18px;
+        border-radius: 15px;
+        outline: none;
+        border: 1px solid rgb(225, 225, 225);
+    }
+    .label {
+        color: var(--color-primary);
+        font-weight: bold;
+    }
+
+    .user-form {
+        background-color: var(--color-white);
+        border-radius: 8px;
+        border-top: 10px solid var(--color-primary);
+        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+        padding: 0 20px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .admin-userinfo {
+        margin-left: 60px;
+    }
+}
