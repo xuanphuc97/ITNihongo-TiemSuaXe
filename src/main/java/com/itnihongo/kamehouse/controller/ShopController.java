@@ -5,6 +5,7 @@ import com.itnihongo.kamehouse.dto.GarageRequestDTO;
 import com.itnihongo.kamehouse.dto.UserDTO;
 import com.itnihongo.kamehouse.model.Garage;
 import com.itnihongo.kamehouse.service.IGarageService;
+import com.itnihongo.kamehouse.service.IStorageService;
 import com.itnihongo.kamehouse.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(maxAge = 3600) // https://spring.io/guides/gs/rest-service-cors/
@@ -25,6 +28,8 @@ public class ShopController {
     private final IUserService userService;
 
     private final IGarageService garageService;
+
+    private final IStorageService storageService;
 
     @GetMapping("/user/{user_id}")
     public ResponseEntity<Object> getInfoShop(@PathVariable("user_id") int userId) {
@@ -123,9 +128,9 @@ public class ShopController {
 
     @PostMapping("/garages/{garageId}/uploadImg")
     public ResponseEntity<Object> saveImageLink(@PathVariable("garageId") int garageId,
-                                                @RequestParam("imageLink") String imageLink
-    ) {
-        garageService.saveImageLink(imageLink, garageId);
+                                                @RequestParam("image") MultipartFile multipartFile) throws IOException {
+        String display_url = storageService.uploadImage(multipartFile);
+        garageService.saveImageLink(display_url, garageId);
         return ResponseEntity.ok().build();
     }
 }
