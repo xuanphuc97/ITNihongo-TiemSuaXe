@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
-@CrossOrigin(maxAge = 3600)
+@CrossOrigin(maxAge = 3600, origins = {"https://localhost:3000"})
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @RequestMapping("/auth")

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(maxAge = 3600)
+@CrossOrigin(maxAge = 3600, origins = {"https://localhost:3000"})
 @RestController
 @RequiredArgsConstructor(onConstructor_ = { @Autowired })
 @PreAuthorize("hasRole('ADMIN')")

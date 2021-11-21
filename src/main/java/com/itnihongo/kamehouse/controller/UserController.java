@@ -10,7 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(maxAge = 3600) // https://spring.io/guides/gs/rest-service-cors/
+@CrossOrigin(maxAge = 3600, origins = {"https://localhost:3000"})
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @PreAuthorize("isAuthenticated()")

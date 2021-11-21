@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
-@CrossOrigin(maxAge = 3600) // https://spring.io/guides/gs/rest-service-cors/
+@CrossOrigin(maxAge = 3600, origins = {"https://localhost:3000"})
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @RequestMapping("/api")
