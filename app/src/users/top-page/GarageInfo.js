@@ -166,6 +166,12 @@ function GarageInfo(props) {
                 placeholder="Write your comment here..."
               />
             </Col>
+            <div>
+              <input
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                multiple />
+            </div>
           </Container>
         </Modal.Body>
         <Modal.Footer>
