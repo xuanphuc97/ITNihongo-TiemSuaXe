@@ -249,7 +249,7 @@ function UserTable() {
                             <BsFillEyeFill className="action-icon"></BsFillEyeFill>
                           </Link>
 
-                          <button className="action-icon"></button>
+                          <BsFillTrashFill className="action-icon"></BsFillTrashFill>
                         </Col>
                       </Row>
                     </ListGroup.Item>

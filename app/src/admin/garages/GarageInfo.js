@@ -151,10 +151,10 @@ function GarageInfo() {
         </Tab>
       </Tabs>
 
-      <button className="profile__cancelbtn">Cancel</button>
-      <button className="profile__deletebtn" type="button" onClick={() => {}}>
-        Delete
-      </button>
+      {/*<button className="profile__cancelbtn">Cancel</button>*/}
+      {/*<button className="profile__deletebtn" type="button" onClick={() => {}}>*/}
+      {/*  Delete*/}
+      {/*</button>*/}
     </>
   );
 }

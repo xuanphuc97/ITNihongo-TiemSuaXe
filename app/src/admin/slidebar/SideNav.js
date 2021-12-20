@@ -34,10 +34,10 @@ function Sidebar() {
           <img src="" alt="" className="sidebar__logo" />
         </div>
         <Menu iconShape="circle">
-          <MenuItem className="menu-item" icon={<AiOutlineDashboard />}>
-            <span className="title">Dashboard</span>
-            <Link to="/admin" />
-          </MenuItem>
+          {/*<MenuItem className="menu-item" icon={<AiOutlineDashboard />}>*/}
+          {/*  <span className="title">Dashboard</span>*/}
+          {/*  <Link to="/admin" />*/}
+          {/*</MenuItem>*/}
 
           <MenuItem className="menu-item" icon={<AiOutlineUser />}>
             <span className="title">Users</span>
