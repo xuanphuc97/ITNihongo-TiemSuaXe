@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from 'react'
 import { Rating } from 'react-simple-star-rating'
 import './Comment.scss'
+import { Button, Modal, Row, Col, Container } from "react-bootstrap";
+
 
 
 function Comment(props) {
   const {
     isForComment = true,
-    initRating = 5, 
+    initRating = 5,
     initComment = '',
     initUsername = 'Noname',
+    initImage = [
+      'https://cdn.tgdd.vn/Files/2020/06/08/1261696/moi-tai-bo-hinh-nen-asus-rog-2020-moi-nhat_800x450.jpg',
+      'https://dienthoaivui.com.vn/wp-content/uploads/2020/10/hinh-nen-iphone-12-19-scaled.jpg',
+      'https://st.quantrimang.com/photos/image/2019/06/19/hinh-nen-dien-thoai-dep-nhat-full-hd-cho-dien-thoai-iphone-android-39.jpg'
+    ],
   } = props;
   const [rating, setRating] = useState(initRating);
   const [comment, setComment] = useState(initComment);
   const [username, setUsername] = useState(initUsername);
+  const [image, setImage] = useState("")
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = (image) => {
+    setImage(image);
+    setShow(true)
+  };
 
 
   const handleRating = (e) => {
@@ -51,6 +65,7 @@ function Comment(props) {
           </div>
         </div>
 
+
         <div className="row-2">
           <div className="label">Comment:</div>
           <div className="text-area-container">
@@ -61,7 +76,44 @@ function Comment(props) {
               onChange={handleChange}
               placeholder='Write your comment here...'
             />
+            {
+              initImage !== [] &&
+              <div className="image-slider">
+                {
+                  initImage.map((image, idx) => {
+                    return (
+                      <img
+                        className="image"
+                        key={idx}
+                        src={image}
+                        alt={"image " + idx}
+                        onClick={() => handleShow(image)}
+                      />
+
+                    )
+                  })
+                }
+              </div>
+            }
+            <Modal show={show} onHide={handleClose}>
+
+              <Modal.Body>
+                <Container>
+                  <img
+                    width={444}
+                    className="modal-image"
+                    src={image}
+                    alt="show" />
+                </Container>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Cancel
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </div>
+
 
         </div>
         {
