@@ -1,6 +1,5 @@
 package com.itnihongo.kamehouse.controller;
 
-
 import com.itnihongo.kamehouse.model.Garage;
 import com.itnihongo.kamehouse.model.Review;
 import com.itnihongo.kamehouse.model.Service;
@@ -18,14 +17,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(maxAge = 3600) // https://spring.io/guides/gs/rest-service-cors/
+@CrossOrigin(maxAge = 3600)
 @RestController
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@RequiredArgsConstructor(onConstructor_ = { @Autowired })
 @RequestMapping("/")
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
-
 
     @GetMapping("/allreviews")
     public ResponseEntity<Object> getAllReview() {
@@ -45,7 +43,6 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
-
     @GetMapping("/reviewuser")
     public ResponseEntity<Object> getAllReviewuser(@RequestBody(required = false) User user) {
         List<Review> reviews = reviewService.findByUser_Username(user.getUsername());
@@ -53,7 +50,7 @@ public class ReviewController {
     }
 
     @GetMapping("/reviewuserid/{id}")
-    public ResponseEntity<Object> getAllReviewuserID(@PathVariable("id") int id){
+    public ResponseEntity<Object> getAllReviewuserID(@PathVariable("id") int id) {
         Review reviews = reviewService.findByUser_Userid(id);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
@@ -83,12 +80,12 @@ public class ReviewController {
 
     @PostMapping("/review/add")
     private ResponseEntity<Void> addReview(@RequestParam("comment") String comment,
-                                           @RequestParam("rating") int rating,
-                                           @RequestParam("id") int garageId,
-                                           Authentication authentication) {
+            @RequestParam("rating") int rating,
+            @RequestParam("id") int garageId,
+            Authentication authentication) {
         String username = authentication.getName();
         System.out.println(username);
-        this.reviewService.addReview(username,garageId,comment,rating);
+        this.reviewService.addReview(username, garageId, comment, rating);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

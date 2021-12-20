@@ -9,28 +9,25 @@ import commentApis from "./enum/comment-apis";
 
 function ListComment(props) {
   const { garage, services, reload } = props;
+  // console.log(garage, reload);
+
   const [listComment, setListComment] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const auth = useSelector((state) => state.auth);
   const userInfor = auth.user;
-  
+
   const getListComment = async () => {
     try {
       const res = await axios.get(
         commentApis.getReviewsOfGarage(garage.garageId)
       );
-      console.log(garage.garageId);
-      console.log("service");
-      console.log(res.data);
       if (res) {
-        console.log(res.data);
         setListComment([...res.data]);
         setIsLoading(false);
-        console.log(listComment);
       }
     } catch (err) {
-      setIsLoading(false)
+      setIsLoading(false);
       if (err) {
         console.log(err);
       }
@@ -39,7 +36,7 @@ function ListComment(props) {
 
   useEffect(() => {
     getListComment();
-  }, [reload]);
+  }, [reload, garage]);
 
   return (
     <div className="list-comment">
