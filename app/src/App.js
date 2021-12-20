@@ -19,12 +19,13 @@ import GarageProfile from "./users/garage/GarageProfile";
 import GarageEditProfile from "./users/garage/GarageEditProfile";
 import NewGarage from "./users/garage/NewGarage";
 import NewService from "./users/garage/NewService";
-import '@goongmaps/goong-js/dist/goong-js.css';
+import "@goongmaps/goong-js/dist/goong-js.css";
 import Admin from "./admin/admin/Admin";
 import Dashboard from "./admin/dashboard/Dashboard";
 import UserTable from "./admin/users/UserTable";
-import GarageTable from "./admin/garages/GarageTable"
-
+import GarageTable from "./admin/garages/GarageTable";
+import UserInfo from "./admin/users/UserInfo";
+import GarageInfo from "./admin/garages/GarageInfo";
 function App() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
@@ -78,23 +79,23 @@ function App() {
               {!isLogged ? <Login /> : <NewService />}
             </Route>
 
-            <Route path='/admin' exact>
-              <Admin></Admin>
+            <Route path="/admin" exact>
+              {!isAdmin ? <Home /> : <Dashboard />}
             </Route>
 
-            <Route path='/admin/dashboard' exact>
-              <Dashboard></Dashboard>
+            <Route path="/admin/users" exact>
+              {!isAdmin ? <Home /> : <UserTable />}
             </Route>
 
-            <Route path='/admin/users' exact>
-              <UserTable></UserTable>
+            <Route path="/admin/garages" exact>
+              {!isAdmin ? <Home /> : <GarageTable />}
             </Route>
-
-            <Route path='/admin/garages' exact>
-              <GarageTable></GarageTable>
+            <Route path={`/admin/users/:id`} exact>
+              {!isAdmin ? <Home /> : <UserInfo />}
             </Route>
-
-
+            <Route path={`/admin/garages/:id`} exact>
+              {!isAdmin ? <Home /> : <GarageInfo />}
+            </Route>
           </Switch>
         </Layout>
         {/* <div>

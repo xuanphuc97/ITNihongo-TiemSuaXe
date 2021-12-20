@@ -149,7 +149,7 @@ public class GarageServiceImpl implements IGarageService {
     }
 
     @Override
-    public void saveImageLink(String imgLink, int garageId) {
+    public Garage saveImageLink(String imgLink, int garageId) {
         Garage garage = garageRepository.findById(garageId);
         System.out.println(garage);
         if (garage == null) {
@@ -157,6 +157,7 @@ public class GarageServiceImpl implements IGarageService {
         }
         garage.setImage(imgLink);
         garageRepository.saveAndFlush(garage);
+        return garage;
     }
 
     public double distance(Garage garage, String myLocation) {

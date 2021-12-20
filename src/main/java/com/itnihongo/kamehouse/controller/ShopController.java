@@ -5,6 +5,7 @@ import com.itnihongo.kamehouse.dto.GarageRequestDTO;
 import com.itnihongo.kamehouse.dto.UserDTO;
 import com.itnihongo.kamehouse.model.Garage;
 import com.itnihongo.kamehouse.service.IGarageService;
+import com.itnihongo.kamehouse.service.IStorageService;
 import com.itnihongo.kamehouse.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
-@CrossOrigin(maxAge = 3600) // https://spring.io/guides/gs/rest-service-cors/
+@CrossOrigin(maxAge = 3600)
 @RestController
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@RequiredArgsConstructor(onConstructor_ = { @Autowired })
 @RequestMapping("/api")
 public class ShopController {
 
@@ -26,13 +29,15 @@ public class ShopController {
 
     private final IGarageService garageService;
 
+    private final IStorageService storageService;
+
     @GetMapping("/user/{user_id}")
     public ResponseEntity<Object> getInfoShop(@PathVariable("user_id") int userId) {
         UserDTO userDTO = userService.getDetailInfo(userId);
         return ResponseEntity.ok(userDTO);
     }
 
-    @GetMapping(value = "/user", params = {"username"})
+    @GetMapping(value = "/user", params = { "username" })
     public ResponseEntity<Object> getInfoShop(@RequestParam("username") String username) {
         UserDTO userDTO = userService.getDetailInfo(username);
         return ResponseEntity.ok(userDTO);
@@ -60,10 +65,9 @@ public class ShopController {
     @ResponseStatus(HttpStatus.OK)
     public Object createGarageOfShop(
             @Valid GarageRequestDTO garageRequestDTO,
-            Authentication authentication
-    ) {
-//        UserDTO owner = userService.getDetailInfo(17);
-//        String username = owner.getUsername();
+            Authentication authentication) {
+        // UserDTO owner = userService.getDetailInfo(17);
+        // String username = owner.getUsername();
         String username = authentication.getName();
         GarageDTO garageDTO = garageService.addNewGarage(garageRequestDTO, username);
         return ResponseEntity.ok(garageDTO);
@@ -72,30 +76,28 @@ public class ShopController {
     @PutMapping("/garages/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> deleteGarage(
-            @PathVariable("id") int garageId
-    ) {
+            @PathVariable("id") int garageId) {
 
         Garage garageDTO = garageService.deleteGarage(garageId);
         return ResponseEntity.ok(garageDTO);
     }
 
-
     @PutMapping("/garages/{id}/update")
     @ResponseStatus(HttpStatus.OK)
     public Object update(
             @PathVariable("id") int garageId,
-            @Valid GarageRequestDTO garageRequestDTO
-    ) {
+            @Valid GarageRequestDTO garageRequestDTO) {
 
         GarageDTO garageDTO = garageService.updateGarage(garageRequestDTO, garageId);
         return ResponseEntity.ok(garageDTO);
     }
-//
-//    @DeleteMapping("/garages/{id}")
-//    public ResponseEntity<Object> deleteUser(@PathVariable("id") String garageId) {
-////        garageService.deleteGarage(garageId);
-////        return ResponseEntity.accepted().build();
-//    }
+    //
+    // @DeleteMapping("/garages/{id}")
+    // public ResponseEntity<Object> deleteUser(@PathVariable("id") String garageId)
+    // {
+    //// garageService.deleteGarage(garageId);
+    //// return ResponseEntity.accepted().build();
+    // }
 
     @GetMapping("/garages/name/{keyword}")
     public ResponseEntity<Object> findGaragesByName(@PathVariable("keyword") String name) {
@@ -115,17 +117,15 @@ public class ShopController {
         return ResponseEntity.ok(garageDTOs);
     }
 
-    @GetMapping(value = "/garages/distance", params = {"location"})
+    @GetMapping(value = "/garages/distance", params = { "location" })
     public ResponseEntity<Object> findAllGaragesOrderedByDistance(@RequestParam("location") String location) {
         List<GarageDTO> garageDTOs = garageService.findAllGaragesOrderedByDistance(location);
         return ResponseEntity.ok(garageDTOs);
     }
 
-    @PostMapping("/garages/{garageId}/uploadImg")
-    public ResponseEntity<Object> saveImageLink(@PathVariable("garageId") int garageId,
-                                                @RequestParam("imageLink") String imageLink
-    ) {
-        garageService.saveImageLink(imageLink, garageId);
-        return ResponseEntity.ok().build();
+    @PostMapping("/uploadImg")
+    public ResponseEntity<Object> saveImageLink(@RequestParam("image") MultipartFile multipartFile) throws IOException {
+        String display_url = storageService.uploadImage(multipartFile);
+        return ResponseEntity.ok(display_url);
     }
 }

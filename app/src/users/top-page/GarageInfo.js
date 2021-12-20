@@ -76,7 +76,7 @@ function GarageInfo(props) {
             <div className="avatar-preview">
               <img
                 src={
-                  "https://i.pinimg.com/originals/9b/3c/74/9b3c749500e3392efe84df990ed862e6.png"
+                  garage.imageLink
                 }
                 className="profile_img"
                 style={{ style: "background-image" }}
