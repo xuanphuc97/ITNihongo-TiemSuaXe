@@ -27,5 +27,5 @@ public interface IGarageService {
 
     List<GarageDTO> findAllGaragesOrderedByRating();
 
-    void saveImageLink(String imgLink, int garageId);
+    Garage saveImageLink(String imgLink, int garageId);
 }

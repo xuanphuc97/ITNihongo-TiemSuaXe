@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import profileApis from "../profile/enum/profile-apis";
 import Comment from "./Comment";
 import Loader from "react-loader-spinner";
 import "./ListComment.scss";
@@ -9,28 +8,25 @@ import commentApis from "./enum/comment-apis";
 
 function ListComment(props) {
   const { garage, services, reload } = props;
+  // console.log(garage, reload);
+
   const [listComment, setListComment] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const auth = useSelector((state) => state.auth);
   const userInfor = auth.user;
-  
+
   const getListComment = async () => {
     try {
       const res = await axios.get(
         commentApis.getReviewsOfGarage(garage.garageId)
       );
-      console.log(garage.garageId);
-      console.log("service");
-      console.log(res.data);
       if (res) {
-        console.log(res.data);
         setListComment([...res.data]);
         setIsLoading(false);
-        console.log(listComment);
       }
     } catch (err) {
-      setIsLoading(false)
+      setIsLoading(false);
       if (err) {
         console.log(err);
       }
@@ -39,7 +35,7 @@ function ListComment(props) {
 
   useEffect(() => {
     getListComment();
-  }, [reload]);
+  }, [reload, garage]);
 
   return (
     <div className="list-comment">
@@ -56,7 +52,12 @@ function ListComment(props) {
               isForComment={false}
               initRating={comment.rating}
               initUsername={comment.user.username}
-              initComment={comment.comment}
+              initComment={
+                comment.comment === "undefined"
+                  ? "No comment!"
+                  : comment.comment
+              }
+              initImage={comment.images}
             ></Comment>
           );
         })

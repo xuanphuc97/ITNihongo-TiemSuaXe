@@ -19,6 +19,7 @@ function GarageInfo(props) {
   const [newReview, setNewReview] = useState(props);
   const [show, setShow] = useState(false);
   const [reload, setReload] = useState(false);
+  const [images, setImages] = useState([]);
   useEffect(() => {
     const getService = async () => {
       try {
@@ -54,17 +55,43 @@ function GarageInfo(props) {
       CreateForm.append("id", garage.garageId);
       CreateForm.append("comment", comment);
       CreateForm.append("rating", rating);
+      // CreateForm.append("images", images);
+      // var uploadForm = new FormData();
+      // let i = 0
+      for (let i = 0; i < images.length; i++) {
+        CreateForm.append(`images${i}`, images[i]);
+        console.log(images[i]);
+      }
+      // if (images.length < 4) {
+      //   for (let i = images.length; i < 4; i++) {
+      //     CreateForm.append(`images${i}`, null);
+      //   }
+      // }
+
+      // let fileimages = [];
+      // for (let i = 0; i < images.length; i++) {
+      //   fileimages.push(images[i]);
+      // }
+      // CreateForm.append("images", fileimages);
+      // console.log(fileimages);
+      // axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+      console.log(CreateForm.values());
       const res = await axios.post(profileApis.addReview, CreateForm);
       console.log(res);
       if (res) {
         console.log("OK");
         setComment();
-
+        setImages([]);
         setReload(!reload);
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleUpload = (e) => {
+    const files = e.target.files;
+    setImages(files);
   };
   return (
     <>
@@ -75,9 +102,7 @@ function GarageInfo(props) {
 
             <div className="avatar-preview">
               <img
-                src={
-                  "https://i.pinimg.com/originals/9b/3c/74/9b3c749500e3392efe84df990ed862e6.png"
-                }
+                src={garage.imageLink}
                 className="profile_img"
                 style={{ style: "background-image" }}
                 alt="error"
@@ -162,10 +187,19 @@ function GarageInfo(props) {
               <textarea
                 className="text-area"
                 value={comment}
+                required
                 onChange={handleChange}
                 placeholder="Write your comment here..."
               />
             </Col>
+            <div>
+              <input
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                multiple
+                onChange={handleUpload}
+              />
+            </div>
           </Container>
         </Modal.Body>
         <Modal.Footer>

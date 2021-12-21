@@ -12,29 +12,20 @@ import ListComment from "../comment/ListComment";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 function GarageProfile() {
-  const location = useLocation();
   const id = useParams();
-  const history = useHistory();
-  // const auth = useSelector((state) => state.auth);
-  // const userInfo = auth.user;
-  // const [services, setService] = useState([1, 2]);
   const [loading, setLoading] = useState(false);
 
-  const initialState = {
-    garageId: 0,
-    image: "",
-    name: "",
-    address: "",
-    location: "",
-    phoneNumber: "",
-    openAt: "",
-    closeAt: "",
-  };
-  const initialStateServices = {
-    servicesName: "",
-    price: "",
-  };
-  const [garage, setGarage] = useState(initialState);
+  // const initialState = {
+  //   garageId: 0,
+  //   image: "",
+  //   name: "",
+  //   address: "",
+  //   location: "",
+  //   phoneNumber: "",
+  //   openAt: "",
+  //   closeAt: "",
+  // };
+  const [garage, setGarage] = useState();
   const [services, setService] = useState([]);
 
   useEffect(() => {
@@ -47,6 +38,7 @@ function GarageProfile() {
           ...garage,
           garageId: resInfo.garageId,
           name: resInfo.garageName,
+          image: resInfo.imageLink,
           address: resInfo.address,
           location: resInfo.location,
           phone: resInfo.phoneNumber,
@@ -63,7 +55,6 @@ function GarageProfile() {
     const getService = async () => {
       try {
         const res = await axios.get(garageApis.getService(id.id));
-        var resInfo = res.data;
         console.log("service");
         setService([...services, ...res.data]);
       } catch (err) {
@@ -94,9 +85,7 @@ function GarageProfile() {
 
                   <div className="avatar-preview">
                     <img
-                      src={
-                        "https://i.pinimg.com/originals/9b/3c/74/9b3c749500e3392efe84df990ed862e6.png"
-                      }
+                      src={garage.image}
                       className="profile_img"
                       style={{ style: "background-image" }}
                       alt="error"
@@ -156,7 +145,7 @@ function GarageProfile() {
           )}
         </Tab>
         <Tab eventKey="comments" title="Comments">
-          <ListComment garage={garage}></ListComment>
+          <ListComment garage={garage} reload={false}></ListComment>
         </Tab>
       </Tabs>
     </>

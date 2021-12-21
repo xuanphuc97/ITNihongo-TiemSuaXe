@@ -1,0 +1,88 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.garage {
+    background-color: var(--color-white) !important;
+    margin-top: 10px !important;
+    .label {
+        width: 120px;
+    }
+    .content {
+        width: 66%;
+    }
+    .title {
+        width: 60%;
+    }
+
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    width: 100%;
+    .garage-profile {
+        .title::after {
+            content: "";
+            width: 100%;
+            align-items: center;
+            display: inline-block;
+            border-radius: 40px;
+            border-bottom: 2px solid var(--color-primary);
+            opacity: 50%;
+        }
+        .profile_img {
+            width: 110px;
+            height: 110px;
+            border-radius: 30px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: 3px solid var(--color-primary);
+            box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 1px 1px;
+        }
+
+        //
+        width: 600px;
+        border-radius: 8px;
+        border-top: 10px solid var(--color-primary);
+        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+        padding: 10px;
+        background-color: var(--color-white);
+    }
+    .garage-service {
+        .title {
+            width: 100%;
+        }
+        .title::after {
+            content: "";
+            width: 100%;
+            align-items: center;
+            display: inline-block;
+            border-radius: 40px;
+            border-bottom: 2px solid var(--color-primary);
+            opacity: 50%;
+        }
+        border-radius: 8px;
+        border-top: 10px solid var(--color-primary);
+        box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 2px 2px;
+
+        width: 600px;
+        padding: 10px;
+        background-color: var(--color-white);
+
+        .service-list {
+            overflow: scroll;
+            height: 330px;
+            margin-top: 60px;
+            .service-name {
+                width: 260px;
+            }
+        }
+    }
+}
+.nav {
+    width: 100vw;
+    margin-top: 100px;
+    // margin-bottom: 60px;
+    background-color: var(--color-background);
+}

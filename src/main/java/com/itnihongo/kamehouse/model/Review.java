@@ -2,11 +2,20 @@ package com.itnihongo.kamehouse.model;
 
 import lombok.*;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 
+import com.vladmihalcea.hibernate.type.array.ListArrayType;
+
+import java.util.List;
+
 @Entity
 @Table(name = "reviews")
+ @TypeDef(
+         name = "list-array",
+         typeClass = ListArrayType.class
+ )
 @Getter
 @Setter
 @ToString
@@ -34,5 +43,8 @@ public class Review {
     @Column(name = "rating", nullable = false)
     private Integer rating;
 
+     @Type(type = "list-array")
+     @Column(name= "images")
+     private List<String> images;
 
 }

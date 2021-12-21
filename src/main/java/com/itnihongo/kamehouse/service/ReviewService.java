@@ -20,5 +20,5 @@ public interface ReviewService {
     List<Review> getAllReviewOfGarage(int id);
 
 
-    Review addReview(String username, int garageId, String comment, int rating);
+    Review addReview(String username, int garageId, String comment, int rating, List<String> list);
 }

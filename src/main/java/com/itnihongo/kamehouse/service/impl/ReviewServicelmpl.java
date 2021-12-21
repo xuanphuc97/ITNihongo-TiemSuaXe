@@ -71,12 +71,13 @@ public class ReviewServicelmpl implements ReviewService {
 //    }
 
     @Override
-    public Review addReview(String username, int garageId, String comment, int rating) {
+    public Review addReview(String username, int garageId, String comment, int rating, List<String> list) {
         Review review = new Review();
         review.setGarage(garageRepository.findById(garageId));
         review.setUser(userRepository.findByUsername(username));
         review.setComment(comment);
         review.setRating(rating);
+        review.setImages(list);
         repository.save(review);
         return review;
     }

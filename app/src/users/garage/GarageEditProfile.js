@@ -5,29 +5,23 @@ import axios from "axios";
 import {
   Link,
   useHistory,
-  useLocation,
   useParams,
-  Redirect,
+
 } from "react-router-dom";
-import { ListGroup, Button, Form } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import "./GarageEditProfile.scss";
 import Cookies from "js-cookie";
 import { fetchUser, dispatchGetUser } from "../../redux/actions/authAction";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import {
   showErrMsg,
   showSuccessMsg,
 } from "../../utils/notification/Notification";
 import {
-  isEmail,
   isEmpty,
-  isLength,
-  isMatch,
+  isImgFormat,
+  isImgSize,
 } from "../../utils/validation/Validation";
-import {
-  errorNotification,
-  successNotification,
-} from "../../utils/notification/ToastNotification";
 import profileApis from "../profile/enum/profile-apis";
 import garageApis from "./enum/garage-apis";
 import LoadingOverlay from "react-loading-overlay";
@@ -50,6 +44,7 @@ const GarageEditProfile = () => {
     garageId: 0,
     name: "",
     address: "",
+    image: "",
     location: "",
     phone: "",
     openAt: "",
@@ -70,7 +65,8 @@ const GarageEditProfile = () => {
   const [serviceUpdate, setServiceUpdate] = useState();
   const [isDel, setIsDel] = useState(false);
   const [delId, setDelId] = useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [avatar, setAvatar] = useState();
 
   useEffect(() => {
     const getGarage = async () => {
@@ -81,6 +77,7 @@ const GarageEditProfile = () => {
           ...newInforGarage,
           garageId: resInfo.garageId,
           name: resInfo.garageName,
+          image: resInfo.imageLink,
           address: resInfo.address,
           location: resInfo.location,
           phone: resInfo.phoneNumber,
@@ -185,7 +182,6 @@ const GarageEditProfile = () => {
       }
     }
   };
-  const [avatar, setAvatar] = useState();
   const handleClickDel = (value) => {
     setIsDel(value);
   };
@@ -257,7 +253,7 @@ const GarageEditProfile = () => {
       CreateForm.append("phoneNumber", newInforGarage.phone);
       CreateForm.append("address", newInforGarage.address);
       CreateForm.append("location", newInforGarage.location);
-      CreateForm.append("image", "anh.jpg");
+      CreateForm.append("image", avatar ? avatar : newInforGarage.image);
       CreateForm.append("startAt", newInforGarage.openAt);
       CreateForm.append("endAt", newInforGarage.closeAt);
       const res = await axios.put(garageApis.updateGarage(id.id), CreateForm);
@@ -294,32 +290,57 @@ const GarageEditProfile = () => {
       [name]: value,
     });
   };
-  function getBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-  }
+  // function getBase64(file) {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onload = () => resolve(reader.result);
+  //     reader.onerror = (error) => reject(error);
+  //   });
+  // }
   const handleUploadFile = async (e) => {
-    const file = e.target.files[0];
-    var createForm = new FormData();
-    // const imgBase64 = await getBase64(file);
-    const imgBase64 = "123"
-    createForm.append("imageLink", imgBase64)
-    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-    const res = await axios.post(`http://localhost:8080/api/garage/${newInforGarage.garageId}/uploadImg`, createForm)
-    console.log(res)
-    file.preview = URL.createObjectURL(file);
-    setAvatar(file);
-  };
-  useEffect(() => {
-    return () => {
-      avatar && URL.revokeObjectURL(avatar.preview);
-    };
-  }, [avatar]);
+    e.preventDefault();
+    try {
+      const file = e.target.files[0];
+      file.preview = URL.createObjectURL(file);
+      if (!file) {
+        return setNewInforGarage;
+      }
+      if (!isImgFormat(file))
+        return setNewInforGarage({
+          ...newInforGarage,
+          err: "Error Image Format",
+          success: "",
+        });
 
+      if (!isImgSize(file))
+        return setNewInforGarage({
+          ...newInforGarage,
+          err: "Please upload image with size < 2MB",
+          success: "",
+        });
+      var createForm = new FormData();
+      createForm.append("image", file);
+      console.log(file);
+      axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+      const res = await axios.post(
+        `http://localhost:8080/api/uploadImg`,
+        createForm
+      );
+      if (res) {
+        console.log(res.data);
+        setAvatar(res.data);
+      }
+    } catch (error) {
+      if (error.response.status === 413) {
+        setNewInforGarage({
+          ...newInforGarage,
+          err: "Vui lòng đăng ảnh dung lượng nhỏ hơn 2MB",
+          success: "",
+        });
+      }
+    }
+  };
   const [address, setAddress] = useState(newInforGarage.address);
   const [location, setLocation] = useState(newInforGarage.location);
 
@@ -360,11 +381,7 @@ const GarageEditProfile = () => {
                         </div>
                         <div className="avatar-preview">
                           <img
-                            src={
-                              avatar
-                                ? avatar.preview
-                                : "https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg"
-                            }
+                            src={avatar ? avatar : newInforGarage.image}
                             className="profile_img"
                             style={{ style: "background-image" }}
                             alt="error"
@@ -428,7 +445,7 @@ const GarageEditProfile = () => {
                                 setAddress(val);
                               })
                               .catch((error) => console.error(error));
-                          } catch (e) { }
+                          } catch (e) {}
                         },
                       }}
                     />
@@ -440,7 +457,7 @@ const GarageEditProfile = () => {
                     disabled
                     type="text"
                     name="location"
-                    value={location}
+                    value={newInforGarage.location}
                   />
                 </div>
                 <div className="edit-field flex-row">
@@ -490,7 +507,7 @@ const GarageEditProfile = () => {
                         placeholder="Cost"
                         value={service.servicePrice}
                         disabled
-                      // onChange={handleChangeInput}
+                        // onChange={handleChangeInput}
                       />
                       <button
                         className="update-service"
