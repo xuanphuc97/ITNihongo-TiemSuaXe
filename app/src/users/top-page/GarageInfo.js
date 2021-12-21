@@ -59,8 +59,9 @@ function GarageInfo(props) {
       // var uploadForm = new FormData();
       // let i = 0
       for (let i = 0; i < images.length; i++) {
-        CreateForm.append(`images${i}`, images[i]);
-        console.log(images[i]);
+        if (i < 4) {
+          CreateForm.append(`images${i}`, images[i]);
+        }
       }
       // if (images.length < 4) {
       //   for (let i = images.length; i < 4; i++) {
@@ -192,6 +193,7 @@ function GarageInfo(props) {
                 placeholder="Write your comment here..."
               />
             </Col>
+            <span>You can upload up to 4 files</span>
             <div>
               <input
                 type="file"
