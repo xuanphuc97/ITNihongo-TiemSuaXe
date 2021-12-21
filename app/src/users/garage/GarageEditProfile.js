@@ -5,31 +5,23 @@ import axios from "axios";
 import {
   Link,
   useHistory,
-  useLocation,
   useParams,
-  Redirect,
+
 } from "react-router-dom";
-import { ListGroup, Button, Form } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import "./GarageEditProfile.scss";
 import Cookies from "js-cookie";
 import { fetchUser, dispatchGetUser } from "../../redux/actions/authAction";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import {
   showErrMsg,
   showSuccessMsg,
 } from "../../utils/notification/Notification";
 import {
-  isEmail,
   isEmpty,
-  isLength,
-  isMatch,
   isImgFormat,
   isImgSize,
 } from "../../utils/validation/Validation";
-import {
-  errorNotification,
-  successNotification,
-} from "../../utils/notification/ToastNotification";
 import profileApis from "../profile/enum/profile-apis";
 import garageApis from "./enum/garage-apis";
 import LoadingOverlay from "react-loading-overlay";
@@ -329,6 +321,7 @@ const GarageEditProfile = () => {
         });
       var createForm = new FormData();
       createForm.append("image", file);
+      console.log(file);
       axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
       const res = await axios.post(
         `http://localhost:8080/api/uploadImg`,

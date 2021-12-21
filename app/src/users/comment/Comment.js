@@ -1,70 +1,61 @@
-import React, { useState, useEffect } from 'react'
-import { Rating } from 'react-simple-star-rating'
-import './Comment.scss'
+import React, { useState, useEffect } from "react";
+import { Rating } from "react-simple-star-rating";
+import "./Comment.scss";
 import { Button, Modal, Row, Col, Container } from "react-bootstrap";
-
-
 
 function Comment(props) {
   const {
     isForComment = true,
     initRating = 5,
-    initComment = '',
-    initUsername = 'Noname',
-    initImage = [
-      'https://cdn.tgdd.vn/Files/2020/06/08/1261696/moi-tai-bo-hinh-nen-asus-rog-2020-moi-nhat_800x450.jpg',
-      'https://dienthoaivui.com.vn/wp-content/uploads/2020/10/hinh-nen-iphone-12-19-scaled.jpg',
-      'https://st.quantrimang.com/photos/image/2019/06/19/hinh-nen-dien-thoai-dep-nhat-full-hd-cho-dien-thoai-iphone-android-39.jpg'
-    ],
+    initComment = "",
+    initUsername = "Noname",
+    initImage = [],
   } = props;
   const [rating, setRating] = useState(initRating);
   const [comment, setComment] = useState(initComment);
   const [username, setUsername] = useState(initUsername);
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState("");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = (image) => {
     setImage(image);
-    setShow(true)
+    setShow(true);
   };
 
-
   const handleRating = (e) => {
-    setRating(e)
-  }
+    setRating(e);
+  };
 
   const handleChange = (e) => {
-    setComment(e.target.value)
+    setComment(e.target.value);
+  };
 
-  }
-
-  const handleSubmit = (e) => {
-
-  }
+  const handleSubmit = (e) => {};
   return (
     <div className="comment">
       <form onSubmit={handleSubmit}>
         <div className="row-1">
           <div className="col-1">
             <span className="label">Rating:</span>
-            <span className="rating" style={{ pointerEvents: isForComment ? 'auto' : 'none' }}>
+            <span
+              className="rating"
+              style={{ pointerEvents: isForComment ? "auto" : "none" }}
+            >
               <Rating
                 onClick={handleRating}
                 ratingValue={rating}
                 size={20}
                 label
                 transition
-                fillColor='orange'
-                emptyColor='gray'
+                fillColor="orange"
+                emptyColor="gray"
               />
-
             </span>
           </div>
           <div className="col-2">
             <span className="label username">{username}</span>
           </div>
         </div>
-
 
         <div className="row-2">
           <div className="label">Comment:</div>
@@ -74,36 +65,34 @@ function Comment(props) {
               readOnly={!isForComment}
               value={comment}
               onChange={handleChange}
-              placeholder='Write your comment here...'
+              placeholder="Write your comment here..."
             />
-            {
-              initImage !== [] &&
+            {initImage !== null ? (
               <div className="image-slider">
-                {
-                  initImage.map((image, idx) => {
-                    return (
-                      <img
-                        className="image"
-                        key={idx}
-                        src={image}
-                        alt={"image " + idx}
-                        onClick={() => handleShow(image)}
-                      />
-
-                    )
-                  })
-                }
+                {initImage.map((image, idx) => {
+                  return (
+                    <img
+                      className="image"
+                      key={idx}
+                      src={image}
+                      alt={"image " + idx}
+                      onClick={() => handleShow(image)}
+                    />
+                  );
+                })}
               </div>
-            }
+            ) : (
+              <div></div>
+            )}
             <Modal show={show} onHide={handleClose}>
-
               <Modal.Body>
                 <Container>
                   <img
                     width={444}
                     className="modal-image"
                     src={image}
-                    alt="show" />
+                    alt="show"
+                  />
                 </Container>
               </Modal.Body>
               <Modal.Footer>
@@ -113,18 +102,17 @@ function Comment(props) {
               </Modal.Footer>
             </Modal>
           </div>
-
-
         </div>
-        {
-          isForComment &&
+        {isForComment && (
           <div className="btn-container row-3">
-            <button type="submit" className="profile__editbtn">Send</button>
+            <button type="submit" className="profile__editbtn">
+              Send
+            </button>
           </div>
-        }
+        )}
       </form>
     </div>
-  )
+  );
 }
 
 export default Comment;

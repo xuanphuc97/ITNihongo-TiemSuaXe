@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import profileApis from "../profile/enum/profile-apis";
 import Comment from "./Comment";
 import Loader from "react-loader-spinner";
 import "./ListComment.scss";
@@ -53,7 +52,12 @@ function ListComment(props) {
               isForComment={false}
               initRating={comment.rating}
               initUsername={comment.user.username}
-              initComment={comment.comment}
+              initComment={
+                comment.comment === "undefined"
+                  ? "No comment!"
+                  : comment.comment
+              }
+              initImage={comment.images}
             ></Comment>
           );
         })
