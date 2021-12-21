@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8080";
+const baseUrl = "https://kamehouse.herokuapp.com";
 
 export default {
   // uploadImg: `${baseUrl}/upload`,

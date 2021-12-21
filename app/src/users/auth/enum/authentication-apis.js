@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8080/auth";
+const baseUrl = "https://kamehouse.herokuapp.com/auth";
 
 export default {
   login: `${baseUrl}/login`,

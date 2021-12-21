@@ -324,7 +324,7 @@ const GarageEditProfile = () => {
       console.log(file);
       axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
       const res = await axios.post(
-        `http://localhost:8080/api/uploadImg`,
+        `https://kamehouse.herokuapp.com/api/uploadImg`,
         createForm
       );
       if (res) {
